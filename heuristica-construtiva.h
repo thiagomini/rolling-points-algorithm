@@ -6,6 +6,6 @@
 #define ALGORITMO_TCC_HEURISTICA_CONSTRUTIVA_H
 
 
-unsigned int * build_random_solution(int number_of_vertices);
+unsigned int * build_random_solution(unsigned int * vertices, size_t size);
 
 #endif //ALGORITMO_TCC_HEURISTICA_CONSTRUTIVA_H

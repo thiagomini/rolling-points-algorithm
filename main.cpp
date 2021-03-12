@@ -16,12 +16,18 @@ int main() {
     clock_t begin, end;
     double time_spent;
     unsigned int i;
+    unsigned int vertices[10] = {
+            1,2,3,4,5,6,7,8,9,10
+    };
+
+    unsigned int * solution;
 
     begin = clock();
 
 
-    build_random_solution(10000);
-
+    for (i=0; i<500000; i++) {
+        build_random_solution(vertices, 10);
+    }
 
     end = clock() - begin;
     time_spent = ((double) end) / CLOCKS_PER_SEC;

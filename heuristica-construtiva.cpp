@@ -8,6 +8,7 @@
 #include <random>
 #include <ctime>
 #include "array.h"
+#include <memory.h>
 
 using namespace std;
 
@@ -25,21 +26,26 @@ unsigned int uniform_default(int max)
     return u(e);
 }
 
-unsigned int * build_random_solution(int number_of_vertices) {
-    static unsigned int * array;
+unsigned int * build_random_solution(unsigned int * vertices, size_t size) {
+    unsigned int size_of_pool = size, selected_position, vertex_in_position, shuffled_array_cursor = 0;
+    static unsigned int total_vertices = 0;
+    static auto * pool = new unsigned int[size];
+    static auto * shuffled_array = new unsigned int[size];
 
-    unsigned int random_number = (rand() % number_of_vertices) + 1;
-    array = new unsigned int [number_of_vertices];
-    array[0] = random_number;
-    int current_position = 1;
+    memcpy(&pool, &vertices, sizeof(vertices[0]));
 
-    while (current_position < number_of_vertices) {
-        random_number = (rand() % number_of_vertices) + 1;
-        if(! is_number_in_array(random_number, array, current_position)) {
-            array[current_position] = random_number;
-            current_position++;
-        }
-    }
+   while(size_of_pool > 0) {
+       selected_position = rand() % size_of_pool;
+       vertex_in_position = pool[selected_position];
 
-    return array;
+       if (selected_position != size_of_pool - 1 && size_of_pool > 1) {
+           pool[selected_position] = pool[size_of_pool - 1];
+       }
+
+       shuffled_array[shuffled_array_cursor] = vertex_in_position;
+       shuffled_array_cursor++;
+       size_of_pool--;
+   }
+
+    return shuffled_array;
 }
