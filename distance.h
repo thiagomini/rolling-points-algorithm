@@ -2,6 +2,10 @@
 // Created by Thiago on 13/03/2021.
 //
 
+//
+// Arquivo contendo funções para calcular a distância entre 2 nós de um grafo
+//
+
 #include "node.h"
 #include <cmath>
 #include <cassert>

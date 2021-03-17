@@ -1,13 +1,14 @@
 #include <ctime>
 #include <functional>
 #include "heuristica-construtiva.h"
+#include "data-read.h"
 #include "distance.h"
 #include "iostream"
+#include "string-utils.h"
+#include <string>
 
 using namespace std;
 
-void uniform_default();
-void mersenne_twister_engine_seed();
 void execute_tests();
 
 int main() {
@@ -45,4 +46,6 @@ void calculate_time() {
 void execute_tests() {
     cout << "Iniciando Rotina de Testes...\n";
     test_calculate_euclidean_distance_2d();
+    test_string_utils();
+    test_read_nodes_euc_2d();
 }
