@@ -45,5 +45,5 @@ void test_calculate_objective_function() {
 
 void test_solution() {
     test_calculate_objective_function();
-    cout << "[solution.cpp] Todos os testes passaram com sucesso!\n";
+    cout << "[solution.cpp] Todos os testes passaram com sucesso!" << endl;
 }

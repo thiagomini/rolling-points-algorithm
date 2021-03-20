@@ -51,7 +51,7 @@ void test_build_distance_matrix() {
 
 void test_distance_matrix() {
     test_build_distance_matrix();
-    cout << "[distance-matrix.cpp] Todos os testes passaram com sucesso!\n";
+    cout << "[distance-matrix.cpp] Todos os testes passaram com sucesso!" << endl;
 }
 
 

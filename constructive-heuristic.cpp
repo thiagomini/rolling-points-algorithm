@@ -7,6 +7,9 @@
 #include <random>
 #include <ctime>
 #include <memory.h>
+#include <cassert>
+#include "utils/array.h"
+#include "iostream"
 
 using namespace std;
 
@@ -24,17 +27,27 @@ unsigned int uniform_default(int max)
     return u(e);
 }
 
-unsigned int * build_random_solution(unsigned int * vertices, size_t size) {
-    unsigned int size_of_pool = size, selected_position, vertex_in_position, shuffled_array_cursor = 0;
-    auto * pool = new unsigned int[size];
-    static auto * shuffled_array = new unsigned int[size];
+int * build_random_solution(size_t size) {
+    size_t
+    size_of_pool = size - 1,
+    selected_position,
+    vertex_in_position,
+    shuffled_array_cursor = 1;
 
-    memcpy(&pool, &vertices, sizeof(vertices[0]));
+    auto * pool = new int[size_of_pool]; // Pool de onde os valores aleatórios serão escolhidos
+    static auto * shuffled_array = new int[size]; // Array randomizado
+
+    int * vertices = build_crescent_array(size);
+
+    shuffled_array[0] = vertices[0];
+
+    memcpy(pool, vertices + 1, sizeof(vertices[0] * size_of_pool));
 
    while(size_of_pool > 0) {
        selected_position = rand() % size_of_pool;
        vertex_in_position = pool[selected_position];
 
+       // Substitui o valor escolhido da pool pelo último valor da mesma.
        if (selected_position != size_of_pool - 1 && size_of_pool > 1) {
            pool[selected_position] = pool[size_of_pool - 1];
        }
@@ -47,4 +60,17 @@ unsigned int * build_random_solution(unsigned int * vertices, size_t size) {
    delete[] pool;
 
    return shuffled_array;
+}
+
+void test_build_random_solution() {
+    int * random_solution = build_random_solution(3);
+    int sum_of_nodes = sum_array(3, random_solution);
+
+    assert(random_solution[0] == 0);
+    assert(sum_of_nodes == 3);
+}
+
+void test_constructive_heuristic() {
+    test_build_random_solution();
+    cout << "[constructive-heuristic.cpp] Todos os testes foram realizados com sucesso!" << endl;
 }

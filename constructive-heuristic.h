@@ -7,10 +7,12 @@
 
 /**
  * Constrói uma solução aleatória de nós percorridos por movimento de "shuffle" da ordem dos elementos.
- * @param vertices - Ponteiro para lista de vértices que serão reorganizados
  * @param size - Tamanho da lista de vértices
  * @return
  */
-unsigned int * build_random_solution(unsigned int * vertices, size_t size);
+int * build_random_solution(size_t size);
+
+void test_constructive_heuristic();
+
 
 #endif //ALGORITMO_TCC_CONSTRUCTIVE_HEURISTIC_H
