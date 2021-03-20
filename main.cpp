@@ -7,6 +7,7 @@
 #include "utils/string-utils.h"
 #include <string>
 #include "data_structures/distance-matrix.h"
+#include "data_structures/solution.h"
 
 using namespace std;
 
@@ -50,4 +51,5 @@ void execute_tests() {
     test_string_utils();
     test_read_nodes_euc_2d();
     test_distance_matrix();
+    test_solution();
 }

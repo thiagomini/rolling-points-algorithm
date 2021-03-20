@@ -3,11 +3,9 @@
 //
 
 #include <cstdlib>
-#include <cstdio>
 #include "constructive-heuristic.h"
 #include <random>
 #include <ctime>
-#include "data_structures/array.h"
 #include <memory.h>
 
 using namespace std;
@@ -46,5 +44,7 @@ unsigned int * build_random_solution(unsigned int * vertices, size_t size) {
        size_of_pool--;
    }
 
-    return shuffled_array;
+   delete[] pool;
+
+   return shuffled_array;
 }
