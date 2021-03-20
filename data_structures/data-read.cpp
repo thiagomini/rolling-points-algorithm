@@ -8,7 +8,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <cassert>
-#include "string-utils.h"
+#include "../utils/string-utils.h"
 
 #define STRING_MATCH 0
 

@@ -3,4 +3,4 @@ project(algoritmo_tcc)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(algoritmo_tcc main.cpp array.cpp array.h constructive-heuristic.cpp constructive-heuristic.h distance.cpp distance.h node.cpp node.h data-read.cpp data-read.h string-utils.cpp string-utils.h solution.cpp solution.h distance-matrix.h distance-matrix.cpp)
+add_executable(algoritmo_tcc main.cpp data_structures/array.cpp data_structures/array.h constructive-heuristic.cpp constructive-heuristic.h utils/distance.cpp utils/distance.h data_structures/node.cpp data_structures/node.h data_structures/data-read.cpp data_structures/data-read.h utils/string-utils.cpp utils/string-utils.h data_structures/solution.cpp data_structures/solution.h data_structures/distance-matrix.h data_structures/distance-matrix.cpp)
