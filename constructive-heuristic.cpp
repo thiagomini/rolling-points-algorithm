@@ -10,24 +10,16 @@
 #include <cassert>
 #include "utils/array.h"
 #include "iostream"
+#include "data_structures/solution.h"
 
 using namespace std;
 
-unsigned int mersenne_twister_engine_seed(){
-    //mt19937 dist (1234);  //for 32 bit systems
-    mt19937_64 dist (time(nullptr)); //for 64 bit systems
-    return dist();
-}
-
-unsigned int uniform_default(int max)
-{
-    uniform_int_distribution<size_t> u (0, max);
-    default_random_engine e;  // generates unsigned random integers
-
-    return u(e);
-}
-
-int * build_random_solution(size_t size) {
+/**
+ * Constrói o array de vértices para a solução, sempre começando do vértice 0
+ * @param size - Tamanho do array
+ * @return
+ */
+int * build_vertices_array(size_t size) {
     size_t
     size_of_pool = size - 1,
     selected_position,
@@ -62,15 +54,39 @@ int * build_random_solution(size_t size) {
    return shuffled_array;
 }
 
-void test_build_random_solution() {
-    int * random_solution = build_random_solution(3);
+Solution * build_random_solution(size_t size, const int * distance_matrix) {
+    int * vertices_of_solution = build_vertices_array(size);
+    static auto * built_solution = new Solution;
+
+    built_solution->vertices = vertices_of_solution;
+    built_solution->size_of_solution = size;
+    calculate_objective_function(built_solution, distance_matrix);
+    return built_solution;
+}
+
+void test_build_vertices_array() {
+    int * random_solution = build_vertices_array(3);
     int sum_of_nodes = sum_array(3, random_solution);
 
     assert(random_solution[0] == 0);
     assert(sum_of_nodes == 3);
 }
 
+void test_build_random_solution() {
+    int distance_matrix[3][3] = {
+            {0, 59, 73},
+            {59, 0, 19},
+            {73, 19, 0}
+    };
+
+    Solution * solution = build_random_solution(3, reinterpret_cast<const int *>(distance_matrix));
+    assert(solution->size_of_solution == 3);
+    assert(solution->objective_function > 0);
+    assert(solution->vertices[0] == 0);
+}
+
 void test_constructive_heuristic() {
+    test_build_vertices_array();
     test_build_random_solution();
     cout << "[constructive-heuristic.cpp] Todos os testes foram realizados com sucesso!" << endl;
 }

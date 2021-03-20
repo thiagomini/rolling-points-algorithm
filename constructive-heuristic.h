@@ -5,12 +5,14 @@
 #ifndef ALGORITMO_TCC_CONSTRUCTIVE_HEURISTIC_H
 #define ALGORITMO_TCC_CONSTRUCTIVE_HEURISTIC_H
 
+#include "heuristic.h"
+
 /**
  * Constrói uma solução aleatória de nós percorridos por movimento de "shuffle" da ordem dos elementos.
  * @param size - Tamanho da lista de vértices
  * @return
  */
-int * build_random_solution(size_t size);
+int * build_random_solution(size_t size, int * distance_matrix);
 
 void test_constructive_heuristic();
 

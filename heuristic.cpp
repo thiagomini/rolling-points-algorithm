@@ -17,11 +17,10 @@ Solution * random_iterative_heuristic(int ** distance_matrix, size_t number_of_v
     int i = 0;
 
 
-    while (epoch < MAX_ITERATIONS) {
-        for (; i < NUMBER_OF_SOLUTIONS; i++) {
-            int * random_solution = new int[number_of_vertices];
-            random_solution[0] = 0;
-
-        }
-    }
+//    while (epoch < MAX_ITERATIONS) {
+//        for (; i < NUMBER_OF_SOLUTIONS; i++) {
+//            int * random_hamiltonian_cycle = build_random_solution(number_of_vertices);
+//
+//        }
+//    }
 }
