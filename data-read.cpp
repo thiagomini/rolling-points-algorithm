@@ -94,5 +94,5 @@ void test_read_nodes_euc_2d() {
         assert(read_nodes[i].y == expected_nodes[i][2]);
     }
 
-    cout << "\n[data-read.cpp] Todos os testes passaram com sucesso!";
+    cout << "\n[data-read.cpp] Todos os testes passaram com sucesso!\n";
 }

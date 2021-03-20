@@ -15,9 +15,42 @@ int calculate_euclidean_distance_2d(node_2d node_1, node_2d node_2) {
 }
 
 
+
 // Testes
+
+
+/**
+ * Quando a distância entre 2 nós der um valor decimal abaixo de 0.5 (59.20304), deve arredondar para o inteiro abaixo
+ * @return
+ */
+int test_calculate_euclidean_distance_2d_rounded_below() {
+    node_2d first_node2D = { 1, 64, 96 };
+    node_2d second_node2D = { 2, 80, 39 };
+
+    assert(calculate_euclidean_distance_2d(first_node2D, second_node2D) == 59);
+    return 1;
+}
+
+
+/**
+ * Quando a distância entre 2 nós der um valor decimal >= a 0.5 (54.589376), deve arredondar para o inteiro acima
+ * @return
+ */
+int test_calculate_euclidean_distance_2d_rounded_above() {
+    node_2d first_node2D = { 1, 64, 96 };
+    node_2d second_node2D = { 2, 72, 42 };
+
+    assert(calculate_euclidean_distance_2d(first_node2D, second_node2D) == 55);
+
+    return 1;
+}
+
+
+
 int test_calculate_euclidean_distance_2d() {
     test_calculate_euclidean_distance_2d_simple();
+    test_calculate_euclidean_distance_2d_rounded_below();
+    test_calculate_euclidean_distance_2d_rounded_above();
     test_calculate_euclidean_distance_2d_zero_x();
     test_calculate_euclidean_distance_2d_zero_y();
     test_calculate_euclidean_distance_2d_zero_y();

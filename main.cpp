@@ -1,11 +1,12 @@
 #include <ctime>
 #include <functional>
-#include "heuristica-construtiva.h"
+#include "constructive-heuristic.h"
 #include "data-read.h"
 #include "distance.h"
 #include "iostream"
 #include "string-utils.h"
 #include <string>
+#include "distance-matrix.h"
 
 using namespace std;
 
@@ -48,4 +49,5 @@ void execute_tests() {
     test_calculate_euclidean_distance_2d();
     test_string_utils();
     test_read_nodes_euc_2d();
+    test_distance_matrix();
 }

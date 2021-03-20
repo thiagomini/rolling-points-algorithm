@@ -4,7 +4,7 @@
 
 #include <cstdlib>
 #include <cstdio>
-#include "heuristica-construtiva.h"
+#include "constructive-heuristic.h"
 #include <random>
 #include <ctime>
 #include "array.h"
@@ -28,8 +28,7 @@ unsigned int uniform_default(int max)
 
 unsigned int * build_random_solution(unsigned int * vertices, size_t size) {
     unsigned int size_of_pool = size, selected_position, vertex_in_position, shuffled_array_cursor = 0;
-    static unsigned int total_vertices = 0;
-    static auto * pool = new unsigned int[size];
+    auto * pool = new unsigned int[size];
     static auto * shuffled_array = new unsigned int[size];
 
     memcpy(&pool, &vertices, sizeof(vertices[0]));
