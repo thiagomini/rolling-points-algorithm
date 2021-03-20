@@ -6,7 +6,7 @@
 // Arquivo contendo funções para calcular a distância entre 2 nós de um grafo
 //
 
-#include "node.h"
+#include "../data_structures/node.h"
 #include <cmath>
 #include <cassert>
 

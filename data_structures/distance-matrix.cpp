@@ -3,7 +3,7 @@
 //
 
 #include "distance-matrix.h"
-#include "distance.h"
+#include "../utils/distance.h"
 #include "iostream"
 
 using namespace std;

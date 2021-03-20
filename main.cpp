@@ -1,12 +1,12 @@
 #include <ctime>
 #include <functional>
 #include "constructive-heuristic.h"
-#include "data-read.h"
-#include "distance.h"
+#include "data_structures/data-read.h"
+#include "utils/distance.h"
 #include "iostream"
-#include "string-utils.h"
+#include "utils/string-utils.h"
 #include <string>
-#include "distance-matrix.h"
+#include "data_structures/distance-matrix.h"
 
 using namespace std;
 

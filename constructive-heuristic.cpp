@@ -7,7 +7,7 @@
 #include "constructive-heuristic.h"
 #include <random>
 #include <ctime>
-#include "array.h"
+#include "data_structures/array.h"
 #include <memory.h>
 
 using namespace std;
