@@ -47,9 +47,9 @@ void calculate_time() {
 
 void execute_tests() {
     cout << "Iniciando Rotina de Testes...\n";
-    test_calculate_euclidean_distance_2d();
+    test_distance();
     test_string_utils();
-    test_read_nodes_euc_2d();
+    test_data_read();
     test_distance_matrix();
     test_array();
     test_solution();

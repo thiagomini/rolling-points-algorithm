@@ -11,11 +11,6 @@
 
 using namespace std;
 
-/**
- * Constrói o array de vértices para a solução, sempre começando do vértice 0
- * @param size - Tamanho do array
- * @return
- */
 int * build_vertices_array(size_t size) {
     size_t
     size_of_pool = size - 1,
@@ -59,31 +54,4 @@ Solution build_random_solution(size_t size, const int * distance_matrix) {
     built_solution.size_of_solution = size;
     calculate_objective_function(&built_solution, distance_matrix);
     return built_solution;
-}
-
-void test_build_vertices_array() {
-    int * random_solution = build_vertices_array(3);
-    int sum_of_nodes = sum_array(3, random_solution);
-
-    assert(random_solution[0] == 0);
-    assert(sum_of_nodes == 3);
-}
-
-void test_build_random_solution() {
-    int distance_matrix[3][3] = {
-            {0, 59, 73},
-            {59, 0, 19},
-            {73, 19, 0}
-    };
-
-    Solution solution = build_random_solution(3, reinterpret_cast<const int *>(distance_matrix));
-    assert(solution.size_of_solution == 3);
-    assert(solution.objective_function > 0);
-    assert(solution.vertices[0] == 0);
-}
-
-void test_constructive_heuristic() {
-    test_build_vertices_array();
-    test_build_random_solution();
-    cout << "[constructive-heuristic.cpp] Todos os testes foram realizados com sucesso!" << endl;
 }

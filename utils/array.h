@@ -49,6 +49,6 @@ int sum_array(size_t size, const int * array);
 /**
  * Testa todas as funções do módulo <b>array.cpp</b>
  */
-void test_array();
+int test_array();
 
 #endif //ALGORITMO_TCC_ARRAY_H

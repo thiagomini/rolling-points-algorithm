@@ -21,8 +21,12 @@ bool starts_with_string(string search_string, string sub_string);
  * @param character - O caractere a ser encontrado
  * @return A posição do caractere na string (0-based)
  */
-int find_char_position(char * string, char character);
+int find_char_position(string string, char character);
 
+/**
+ * Testa todas as funções do módulo
+ * @return 0 se todos os testes passaram, 1 do contrário
+ */
 int test_string_utils();
 
 #endif //ALGORITMO_TCC_STRING_UTILS_H

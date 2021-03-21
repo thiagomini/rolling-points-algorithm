@@ -55,21 +55,3 @@ int sum_array(size_t size, const int * array) {
 
     return sum;
 }
-
-void test_build_crescent_array() {
-    int * built_array = build_crescent_array(3);
-    for (int i = 0; i < 3; i++) {
-        assert(built_array[i] == i);
-    }
-}
-
-void test_sum_array() {
-    int array[4] = { 2, 4, 6, 8 };
-    assert(sum_array(4, array) == 20);
-}
-
-void test_array() {
-    test_build_crescent_array();
-    test_sum_array();
-    cout << "[array.cpp] Todos os testes foram realizados com Sucesso!" << endl;
-}
