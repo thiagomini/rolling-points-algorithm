@@ -8,6 +8,6 @@
 #include <cstdio>
 #include "data_structures/solution.h"
 
-Solution * random_iterative_heuristic(int ** distance_matrix, size_t number_of_vertices);
+Solution * random_iterative_heuristic(int * distance_matrix, size_t number_of_vertices);
 
 #endif //ALGORITMO_TCC_HEURISTIC_H

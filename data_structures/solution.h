@@ -7,6 +7,12 @@
 #define ALGORITMO_TCC_SOLUTION_H
 #include "../configurations.h"
 
+/**
+ * Estrutura que representa uma solução do problema MLP
+ * @param objective_function Valor da Função Objetivo da solução
+ * @param size_of_solution Tamanho da solução em vértices
+ * @param vertices Ponteiro para array de vértices que compõe a solução
+ */
 typedef struct {
     int objective_function;
     size_t size_of_solution;
@@ -23,6 +29,11 @@ typedef struct {
  */
 void calculate_objective_function(Solution * solucao, const int * matriz_distancias, int problem_class = CLASSICAL_PROBLEM);
 
+int compare(Solution * solution_1, Solution * solution_2);
+
+/**
+ * Testa todas as funções do Módulo solution.cpp
+ */
 void test_solution();
 
 #endif //ALGORITMO_TCC_SOLUTION_H

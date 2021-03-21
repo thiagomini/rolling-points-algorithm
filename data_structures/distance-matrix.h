@@ -19,12 +19,15 @@
  *  };
  *
  *  int ** calculated_distance_matrix = build_distance_matrix(reinterpret_cast<node_2d *>(nodes), 3);
- * @param nodes
- * @param size
+ * @param nodes A lista de nós que será utilizada para construir a matriz de distâncias
+ * @param size O número de nós
  * @return
  */
 int ** build_distance_matrix(node_2d * nodes, size_t size);
 
+/**
+ * Testa todas as funções do módulo <b>distance-matrix</b>
+ */
 void test_distance_matrix();
 
 #endif //ALGORITMO_TCC_DISTANCE_MATRIX_H

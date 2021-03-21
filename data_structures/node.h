@@ -9,6 +9,11 @@
 #ifndef ALGORITMO_TCC_NODE_H
 #define ALGORITMO_TCC_NODE_H
 
+/**
+ * Estrutura que representa um nó de 2 dimensões
+ * @param x Coordenada <b>X</b> do plano cartesiano desse nó
+ * @param y Coordenada <b>Y</b> do plano cartesiano desse nó
+ */
 typedef struct {
     int number;
     int x;

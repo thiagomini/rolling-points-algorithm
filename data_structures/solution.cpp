@@ -38,6 +38,43 @@ void calculate_objective_function(Solution * solucao, const int * distance_matri
     solucao->objective_function = final_latency;
 }
 
+int compare(Solution * solution_1, Solution * solution_2) {
+    return solution_1->objective_function - solution_2->objective_function;
+}
+
+/**
+ * Testa a comparação de duas soluções em ordem crescente
+ */
+void test_compare_unequal_asc_solutions() {
+    Solution solution_1 = { .objective_function = 10 };
+    Solution solution_2 = { .objective_function = 20 };
+
+    assert(compare(&solution_1, &solution_2) < 0);
+}
+
+/**
+ * Testa a comparação de duas soluções em ordem descrescente
+ */
+void test_compare_unequal_desc_solutions() {
+    Solution solution_1 = { .objective_function = 30 };
+    Solution solution_2 = { .objective_function = 0 };
+
+    assert(compare(&solution_1, &solution_2) > 0);
+}
+
+/**
+ * Testa a comparação de duas soluções com mesmo valor de FO
+ */
+void test_compare_even_solutions() {
+    Solution solution_1 = { .objective_function = 100 };
+    Solution solution_2 = { .objective_function = 100 };
+
+    assert(compare(&solution_1, &solution_2) == 0);
+}
+
+/**
+ * Testa o cálculo da FO para o problema clássico de MLP (Sem considerar latência do V0)
+ */
 void test_calculate_objective_function_classical_problem() {
     int matriz_distancias[3][3] = {
             {0, 59, 73},
@@ -58,6 +95,9 @@ void test_calculate_objective_function_classical_problem() {
     assert(solution.objective_function == 137);
 }
 
+/**
+ * Testa o cálculo da FO para o problema de MLP variante (considerando a latência do V0)
+ */
 void test_calculate_objective_function_non_classical_problem() {
     int matriz_distancias[3][3] = {
             {0, 59, 73},
@@ -81,5 +121,8 @@ void test_calculate_objective_function_non_classical_problem() {
 void test_solution() {
     test_calculate_objective_function_classical_problem();
     test_calculate_objective_function_non_classical_problem();
+    test_compare_unequal_asc_solutions();
+    test_compare_unequal_desc_solutions();
+    test_compare_even_solutions();
     cout << "[solution.cpp] Todos os testes passaram com sucesso!" << endl;
 }

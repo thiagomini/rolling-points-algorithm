@@ -11,16 +11,19 @@
 #include "utils/array.h"
 #include "constructive-heuristic.h"
 
-Solution * random_iterative_heuristic(int ** distance_matrix, size_t number_of_vertices) {
+Solution * random_iterative_heuristic(int * distance_matrix, size_t number_of_vertices) {
     int epoch = 0;
-    auto * solucoes = new Solution[NUMBER_OF_SOLUTIONS];
+    Solution * solucoes = new Solution[NUMBER_OF_SOLUTIONS];
     int i = 0;
 
+    while (epoch < MAX_ITERATIONS) {
+        for (; i < NUMBER_OF_SOLUTIONS; i++) {
+            Solution * random_solution = build_random_solution(number_of_vertices, distance_matrix);
+            solucoes[i] = random_solution;
+        }
 
-//    while (epoch < MAX_ITERATIONS) {
-//        for (; i < NUMBER_OF_SOLUTIONS; i++) {
-//            int * random_hamiltonian_cycle = build_random_solution(number_of_vertices);
-//
-//        }
-//    }
+
+    }
+
+    return nullptr;
 }

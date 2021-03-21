@@ -10,9 +10,9 @@
 /**
  * Constrói uma solução aleatória de nós percorridos por movimento de "shuffle" da ordem dos elementos.
  * @param size - Tamanho da lista de vértices
- * @return
+ * @return Ponteiro para solução criada
  */
-int * build_random_solution(size_t size, int * distance_matrix);
+Solution * build_random_solution(size_t size, int * distance_matrix);
 
 void test_constructive_heuristic();
 
