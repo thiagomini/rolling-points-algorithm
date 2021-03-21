@@ -8,6 +8,7 @@
 #include <memory>
 #include "heuristic.h"
 #include "constructive-heuristic.h"
+#include "configurations.h"
 
 Solution * random_iterative_heuristic(int * distance_matrix, size_t number_of_vertices) {
     int epoch = 0;
