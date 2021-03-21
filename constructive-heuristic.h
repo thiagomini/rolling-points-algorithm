@@ -4,7 +4,6 @@
 
 #ifndef ALGORITMO_TCC_CONSTRUCTIVE_HEURISTIC_H
 #define ALGORITMO_TCC_CONSTRUCTIVE_HEURISTIC_H
-
 #include "heuristic.h"
 
 /**
@@ -12,7 +11,7 @@
  * @param size - Tamanho da lista de vértices
  * @return Ponteiro para solução criada
  */
-Solution * build_random_solution(size_t size, int * distance_matrix);
+Solution build_random_solution(size_t size, const int * distance_matrix);
 
 void test_constructive_heuristic();
 

@@ -10,6 +10,8 @@
 #include "data_structures/solution.h"
 #include "utils/array.h"
 
+#include "heuristic.h"
+
 using namespace std;
 
 void execute_tests();
@@ -19,19 +21,6 @@ int main() {
     srand(time(NULL));
 
     execute_tests();
-
-    Solution solucoes[3] = {
-            {.objective_function = 25},
-            {.objective_function = 10},
-            {.objective_function = 100},
-    };
-
-    qsort(solucoes, 3, sizeof(Solution), reinterpret_cast<int (*)(const void *, const void *)>(&compare));
-
-    cout << solucoes[0].objective_function << endl;
-    cout << solucoes[1].objective_function << endl;
-    cout << solucoes[2].objective_function << endl;
-
 //    calculate_time();
 
     return EXIT_SUCCESS;
@@ -65,4 +54,5 @@ void execute_tests() {
     test_array();
     test_solution();
     test_constructive_heuristic();
+    test_heuristic();
 }

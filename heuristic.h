@@ -10,4 +10,6 @@
 
 Solution * random_iterative_heuristic(int * distance_matrix, size_t number_of_vertices);
 
+void test_heuristic();
+
 #endif //ALGORITMO_TCC_HEURISTIC_H

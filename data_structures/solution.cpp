@@ -42,6 +42,13 @@ int compare(Solution * solution_1, Solution * solution_2) {
     return solution_1->objective_function - solution_2->objective_function;
 }
 
+void print_solution(Solution * solution) {
+    cout << "Solucao: " << endl
+         << "FO: " << solution->objective_function << endl
+         << "vertices: ";
+    print_array(solution->vertices, solution->size_of_solution);
+}
+
 /**
  * Testa a comparação de duas soluções em ordem crescente
  */
