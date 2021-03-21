@@ -9,7 +9,7 @@
 #include "data_structures/distance-matrix.h"
 #include "data_structures/solution.h"
 #include "utils/array.h"
-#include "neighborhoods/swap.h"
+#include "neighborhoods.h"
 
 #include "heuristic.h"
 
@@ -56,5 +56,5 @@ void execute_tests() {
     test_solution();
     test_constructive_heuristic();
     test_heuristic();
-    test_swap();
+    test_neighborhoods();
 }

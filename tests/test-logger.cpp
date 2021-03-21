@@ -20,7 +20,7 @@ void print_test_end(const string& module_name) {
         cout << "Erro: Deve ser informado o nome do modulo";
         exit(EXIT_FAILURE);
     }
-    cout << "[" << module_name << "] Todos os testes passaram com sucesso!\n";
+    cout << "[" << module_name << "] Todos os testes passaram com sucesso!\n" << endl;
 }
 
 void print_sub_test_begin(const string& function_name, const string& description) {
