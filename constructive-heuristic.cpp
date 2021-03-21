@@ -5,12 +5,9 @@
 #include <cstdlib>
 #include "constructive-heuristic.h"
 #include <random>
-#include <ctime>
 #include <memory.h>
 #include <cassert>
-#include "utils/array.h"
 #include "iostream"
-#include "data_structures/solution.h"
 
 using namespace std;
 
@@ -54,13 +51,13 @@ int * build_vertices_array(size_t size) {
    return shuffled_array;
 }
 
-Solution * build_random_solution(size_t size, const int * distance_matrix) {
+Solution build_random_solution(size_t size, const int * distance_matrix) {
     int * vertices_of_solution = build_vertices_array(size);
-    static auto * built_solution = new Solution;
+    static Solution built_solution;
 
-    built_solution->vertices = vertices_of_solution;
-    built_solution->size_of_solution = size;
-    calculate_objective_function(built_solution, distance_matrix);
+    built_solution.vertices = vertices_of_solution;
+    built_solution.size_of_solution = size;
+    calculate_objective_function(&built_solution, distance_matrix);
     return built_solution;
 }
 
@@ -79,10 +76,10 @@ void test_build_random_solution() {
             {73, 19, 0}
     };
 
-    Solution * solution = build_random_solution(3, reinterpret_cast<const int *>(distance_matrix));
-    assert(solution->size_of_solution == 3);
-    assert(solution->objective_function > 0);
-    assert(solution->vertices[0] == 0);
+    Solution solution = build_random_solution(3, reinterpret_cast<const int *>(distance_matrix));
+    assert(solution.size_of_solution == 3);
+    assert(solution.objective_function > 0);
+    assert(solution.vertices[0] == 0);
 }
 
 void test_constructive_heuristic() {

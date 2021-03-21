@@ -32,6 +32,7 @@ void print_array(const void * array, int size) {
         int parsed_int = * ((int *) array + i);
         printf("%d ", parsed_int);
     }
+    printf("\n");
 }
 
 int * build_crescent_array(size_t size, int initial_value) {

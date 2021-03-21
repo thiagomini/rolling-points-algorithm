@@ -6,6 +6,10 @@
 #ifndef ALGORITMO_TCC_SOLUTION_H
 #define ALGORITMO_TCC_SOLUTION_H
 #include "../configurations.h"
+#include "iostream"
+#include "../utils/array.h"
+
+using namespace std;
 
 /**
  * Estrutura que representa uma solução do problema MLP
@@ -30,6 +34,8 @@ typedef struct {
 void calculate_objective_function(Solution * solucao, const int * matriz_distancias, int problem_class = CLASSICAL_PROBLEM);
 
 int compare(Solution * solution_1, Solution * solution_2);
+
+void print_solution(Solution * solution);
 
 /**
  * Testa todas as funções do Módulo solution.cpp
