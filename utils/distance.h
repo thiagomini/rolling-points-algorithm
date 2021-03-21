@@ -23,12 +23,10 @@
  */
 int calculate_euclidean_distance_2d(node_2d node_1, node_2d node_2);
 
-
-// Testes
-int test_calculate_euclidean_distance_2d();
-int test_calculate_euclidean_distance_2d_simple();
-int test_calculate_euclidean_distance_2d_zero_x();
-int test_calculate_euclidean_distance_2d_zero_y();
-int test_calculate_euclidean_both_zero();
+/**
+ * Testa todas as funções do módulo distance
+ * @return 0 se todos os testes passaram com sucesso, 1 do contrário
+ */
+int test_distance();
 
 #endif //ALGORITMO_TCC_DISTANCE_H

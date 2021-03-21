@@ -9,6 +9,7 @@
 #include <cstring>
 #include <cassert>
 #include "../utils/string-utils.h"
+#include "../configurations.h"
 
 #define STRING_MATCH 0
 
@@ -24,7 +25,10 @@ node_2d * read_nodes_euc_2d(char *file) {
     }
 
 
-    cout << "lendo dados do arquivo: " << file;
+#ifdef VERBOSE
+        cout << "lendo dados do arquivo: " << file;
+#endif
+
     char * line_in_file = new char[100];
 
     line_in_file = fgets(line_in_file, 100, f);
@@ -56,27 +60,3 @@ node_2d * read_nodes_euc_2d(char *file) {
 
     return list_of_nodes;
 };
-
-
-// Testes
-
-void test_read_nodes_euc_2d() {
-    char arquivo[] = "../instances/test_tsp_euc_2d.tsp";
-    node_2d * read_nodes = read_nodes_euc_2d(arquivo);
-
-    int expected_nodes[3][3] = {
-            {1, 64, 96},
-            {2, 80, 39},
-            {3, 69, 23},
-    };
-
-    assert(read_nodes != nullptr);
-
-    for (int i = 0; i < 3; ++i) {
-        assert(read_nodes[i].number == expected_nodes[i][0]);
-        assert(read_nodes[i].x == expected_nodes[i][1]);
-        assert(read_nodes[i].y == expected_nodes[i][2]);
-    }
-
-    cout << "\n[data-read.cpp] Todos os testes passaram com sucesso!\n";
-}

@@ -36,8 +36,10 @@ Solution * random_iterative_heuristic(int * distance_matrix, size_t number_of_ve
         epoch++;
     }
 
-    cout << "Melhor Solucao Encontrada: " << endl;
-    print_solution(best_solution);
+    #ifdef VERBOSE
+        cout << "Melhor Solucao Encontrada: " << endl;
+        print_solution(best_solution);
+    #endif
 
     return best_solution;
 }

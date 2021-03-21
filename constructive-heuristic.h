@@ -13,7 +13,14 @@
  */
 Solution build_random_solution(size_t size, const int * distance_matrix);
 
-void test_constructive_heuristic();
+/**
+ * Constrói o array de vértices para a solução, sempre começando do vértice 0
+ * @param size - Tamanho do array
+ * @return
+ */
+int * build_vertices_array(size_t size);
+
+int test_constructive_heuristic();
 
 
 #endif //ALGORITMO_TCC_CONSTRUCTIVE_HEURISTIC_H

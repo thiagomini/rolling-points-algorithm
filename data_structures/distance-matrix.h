@@ -28,6 +28,6 @@ int ** build_distance_matrix(node_2d * nodes, size_t size);
 /**
  * Testa todas as funções do módulo <b>distance-matrix</b>
  */
-void test_distance_matrix();
+int test_distance_matrix();
 
 #endif //ALGORITMO_TCC_DISTANCE_MATRIX_H

@@ -40,6 +40,6 @@ void print_solution(Solution * solution);
 /**
  * Testa todas as funções do Módulo solution.cpp
  */
-void test_solution();
+int test_solution();
 
 #endif //ALGORITMO_TCC_SOLUTION_H

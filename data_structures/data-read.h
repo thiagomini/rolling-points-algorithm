@@ -29,6 +29,6 @@
  */
 node_2d * read_nodes_euc_2d(char *file);
 
-void test_read_nodes_euc_2d();
+int test_data_read();
 
 #endif //ALGORITMO_TCC_DATA_READ_H
