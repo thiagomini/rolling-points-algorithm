@@ -34,6 +34,7 @@ int test_swap() {
 
     assert(same_order == false);
     assert(same_objective_function == false);
+    assert(solution.vertices[0] == 0);
     print_sub_test_end();
 
     return EXIT_SUCCESS;

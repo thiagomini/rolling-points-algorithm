@@ -3,14 +3,15 @@
 //
 
 #include "neighborhoods.h"
+#include "utils/randomizer.h"
 
 
 void swap(Solution &solucao, const int * matriz_distancias) {
-    size_t random_index_1 = rand() % (solucao.size_of_solution - 1) + 1;
-    size_t random_index_2 = rand() % (solucao.size_of_solution - 1) + 1;
+    size_t random_index_1 = RANDOM_BETWEEN(1, solucao.size_of_solution - 1);
+    size_t random_index_2 = RANDOM_BETWEEN(1, solucao.size_of_solution - 1);
 
     while (random_index_2 == random_index_1) {
-        random_index_2 = rand() % (solucao.size_of_solution);
+        random_index_2 = RANDOM_BETWEEN(1, solucao.size_of_solution - 1);
     }
 
     int aux = solucao.vertices[random_index_1];
