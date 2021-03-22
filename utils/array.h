@@ -1,5 +1,5 @@
 //
-// Created by Thiago on 10/03/2021.
+// Módulo com funções utilitárias para listas
 //
 
 #ifndef ALGORITMO_TCC_ARRAY_H

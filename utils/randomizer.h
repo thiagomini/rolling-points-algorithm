@@ -1,5 +1,5 @@
 //
-// Created by Thiago on 21/03/2021.
+// Módulo de definição de geração de números aleatórios
 //
 
 #ifndef ALGORITMO_TCC_RANDOMIZER_H

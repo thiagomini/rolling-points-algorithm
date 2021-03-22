@@ -1,5 +1,5 @@
 //
-// Created by Thiago on 20/03/2021.
+// Arquivo de configurações gerais do sistema
 //
 
 #ifndef ALGORITMO_TCC_CONFIGURATIONS_H

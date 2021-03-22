@@ -1,5 +1,5 @@
 //
-// Created by Thiago on 11/03/2021.
+// Módulo para definição de estratégias de heurísticas construtivas
 //
 
 #ifndef ALGORITMO_TCC_CONSTRUCTIVE_HEURISTIC_H

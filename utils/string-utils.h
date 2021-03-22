@@ -1,5 +1,5 @@
 //
-// Created by Thiago on 13/03/2021.
+// Módulo com utilitários para strings
 //
 
 #ifndef ALGORITMO_TCC_STRING_UTILS_H

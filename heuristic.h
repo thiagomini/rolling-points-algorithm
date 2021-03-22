@@ -1,5 +1,5 @@
 //
-// Created by Thiago on 20/03/2021.
+// Módulo para definição de heurísticas para o problema MLP
 //
 
 #ifndef ALGORITMO_TCC_HEURISTIC_H
