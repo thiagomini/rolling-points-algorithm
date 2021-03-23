@@ -5,6 +5,7 @@
 #include <cassert>
 #include "../heuristic.h"
 #include "test-logger.h"
+#include "../configurations.h"
 
 
 int test_random_iterative_heuristic() {
@@ -15,10 +16,13 @@ int test_random_iterative_heuristic() {
             {73, 19, 0}
     };
 
-    int best_fo = 137;
+    int best_fo = CLASSICAL_PROBLEM ? 137 : 288;
 
     Solution * best_solution = random_iterative_heuristic(reinterpret_cast<int *>(distance_matrix), 3);
     assert(best_solution->objective_function == best_fo);
+    assert(best_solution->vertices[0] == 0);
+    assert(best_solution->vertices[1] == 1);
+    assert(best_solution->vertices[2] == 2);
 
     print_sub_test_end();
     return EXIT_SUCCESS;
