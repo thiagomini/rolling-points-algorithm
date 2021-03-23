@@ -33,9 +33,22 @@ typedef struct {
  */
 void calculate_objective_function(Solution * solucao, const int * matriz_distancias, int problem_class = CLASSICAL_PROBLEM);
 
+/**
+ * Função que compara duas soluções de acordo com o valor da função objetivo
+ * @param solution_1
+ * @param solution_2
+ * @return 0 se ambas as soluções possuem a mesma FO, > 0 se a primeira solução possui FO maior que a segunda e < 0 do contrário
+ */
 int compare(Solution * solution_1, Solution * solution_2);
 
 void print_solution(Solution * solution);
+
+/**
+ * Clona uma solução
+ * @param origem
+ * @param destino
+ */
+void clone_solution(Solution &origem, Solution &destino);
 
 /**
  * Testa todas as funções do Módulo solution.cpp

@@ -48,3 +48,7 @@ void print_solution(Solution * solution) {
          << "vertices: ";
     print_array(solution->vertices, solution->size_of_solution);
 }
+
+void clone_solution(Solution &origem, Solution &destino) {
+    memcpy(&destino, &origem, sizeof(origem));
+}

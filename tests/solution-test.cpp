@@ -104,6 +104,35 @@ int test_calculate_objective_function_non_classical_problem() {
     return EXIT_SUCCESS;
 }
 
+int test_clone_solution() {
+    print_sub_test_begin("clone_solution", "Testando clonagem de solucao");
+
+    // Arrange
+    int vertices[] = {0, 1, 2, 3};
+
+    Solution solution_1 = {
+            .objective_function = 488,
+            .size_of_solution = 4,
+            .vertices = vertices
+    },
+    solution_2;
+
+    // Act
+    clone_solution(solution_1, solution_2);
+
+    // Assert
+    assert(solution_1.objective_function == solution_2.objective_function);
+    assert(solution_1.size_of_solution == solution_2.size_of_solution);
+    assert(solution_1.vertices[0] == solution_2.vertices[0]);
+    assert(solution_1.vertices[1] == solution_2.vertices[1]);
+    assert(solution_1.vertices[2] == solution_2.vertices[2]);
+    assert(solution_1.vertices[3] == solution_2.vertices[3]);
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+
+}
+
 int test_solution() {
     print_test_begin("solution.cpp");
 
@@ -112,6 +141,7 @@ int test_solution() {
     test_compare_unequal_asc_solutions();
     test_compare_unequal_desc_solutions();
     test_compare_even_solutions();
+    test_clone_solution();
 
     print_test_end("solution.cpp");
     return EXIT_SUCCESS;
