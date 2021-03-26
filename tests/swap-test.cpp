@@ -21,12 +21,10 @@ int test_swap_random() {
             {73, 19, 0}
     };
 
-    int vertices[] = {0, 1, 2};
-
     Solution solution = {
             .objective_function = 288,
             .size_of_solution = 3,
-            .vertices = vertices
+            .vertices = {0, 1, 2}
     };
 
     // Act
@@ -63,12 +61,10 @@ int test_swap_selected() {
             {73, 19, 0}
     };
 
-    int vertices[] = {0, 1, 2};
-
     Solution solution = {
             .objective_function = 288,
             .size_of_solution = 3,
-            .vertices = vertices
+            .vertices = {0, 1, 2}
     };
 
     // Act

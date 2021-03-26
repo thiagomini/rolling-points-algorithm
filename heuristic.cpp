@@ -3,35 +3,27 @@
 //
 
 #define MAX_ITERATIONS 1
-#define NUMBER_OF_SOLUTIONS 50
+#define NUMBER_OF_SOLUTIONS 10
 
 #include <memory>
 #include "heuristic.h"
 #include "constructive-heuristic.h"
 #include "configurations.h"
 
-Solution * random_iterative_heuristic(int * distance_matrix, size_t number_of_vertices) {
+Solution random_iterative_heuristic(int * distance_matrix, size_t number_of_vertices) {
     int epoch = 0;
-    auto * solucoes = new Solution[NUMBER_OF_SOLUTIONS];
     int i = 0;
-    Solution * best_solution = nullptr;
-    Solution * best_solution_of_iteration;
+
+    static Solution best_solution;
+    Solution random_solution = build_random_solution(number_of_vertices, distance_matrix);
+
+    clone_solution(random_solution, best_solution);
 
     while (epoch < MAX_ITERATIONS) {
         for (; i < NUMBER_OF_SOLUTIONS; i++) {
-            Solution random_solution = build_random_solution(number_of_vertices, distance_matrix);
-            solucoes[i] = random_solution;
-        }
-        qsort(solucoes, NUMBER_OF_SOLUTIONS, sizeof(Solution),
-              reinterpret_cast<int (*)(const void *, const void *)>(compare));
-
-        best_solution_of_iteration = &solucoes[0];
-
-        if (best_solution == nullptr) {
-            best_solution = best_solution_of_iteration;
-        } else {
-            if (compare(best_solution_of_iteration, best_solution) > 0) {
-                best_solution = best_solution_of_iteration;
+             random_solution = build_random_solution(number_of_vertices, distance_matrix);
+            if (compare(best_solution, random_solution) > 0) {
+                clone_solution(random_solution, best_solution);
             }
         }
         epoch++;
@@ -43,4 +35,11 @@ Solution * random_iterative_heuristic(int * distance_matrix, size_t number_of_ve
     #endif
 
     return best_solution;
+}
+
+Solution * rolling_points_heuristic(int * distance_matrix, size_t number_of_vertices) {
+    Solution solucoes[NUMBER_OF_SOLUTIONS];
+    Solution best_solution, best_solution_of_iteration;
+
+
 }

@@ -8,6 +8,7 @@
 #include "../configurations.h"
 #include "iostream"
 #include "../utils/array.h"
+#include "vector"
 
 using namespace std;
 
@@ -20,7 +21,7 @@ using namespace std;
 typedef struct {
     int objective_function;
     size_t size_of_solution;
-    int * vertices;
+    vector<int> vertices;
 } Solution;
 
 /**
@@ -39,7 +40,7 @@ void calculate_objective_function(Solution * solucao, const int * matriz_distanc
  * @param solution_2
  * @return 0 se ambas as soluções possuem a mesma FO, > 0 se a primeira solução possui FO maior que a segunda e < 0 do contrário
  */
-int compare(Solution * solution_1, Solution * solution_2);
+int compare(const Solution& solution_1, const Solution& solution_2);
 
 void print_solution(Solution * solution);
 
@@ -49,6 +50,7 @@ void print_solution(Solution * solution);
  * @param destino
  */
 void clone_solution(Solution &origem, Solution &destino);
+
 
 /**
  * Testa todas as funções do Módulo solution.cpp

@@ -8,8 +8,8 @@
 
 int test_build_vertices_array() {
     print_sub_test_begin("build_vertices_array", "Testando a construcao de um array de vertices aleatorios");
-    int * random_solution = build_vertices_array(3);
-    int sum_of_nodes = sum_array(3, random_solution);
+    vector<int> random_solution = build_vertices_array(3);
+    int sum_of_nodes = sum_array(3, random_solution.data());
 
     assert(random_solution[0] == 0);
     assert(sum_of_nodes == 3);

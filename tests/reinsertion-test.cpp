@@ -21,12 +21,10 @@ int test_reinsert_random() {
             {73, 19, 0}
     };
 
-    int vertices[] = {0, 1, 2};
-
     Solution solution = {
             .objective_function = 0,
             .size_of_solution = 3,
-            .vertices = vertices
+            .vertices = {0, 1, 2}
     };
 
     // Act
@@ -64,12 +62,10 @@ int test_reinserted_selected() {
             {30, 45, 69, 0},
     };
 
-    int vertices[] = {0, 1, 2, 3};
-
     Solution solution = {
             .objective_function = 0,
             .size_of_solution = 4,
-            .vertices = vertices
+            .vertices = {0, 1, 2, 3}
     };
 
     // Act

@@ -6,6 +6,7 @@
 #include "iostream"
 #include "utils/string-utils.h"
 #include <string>
+#include <cstring>
 #include "data_structures/distance-matrix.h"
 #include "data_structures/solution.h"
 #include "utils/array.h"
