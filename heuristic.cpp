@@ -8,7 +8,6 @@
 #include <memory>
 #include "heuristic.h"
 #include "constructive-heuristic.h"
-#include "configurations.h"
 
 Solution random_iterative_heuristic(int * distance_matrix, size_t number_of_vertices) {
     int epoch = 0;
@@ -37,9 +36,21 @@ Solution random_iterative_heuristic(int * distance_matrix, size_t number_of_vert
     return best_solution;
 }
 
-Solution * rolling_points_heuristic(int * distance_matrix, size_t number_of_vertices) {
-    Solution solucoes[NUMBER_OF_SOLUTIONS];
-    Solution best_solution, best_solution_of_iteration;
+Solution rolling_points_heuristic(int * distance_matrix, size_t number_of_vertices, size_t population) {
+    Solution solucoes[population];
 
+    solucoes[0] = build_random_solution(number_of_vertices, distance_matrix);
+    Solution best_solution;
 
+    clone_solution(solucoes[0], best_solution);
+
+    // Fase Exploratória
+    for (int i = 1; i < population; i++) {
+        solucoes[i] = build_random_solution(number_of_vertices, distance_matrix);
+        if (compare(best_solution, solucoes[i]) > 0) {
+            clone_solution(solucoes[i], best_solution);
+        }
+    }
+
+    // Busca Local Simples
 }

@@ -4,6 +4,7 @@
 
 #ifndef ALGORITMO_TCC_STRING_UTILS_H
 #define ALGORITMO_TCC_STRING_UTILS_H
+#define STRING_MATCH 0
 
 using namespace std;
 

@@ -14,6 +14,7 @@
 #include "neighborhoods/reinsertion.h"
 
 #include "heuristic.h"
+#include "neighborhoods/neighborhood-generator.h"
 
 using namespace std;
 
@@ -60,4 +61,5 @@ void execute_tests() {
     test_heuristic();
     test_swap();
     test_reinsert();
+    test_neighborhood_generator();
 }
