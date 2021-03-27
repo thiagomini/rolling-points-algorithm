@@ -48,7 +48,7 @@ int test_reinsert_random() {
 }
 
 /**
- * Testa a função reinsert com posições passadas como parâmetro
+ * Testa a vizinhança reinsert quando o primeiro índice é menor que o segundo
  * @return
  */
 int test_reinserted_selected_is_smaller() {
@@ -85,6 +85,10 @@ int test_reinserted_selected_is_smaller() {
     return EXIT_SUCCESS;
 }
 
+/**
+ * Testa a vizinhança reinsert quando o primeiro índice é maior que o segundo
+ * @return
+ */
 int test_reinserted_selected_is_greater()  {
     print_sub_test_begin("reinsert", "Testando vizinhanca REINSERT com o primeiro indice escolhido menor que o segundo");
 

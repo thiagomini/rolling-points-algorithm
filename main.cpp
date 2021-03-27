@@ -60,6 +60,6 @@ void execute_tests() {
     test_constructive_heuristic();
     test_swap();
     test_reinsert();
-//    test_neighborhood_generator();
-//    test_heuristic();
+    test_neighborhood_generator();
+    test_heuristic();
 }
