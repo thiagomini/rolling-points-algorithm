@@ -4,15 +4,23 @@
 
 #include "reinsertion.h"
 #include "../utils/randomizer.h"
+#include "../utils/distance.h"
 
 
 void reinsert(Solution &solucao, size_t posicao_1, size_t posicao_2, const int * matriz_distancias) {
-    int selected_vertex = solucao.vertices[posicao_1];
+    int selected_vertex = solucao.vertices.at(posicao_1);
 
-    for (int i = posicao_1; i < posicao_2; i++) {
-        solucao.vertices[i] = solucao.vertices[i + 1];
+    if (posicao_1 < posicao_2) {
+        for (int i = posicao_1; i < posicao_2; i++) {
+            solucao.vertices.at(i) = solucao.vertices.at(i + 1);
+        }
+    } else {
+        for (int i = posicao_1; i > posicao_2; i--) {
+            solucao.vertices.at(i) = solucao.vertices.at(i - 1);
+        }
     }
-    solucao.vertices[posicao_2] = selected_vertex;
+
+    solucao.vertices.at(posicao_2) = selected_vertex;
     calculate_objective_function(&solucao, matriz_distancias);
 }
 

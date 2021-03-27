@@ -58,8 +58,8 @@ void execute_tests() {
     test_array();
     test_solution();
     test_constructive_heuristic();
-    test_heuristic();
     test_swap();
     test_reinsert();
-    test_neighborhood_generator();
+//    test_neighborhood_generator();
+//    test_heuristic();
 }

@@ -8,6 +8,8 @@
 #include <memory>
 #include "heuristic.h"
 #include "constructive-heuristic.h"
+#include "neighborhoods/neighborhood-generator.h"
+#include "neighborhoods/swap.h"
 
 Solution random_iterative_heuristic(int * distance_matrix, size_t number_of_vertices) {
     int epoch = 0;
@@ -42,15 +44,26 @@ Solution rolling_points_heuristic(int * distance_matrix, size_t number_of_vertic
     solucoes[0] = build_random_solution(number_of_vertices, distance_matrix);
     Solution best_solution;
 
-    clone_solution(solucoes[0], best_solution);
-
     // Fase Exploratória
     for (int i = 1; i < population; i++) {
         solucoes[i] = build_random_solution(number_of_vertices, distance_matrix);
-        if (compare(best_solution, solucoes[i]) > 0) {
-            clone_solution(solucoes[i], best_solution);
-        }
     }
 
     // Busca Local Simples
+    Solution neighbor;
+    for (int i = 0; i < population; i++) {
+        neighbor = generate_random_neighbor(solucoes[i], distance_matrix);
+        if (compare(solucoes[i], neighbor) > 0) {
+            solucoes[i] = neighbor;
+        }
+    }
+
+    // Busca a melhor solução
+    qsort(solucoes, population, sizeof(Solution), reinterpret_cast<int (*)(const void *, const void *)>(compare));
+    clone_solution(solucoes[0], best_solution);
+
+    // Busca local profunda
+    swap_opt(best_solution, distance_matrix);
+
+    return best_solution;
 }

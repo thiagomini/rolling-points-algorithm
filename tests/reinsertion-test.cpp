@@ -32,16 +32,16 @@ int test_reinsert_random() {
 
 
     // Prepare-Response
-    bool same_order = solution.vertices[0] == 0 &&
-                      solution.vertices[1] == 1 &&
-                      solution.vertices[2] == 2;
+    bool same_order = solution.vertices.at(0) == 0 &&
+                      solution.vertices.at(1) == 1 &&
+                      solution.vertices.at(2) == 2;
 
     bool same_objective_function = solution.objective_function == 288;
 
     // Assert
     assert(same_order == false);
     assert(same_objective_function == false);
-    assert(solution.vertices[0] == 0);
+    assert(solution.vertices.at(0) == 0);
     print_sub_test_end();
 
     return EXIT_SUCCESS;
@@ -51,8 +51,8 @@ int test_reinsert_random() {
  * Testa a função reinsert com posições passadas como parâmetro
  * @return
  */
-int test_reinserted_selected() {
-    print_sub_test_begin("reinsert", "Testando vizinhanca REINSERT com indices escolhidos");
+int test_reinserted_selected_is_smaller() {
+    print_sub_test_begin("reinsert", "Testando vizinhanca REINSERT com o primeiro indice escolhido menor que o segundo");
 
     // Arrange
     const int distance_matrix[4][4] = {
@@ -75,10 +75,44 @@ int test_reinserted_selected() {
     int expected_fo = CLASSICAL_PROBLEM ? 402 : 648;
 
     // Assert
-    assert(solution.vertices[0] == 0);
-    assert(solution.vertices[1] == 2);
-    assert(solution.vertices[2] == 3);
-    assert(solution.vertices[3] == 1);
+    assert(solution.vertices.at(0) == 0);
+    assert(solution.vertices.at(1) == 2);
+    assert(solution.vertices.at(2) == 3);
+    assert(solution.vertices.at(3) == 1);
+    assert(solution.objective_function == expected_fo);
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+}
+
+int test_reinserted_selected_is_greater()  {
+    print_sub_test_begin("reinsert", "Testando vizinhanca REINSERT com o primeiro indice escolhido menor que o segundo");
+
+    // Arrange
+    const int distance_matrix[4][4] = {
+            {0, 59, 73, 30},
+            {59, 0, 19, 45},
+            {73, 19, 0, 69},
+            {30, 45, 69, 0},
+    };
+
+    Solution solution = {
+            .objective_function = 0,
+            .size_of_solution = 4,
+            .vertices = {0, 1, 2, 3}
+    };
+
+    // Act
+    reinsert(solution, 3, 1, reinterpret_cast<const int *>(distance_matrix));
+
+    // Prepare-Response
+    int expected_fo = CLASSICAL_PROBLEM ? 199 : 366;
+
+    // Assert
+    assert(solution.vertices.at(0) == 0);
+    assert(solution.vertices.at(1) == 3);
+    assert(solution.vertices.at(2) == 1);
+    assert(solution.vertices.at(3) == 2);
     assert(solution.objective_function == expected_fo);
     print_sub_test_end();
 
@@ -125,8 +159,9 @@ int test_reinserted_opt() {
 
 int test_reinsert() {
     print_test_begin("reinsertion.cpp");
+    test_reinserted_selected_is_smaller();
+    test_reinserted_selected_is_greater();
     test_reinsert_random();
-    test_reinserted_selected();
     test_reinserted_opt();
     print_test_end("reinsertion.cpp");
 
