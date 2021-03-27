@@ -58,7 +58,7 @@ int test_swap_opt() {
     };
 
     Solution solution = {
-            .objective_function = 165,
+            .objective_function = CLASSICAL_PROBLEM ? 165 : 316,
             .size_of_solution = 3,
             .vertices = {0, 2, 1}
     };
@@ -68,7 +68,7 @@ int test_swap_opt() {
 
 
     // Assert
-    assert(best_solution.objective_function == 137);
+    assert(best_solution.objective_function == (CLASSICAL_PROBLEM ? 137 : 288));
     assert(best_solution.vertices[0] == 0);
     assert(best_solution.vertices[1] == 1);
     assert(best_solution.vertices[2] == 2);
