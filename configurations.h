@@ -12,6 +12,9 @@
 // Indica se os algoritmos devem imprimir os passos em detalhes
 //#define VERBOSE
 
+#define RANDOM_HEURISTIC_ALGORITHM 1
+#define ROLLING_POINTS_ALGORITHM 2
+
 void print_configurations();
 
 #endif //ALGORITMO_TCC_CONFIGURATIONS_H

@@ -7,7 +7,7 @@
 #include "swap.h"
 #include "../utils/randomizer.h"
 
-Solution generate_neighbor(Solution &solution, int * distance_matrix, int neighborhood) {
+Solution generate_neighbor(Solution &solution, const int *distance_matrix, int neighborhood) {
     Solution neighbor;
     clone_solution(solution,neighbor);
 
@@ -26,7 +26,7 @@ Solution generate_neighbor(Solution &solution, int * distance_matrix, int neighb
     return neighbor;
 }
 
-Solution generate_random_neighbor(Solution &solution, int * distance_matrix) {
+Solution generate_random_neighbor(Solution &solution, const int *distance_matrix) {
     int random_neighorbood = RANDOM_BETWEEN(0, 1);
     Solution neighbor = generate_neighbor(solution, distance_matrix, random_neighorbood);
     return neighbor;

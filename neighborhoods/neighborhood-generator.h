@@ -18,7 +18,7 @@
  * @throws errno 1 caso a vizinhança passada como parâmetro não exista
  * @returns O vizinho gerado
  */
-Solution generate_neighbor(Solution &solution, int * distance_matrix, int neighborhood);
+Solution generate_neighbor(Solution &solution, const int *distance_matrix, int neighborhood);
 
 /**
  * Gera uma solução vizinha utilizando uma estratégia aleatória
@@ -26,7 +26,7 @@ Solution generate_neighbor(Solution &solution, int * distance_matrix, int neighb
  * @param distance_matrix A matriz de distâncias
  * @returs O vizinho gerado
  */
-Solution generate_random_neighbor(Solution &solution, int * distance_matrix);
+Solution generate_random_neighbor(Solution &solution, const int *distance_matrix);
 
 int test_neighborhood_generator();
 

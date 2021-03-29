@@ -18,7 +18,7 @@
  */
 Solution random_iterative_heuristic(int * distance_matrix, size_t number_of_vertices);
 
-Solution rolling_points_heuristic(int * distance_matrix, size_t number_of_vertices, size_t population = 10);
+Solution rolling_points_heuristic(const int *distance_matrix, size_t number_of_vertices, size_t population = 10);
 
 int test_heuristic();
 

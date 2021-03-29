@@ -10,15 +10,20 @@
 int test_read_nodes_euc_2d() {
     print_sub_test_begin("read_nodes_euc_2d", "Testando leitura de arquivo .tsp do tipo EUC_2D");
 
+    // Arrange
     char arquivo[] = "../instances/test_tsp_euc_2d.tsp";
+
+    // Act
     node_2d * read_nodes = read_nodes_euc_2d(arquivo);
 
+    // Prepare-Response
     int expected_nodes[3][3] = {
             {1, 64, 96},
             {2, 80, 39},
             {3, 69, 23},
     };
 
+    // Assert
     assert(read_nodes != nullptr);
 
     for (int i = 0; i < 3; ++i) {

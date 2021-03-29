@@ -13,7 +13,7 @@
 
 using namespace std;
 
-node_2d * read_nodes_euc_2d(char *file) {
+node_2d * read_nodes_euc_2d(const char *file) {
     FILE *f = fopen(file, "r");
     int nodes_in_file = 0;
 
@@ -55,6 +55,8 @@ node_2d * read_nodes_euc_2d(char *file) {
         list_of_nodes[i].x = node_x_coordinate;
         list_of_nodes[i].y = node_y_coordinate;
     }
+
+    fclose(f);
 
     return list_of_nodes;
 };

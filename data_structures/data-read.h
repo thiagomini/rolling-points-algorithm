@@ -27,7 +27,7 @@
  * @param file - caminho relativo do arquivo .tsp
  * @return Ponteiro para lista de nós representados em 2 dimensões.
  */
-node_2d * read_nodes_euc_2d(char *file);
+node_2d * read_nodes_euc_2d(const char *file);
 
 int test_data_read();
 

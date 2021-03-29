@@ -32,13 +32,13 @@ Solution random_iterative_heuristic(int * distance_matrix, size_t number_of_vert
 
     #ifdef VERBOSE
         cout << "Melhor Solucao Encontrada: " << endl;
-        print_solution(best_solution);
+        print_solution(&best_solution);
     #endif
 
     return best_solution;
 }
 
-Solution rolling_points_heuristic(int * distance_matrix, size_t number_of_vertices, size_t population) {
+Solution rolling_points_heuristic(const int *distance_matrix, size_t number_of_vertices, size_t population) {
     Solution solucoes[population];
 
     solucoes[0] = build_random_solution(number_of_vertices, distance_matrix);
@@ -64,6 +64,11 @@ Solution rolling_points_heuristic(int * distance_matrix, size_t number_of_vertic
 
     // Busca local profunda
     swap_opt(best_solution, distance_matrix);
+
+    #ifdef VERBOSE
+        cout << "Melhor Solucao Encontrada: " << endl;
+        print_solution(&best_solution);
+    #endif
 
     return best_solution;
 }
