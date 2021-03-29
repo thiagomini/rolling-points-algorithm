@@ -20,8 +20,35 @@ using namespace std;
 
 void execute_tests();
 void calculate_time();
-void execute_heuristic(int heuristic_name, const char * file_path, size_t number_of_nodes);
+
+/**
+ * Realiza a otimização de um problema MLP, utilizando uma heurística passada como parâmetro
+ * @param heuristic - O número que representa a heurística. Verificar o arquivo <b>configurations.h</b> para mais detalhes
+ * @param file_path - O caminho para o arquivo que contém os nós do problema. Atenção: sempre informar o caminho com "../" antes da
+ * sua localização relativa ao projeto.
+ * @param number_of_nodes - O número de nós que o problema contempla
+ * @throws Erro caso a heurística passada não seja encontrada
+ * @example
+ *  execute_heuristic(ROLLING_POINTS_ALGORITHM, "../instances/test_tsp_euc_2d.tsp", 3);
+ *
+ */
+void execute_heuristic(int heuristic, const char * file_path, size_t number_of_nodes);
+
+/**
+ * Realiza a otimização de um problema MLP utilizando a heurística dos Pontos Rolantes
+ * @param file_path - O caminho para o arquivo que contém os nós do problema. Atenção: sempre informar o caminho com "../" antes da
+ * sua localização relativa ao projeto.
+ * @param number_of_nodes - O número de nós que o problema contempla
+ * @param population O número de "pontos" que será criado na fase exploratória inicial da heurística.
+ */
 void execute_rolling_points(const char * file_path, size_t number_of_nodes, size_t population = 10);
+
+/**
+ * Realiza a otimização de um problema MLP utilizando uma heurística simples de geração e comparação de soluções aleatórias
+ * @param file_path - O caminho para o arquivo que contém os nós do problema. Atenção: sempre informar o caminho com "../" antes da
+ * sua localização relativa ao projeto.
+ * @param number_of_nodes - O número de nós que o problema contempla
+ */
 void execute_random_heuristic(const char * file_path, size_t number_of_nodes);
 
 int main() {
@@ -69,8 +96,8 @@ void execute_tests() {
     test_heuristic();
 }
 
-void execute_heuristic(int heuristic_name, const char * file_path, size_t number_of_nodes) {
-    switch (heuristic_name) {
+void execute_heuristic(int heuristic, const char * file_path, size_t number_of_nodes) {
+    switch (heuristic) {
         case ROLLING_POINTS_ALGORITHM:
             execute_rolling_points(file_path, number_of_nodes);
             break;
