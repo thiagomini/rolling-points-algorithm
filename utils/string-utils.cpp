@@ -17,3 +17,7 @@ int find_char_position(string string, char character) {
     position_of_character = strchr(string.c_str(), character);
     return position_of_character ? (int)(position_of_character - string.c_str()) : -1;
 }
+
+bool strings_are_equal(const char *string1, const char *string2) {
+    return strcmp(string1, string2) == STRING_MATCH;
+}

@@ -30,4 +30,12 @@ int find_char_position(string string, char character);
  */
 int test_string_utils();
 
+/**
+ * Testa se duas strings são iguais
+ * @param string1
+ * @param string2
+ * @return <b>true</b> caso sejam iguais, <b>false</b> do contrário.
+ */
+bool strings_are_equal(const char *string1, const char *string2);
+
 #endif //ALGORITMO_TCC_STRING_UTILS_H
