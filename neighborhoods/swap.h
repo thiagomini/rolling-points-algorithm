@@ -25,10 +25,10 @@ void swap(Solution  &solucao, size_t posicao_1, size_t posicao_2, const int * ma
 
 /**
  * Calcula a melhor solução após realizar todas as possíveis trocas swap entre os pares da solução.
- * @param solucao Ponteiro para a solução que deseja realizar o swap_opt
+ * @param solucao Solução que deseja realizar o swap_opt
  * @param matriz_distancias A matriz de distâncias do problema, usada para calcular a nova FO da solução
  */
-void swap_opt(Solution &solucao, const int * matriz_distancias);
+Solution swap_opt(Solution solucao, const int * matriz_distancias);
 
 int test_swap();
 

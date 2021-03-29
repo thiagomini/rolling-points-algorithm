@@ -21,12 +21,10 @@ int test_swap_random() {
             {73, 19, 0}
     };
 
-    int vertices[] = {0, 1, 2};
-
     Solution solution = {
             .objective_function = 288,
             .size_of_solution = 3,
-            .vertices = vertices
+            .vertices = {0, 1, 2}
     };
 
     // Act
@@ -49,6 +47,37 @@ int test_swap_random() {
     return EXIT_SUCCESS;
 }
 
+int test_swap_opt() {
+    print_sub_test_begin("swap_opt", "Testando busca local SWAP-OPT");
+
+    // Arrange
+    const int distance_matrix[3][3] = {
+            {0, 59, 73},
+            {59, 0, 19},
+            {73, 19, 0}
+    };
+
+    Solution solution = {
+            .objective_function = CLASSICAL_PROBLEM ? 165 : 316,
+            .size_of_solution = 3,
+            .vertices = {0, 2, 1}
+    };
+
+    // Act
+    Solution best_solution = swap_opt(solution, reinterpret_cast<const int *>(distance_matrix));
+
+
+    // Assert
+    assert(best_solution.objective_function == (CLASSICAL_PROBLEM ? 137 : 288));
+    assert(best_solution.vertices[0] == 0);
+    assert(best_solution.vertices[1] == 1);
+    assert(best_solution.vertices[2] == 2);
+
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+}
+
 /**
  * Testa a função swap com posições passadas como parâmetro
  * @return
@@ -63,12 +92,10 @@ int test_swap_selected() {
             {73, 19, 0}
     };
 
-    int vertices[] = {0, 1, 2};
-
     Solution solution = {
             .objective_function = 288,
             .size_of_solution = 3,
-            .vertices = vertices
+            .vertices = {0, 1, 2}
     };
 
     // Act
@@ -92,6 +119,7 @@ int test_swap() {
     print_test_begin("swap.cpp");
     test_swap_random();
     test_swap_selected();
+    test_swap_opt();
     print_test_end("swap.cpp");
 
     return EXIT_SUCCESS;

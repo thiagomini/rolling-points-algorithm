@@ -3,35 +3,28 @@
 //
 
 #define MAX_ITERATIONS 1
-#define NUMBER_OF_SOLUTIONS 50
+#define NUMBER_OF_SOLUTIONS 10
 
 #include <memory>
 #include "heuristic.h"
 #include "constructive-heuristic.h"
-#include "configurations.h"
+#include "neighborhoods/neighborhood-generator.h"
+#include "neighborhoods/swap.h"
 
-Solution * random_iterative_heuristic(int * distance_matrix, size_t number_of_vertices) {
+Solution random_iterative_heuristic(int * distance_matrix, size_t number_of_vertices) {
     int epoch = 0;
-    auto * solucoes = new Solution[NUMBER_OF_SOLUTIONS];
     int i = 0;
-    Solution * best_solution = nullptr;
-    Solution * best_solution_of_iteration;
+
+    static Solution best_solution;
+    Solution random_solution = build_random_solution(number_of_vertices, distance_matrix);
+
+    clone_solution(random_solution, best_solution);
 
     while (epoch < MAX_ITERATIONS) {
         for (; i < NUMBER_OF_SOLUTIONS; i++) {
-            Solution random_solution = build_random_solution(number_of_vertices, distance_matrix);
-            solucoes[i] = random_solution;
-        }
-        qsort(solucoes, NUMBER_OF_SOLUTIONS, sizeof(Solution),
-              reinterpret_cast<int (*)(const void *, const void *)>(compare));
-
-        best_solution_of_iteration = &solucoes[0];
-
-        if (best_solution == nullptr) {
-            best_solution = best_solution_of_iteration;
-        } else {
-            if (compare(best_solution_of_iteration, best_solution) > 0) {
-                best_solution = best_solution_of_iteration;
+             random_solution = build_random_solution(number_of_vertices, distance_matrix);
+            if (compare(best_solution, random_solution) > 0) {
+                clone_solution(random_solution, best_solution);
             }
         }
         epoch++;
@@ -41,6 +34,36 @@ Solution * random_iterative_heuristic(int * distance_matrix, size_t number_of_ve
         cout << "Melhor Solucao Encontrada: " << endl;
         print_solution(best_solution);
     #endif
+
+    return best_solution;
+}
+
+Solution rolling_points_heuristic(int * distance_matrix, size_t number_of_vertices, size_t population) {
+    Solution solucoes[population];
+
+    solucoes[0] = build_random_solution(number_of_vertices, distance_matrix);
+    Solution best_solution;
+
+    // Fase Exploratória
+    for (int i = 1; i < population; i++) {
+        solucoes[i] = build_random_solution(number_of_vertices, distance_matrix);
+    }
+
+    // Busca Local Simples
+    Solution neighbor;
+    for (int i = 0; i < population; i++) {
+        neighbor = generate_random_neighbor(solucoes[i], distance_matrix);
+        if (compare(solucoes[i], neighbor) > 0) {
+            solucoes[i] = neighbor;
+        }
+    }
+
+    // Busca a melhor solução
+    qsort(solucoes, population, sizeof(Solution), reinterpret_cast<int (*)(const void *, const void *)>(compare));
+    clone_solution(solucoes[0], best_solution);
+
+    // Busca local profunda
+    swap_opt(best_solution, distance_matrix);
 
     return best_solution;
 }

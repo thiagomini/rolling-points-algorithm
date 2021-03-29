@@ -47,6 +47,14 @@ int * build_crescent_array(size_t size, int initial_value = 0);
 int sum_array(size_t size, const int * array);
 
 /**
+ * Retorna um ponteiro para uma copia do array de entrada
+ * @param array Array que será copiado
+ * @param size Tamanho do array que será copiado
+ * @return Ponteiro para array copiado
+ */
+int * clone_array(int array[], size_t size);
+
+/**
  * Testa todas as funções do módulo <b>array.cpp</b>
  */
 int test_array();

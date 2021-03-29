@@ -11,7 +11,7 @@
 
 using namespace std;
 
-int * build_vertices_array(size_t size) {
+vector<int> build_vertices_array(size_t size) {
     size_t
     size_of_pool = size - 1,
     selected_position,
@@ -19,7 +19,7 @@ int * build_vertices_array(size_t size) {
     shuffled_array_cursor = 1;
 
     auto * pool = new int[size_of_pool]; // Pool de onde os valores aleatórios serão escolhidos
-    static auto * shuffled_array = new int[size]; // Array randomizado
+    static vector<int> shuffled_array = vector<int>(size); // Array randomizado
 
     int * vertices = build_crescent_array(size);
 
@@ -47,7 +47,7 @@ int * build_vertices_array(size_t size) {
 }
 
 Solution build_random_solution(size_t size, const int * distance_matrix) {
-    int * vertices_of_solution = build_vertices_array(size);
+    vector<int> vertices_of_solution = build_vertices_array(size);
     static Solution built_solution;
 
     built_solution.vertices = vertices_of_solution;

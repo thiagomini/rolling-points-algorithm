@@ -16,7 +16,9 @@
  * @param number_of_vertices O número de vértices contidos no grafo
  * @return Ponteiro para a melhor solução
  */
-Solution * random_iterative_heuristic(int * distance_matrix, size_t number_of_vertices);
+Solution random_iterative_heuristic(int * distance_matrix, size_t number_of_vertices);
+
+Solution rolling_points_heuristic(int * distance_matrix, size_t number_of_vertices, size_t population = 10);
 
 int test_heuristic();
 

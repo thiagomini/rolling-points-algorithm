@@ -11,7 +11,7 @@
  * @param upper Limite superior
  * @return Um número aleatório entre os limites informados
  */
-#define RANDOM_BETWEEN(lower, upper) ((rand() % ((upper) - (lower) + 1)) + 1)
+#define RANDOM_BETWEEN(lower, upper) ((lower) == 0) ? rand() % (upper) : ((rand() % ((upper) - (lower) + 1)) + 1)
 
 
 #endif //ALGORITMO_TCC_RANDOMIZER_H

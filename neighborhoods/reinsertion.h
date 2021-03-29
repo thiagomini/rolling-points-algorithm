@@ -25,10 +25,11 @@ void reinsert(Solution &solucao, size_t posicao_1, size_t posicao_2, const int *
 
 /**
  * Calcula a melhor solução após realizar a reinserção de um nó em todas as demais posições
- * @param solucao Ponteiro para a solução que deseja realizar o swap_opt
+ * @param solucao Solução que deseja realizar o swap_opt
  * @param matriz_distancias A matriz de distâncias do problema, usada para calcular a nova FO da solução
+ * @returns A solução com melhor FO após realizar a busca local
  */
-void reinsert_opt(Solution &solucao, const int * matriz_distancias);
+Solution reinsert_opt(Solution solucao, const int * matriz_distancias);
 
 int test_reinsert();
 

@@ -46,7 +46,7 @@ int * build_crescent_array(size_t size, int initial_value) {
     return array;
 }
 
-int sum_array(size_t size, const int * array) {
+int sum_array(size_t size, const int array[]) {
     int sum = 0;
 
     for (int i = 0; i < size; i++) {
@@ -54,4 +54,13 @@ int sum_array(size_t size, const int * array) {
     }
 
     return sum;
+}
+
+int * clone_array(int array[], size_t size) {
+    static int * new_array = new int[size];
+
+    for (size_t i = 0; i < size; i++) {
+        new_array[i] = array[i];
+    }
+    return new_array;
 }

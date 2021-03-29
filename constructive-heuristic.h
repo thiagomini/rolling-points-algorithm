@@ -18,7 +18,7 @@ Solution build_random_solution(size_t size, const int * distance_matrix);
  * @param size - Tamanho do array
  * @return
  */
-int * build_vertices_array(size_t size);
+vector<int> build_vertices_array(size_t size);
 
 int test_constructive_heuristic();
 

@@ -11,8 +11,6 @@
 #include "../utils/string-utils.h"
 #include "../configurations.h"
 
-#define STRING_MATCH 0
-
 using namespace std;
 
 node_2d * read_nodes_euc_2d(char *file) {

@@ -38,17 +38,19 @@ void calculate_objective_function(Solution * solucao, const int * distance_matri
     solucao->objective_function = final_latency;
 }
 
-int compare(Solution * solution_1, Solution * solution_2) {
-    return solution_1->objective_function - solution_2->objective_function;
+int compare(const Solution& solution_1, const Solution& solution_2) {
+    return solution_1.objective_function - solution_2.objective_function;
 }
 
 void print_solution(Solution * solution) {
     cout << "Solucao: " << endl
          << "FO: " << solution->objective_function << endl
          << "vertices: ";
-    print_array(solution->vertices, solution->size_of_solution);
+    print_array(solution->vertices.data(), solution->size_of_solution);
 }
 
 void clone_solution(Solution &origem, Solution &destino) {
-    memcpy(&destino, &origem, sizeof(origem));
+    destino.size_of_solution = origem.size_of_solution;
+    destino.objective_function = origem.objective_function;
+    destino.vertices = origem.vertices;
 }
