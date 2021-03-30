@@ -54,9 +54,9 @@ void execute_random_heuristic(const char * file_path, size_t number_of_nodes);
 int main() {
     srand(time(NULL));
 
-    execute_tests();
+//    execute_tests();
 
-//    execute_heuristic(ROLLING_POINTS_ALGORITHM, "../instances/test_tsp_euc_2d.tsp", 3);
+    execute_heuristic(ROLLING_POINTS_ALGORITHM, "../instances/st70.tsp", 70);
 //    calculate_time();
 
     return EXIT_SUCCESS;
@@ -114,7 +114,7 @@ void execute_heuristic(int heuristic, const char * file_path, size_t number_of_n
 void execute_rolling_points(const char * file_path, size_t number_of_nodes, size_t population) {
     node_2d * nodes = read_nodes_euc_2d(file_path);
     int calculated_distance_matrix[number_of_nodes][number_of_nodes];
-    int ** distance_matrix_pointer = build_distance_matrix(reinterpret_cast<node_2d *>(nodes), 3);
+    int ** distance_matrix_pointer = build_distance_matrix(reinterpret_cast<node_2d *>(nodes), number_of_nodes);
 
     // Preenche a matrix com os valores retornados pelo ponteiro da função
     for (int i = 0; i < number_of_nodes; i++) {
@@ -123,8 +123,8 @@ void execute_rolling_points(const char * file_path, size_t number_of_nodes, size
         }
     }
 
-
     rolling_points_heuristic(reinterpret_cast<const int *>(calculated_distance_matrix), number_of_nodes, population);
+    delete distance_matrix_pointer;
 }
 
 void execute_random_heuristic(const char * file_path, size_t number_of_nodes) {

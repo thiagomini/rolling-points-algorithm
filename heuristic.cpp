@@ -10,6 +10,7 @@
 #include "constructive-heuristic.h"
 #include "neighborhoods/neighborhood-generator.h"
 #include "neighborhoods/swap.h"
+#include "neighborhoods/reinsertion.h"
 
 Solution random_iterative_heuristic(int * distance_matrix, size_t number_of_vertices) {
     int epoch = 0;
@@ -63,7 +64,8 @@ Solution rolling_points_heuristic(const int *distance_matrix, size_t number_of_v
     clone_solution(solucoes[0], best_solution);
 
     // Busca local profunda
-    swap_opt(best_solution, distance_matrix);
+    best_solution = swap_opt(best_solution, distance_matrix);
+    best_solution = reinsert_opt(best_solution, distance_matrix);
 
     #ifdef VERBOSE
         cout << "Melhor Solucao Encontrada: " << endl;

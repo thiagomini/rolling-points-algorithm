@@ -10,7 +10,7 @@
 #define CLASSICAL_PROBLEM 1
 
 // Indica se os algoritmos devem imprimir os passos em detalhes
-//#define VERBOSE
+#define VERBOSE
 
 #define RANDOM_HEURISTIC_ALGORITHM 1
 #define ROLLING_POINTS_ALGORITHM 2

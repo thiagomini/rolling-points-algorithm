@@ -18,14 +18,13 @@ vector<int> build_vertices_array(size_t size) {
     vertex_in_position,
     shuffled_array_cursor = 1;
 
-    auto * pool = new int[size_of_pool]; // Pool de onde os valores aleatórios serão escolhidos
-    static vector<int> shuffled_array = vector<int>(size); // Array randomizado
+    vector<int> shuffled_array = vector<int>(size); // Array randomizado
 
     int * vertices = build_crescent_array(size);
 
     shuffled_array[0] = vertices[0];
 
-    memcpy(pool, vertices + 1, sizeof(vertices[0] * size_of_pool));
+    vector<int> pool = vector<int>(vertices + 1, vertices + size); // Pool de onde os valores aleatórios serão escolhidos
 
    while(size_of_pool > 0) {
        selected_position = rand() % size_of_pool;
@@ -40,8 +39,6 @@ vector<int> build_vertices_array(size_t size) {
        shuffled_array_cursor++;
        size_of_pool--;
    }
-
-   delete[] pool;
 
    return shuffled_array;
 }
