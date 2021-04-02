@@ -7,6 +7,9 @@
 #include "test-logger.h"
 #include "../utils/string-utils.h"
 
+// 0, 1, 2, 3
+// 0, 1, 3, 2
+// 0, 3, 1, 2
 
 /**
  * Caso 1
@@ -20,17 +23,18 @@ int test_or_switch() {
     print_sub_test_begin("or_switch", "Testando o movimento 2-Opt para dois vertices no meio");
 
     // Arrange
-    const int distance_matrix[4][4] = {
-            {0, 59, 73, 30},
-            {59, 0, 19, 45},
-            {73, 19, 0, 69},
-            {30, 45, 69, 0},
+    const int distance_matrix[5][5] = {
+            {0, 59, 73, 30, 28},
+            {59, 0, 19, 45, 32},
+            {73, 19, 0, 69, 64},
+            {30, 45, 69, 0, 20},
+            {28, 32, 64, 20, 0},
     };
 
     Solution solution = {
             .objective_function = 0,
-            .size_of_solution = 4,
-            .vertices = {0, 1, 2, 3}
+            .size_of_solution = 5,
+            .vertices = {0, 1, 2, 3, 4}
     };
 
     // Act
@@ -43,6 +47,8 @@ int test_or_switch() {
     assert(solution.vertices.at(2) == 1);
     assert(solution.vertices.at(3) == 2);
     assert(solution.vertices.at(4) == 4);
+
+    print_sub_test_end();
 
     return EXIT_SUCCESS;
 
@@ -60,17 +66,18 @@ int test_or_switch_before() {
     print_sub_test_begin("or_switch", "Testando o movimento 2-Opt movendo para posicao anterior");
 
     // Arrange
-    const int distance_matrix[4][4] = {
-            {0, 59, 73, 30},
-            {59, 0, 19, 45},
-            {73, 19, 0, 69},
-            {30, 45, 69, 0},
+    const int distance_matrix[5][5] = {
+            {0, 59, 73, 30, 28},
+            {59, 0, 19, 45, 32},
+            {73, 19, 0, 69, 64},
+            {30, 45, 69, 0, 20},
+            {28, 32, 64, 20, 0},
     };
 
     Solution solution = {
             .objective_function = 0,
-            .size_of_solution = 4,
-            .vertices = {0, 1, 2, 3}
+            .size_of_solution = 5,
+            .vertices = {0, 1, 2, 3, 4}
     };
 
     // Act
@@ -83,6 +90,8 @@ int test_or_switch_before() {
     assert(solution.vertices.at(2) == 4);
     assert(solution.vertices.at(3) == 1);
     assert(solution.vertices.at(4) == 2);
+
+    print_sub_test_end();
 
     return EXIT_SUCCESS;
 
@@ -100,17 +109,20 @@ int test_or_switch_last_index() {
     print_sub_test_begin("or_switch", "Testando o movimento 2-Opt movendo para ultima posicao");
 
     // Arrange
-    const int distance_matrix[4][4] = {
-            {0, 59, 73, 30},
-            {59, 0, 19, 45},
-            {73, 19, 0, 69},
-            {30, 45, 69, 0},
+
+    // Arrange
+    const int distance_matrix[5][5] = {
+            {0, 59, 73, 30, 28},
+            {59, 0, 19, 45, 32},
+            {73, 19, 0, 69, 64},
+            {30, 45, 69, 0, 20},
+            {28, 32, 64, 20, 0},
     };
 
     Solution solution = {
             .objective_function = 0,
-            .size_of_solution = 4,
-            .vertices = {0, 1, 2, 3}
+            .size_of_solution = 5,
+            .vertices = {0, 1, 2, 3, 4}
     };
 
     // Act
@@ -118,10 +130,11 @@ int test_or_switch_last_index() {
         or_switch(solution, 1, 4, reinterpret_cast<const int *>(distance_matrix));
     } catch (const char * error) {
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
+        print_sub_test_end();
+        return EXIT_SUCCESS;
     }
 
-    return EXIT_SUCCESS;
-
+    throw "Erro: teste nao lancou excecao como esperado!";
 }
 
 /**
@@ -136,28 +149,29 @@ int test_or_switch_first_index() {
     print_sub_test_begin("or_switch", "Testando o movimento 2-Opt movendo os primeiros vertices");
 
     // Arrange
-    const int distance_matrix[4][4] = {
-            {0, 59, 73, 30},
-            {59, 0, 19, 45},
-            {73, 19, 0, 69},
-            {30, 45, 69, 0},
+    const int distance_matrix[5][5] = {
+            {0, 59, 73, 30, 28},
+            {59, 0, 19, 45, 32},
+            {73, 19, 0, 69, 64},
+            {30, 45, 69, 0, 20},
+            {28, 32, 64, 20, 0},
     };
 
     Solution solution = {
             .objective_function = 0,
-            .size_of_solution = 4,
-            .vertices = {0, 1, 2, 3}
+            .size_of_solution = 5,
+            .vertices = {0, 1, 2, 3, 4}
     };
-
     // Act
     try {
         or_switch(solution, 0, 2, reinterpret_cast<const int *>(distance_matrix));
     } catch (const char * error) {
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
+        print_sub_test_end();
+        return EXIT_SUCCESS;
     }
 
-    return EXIT_SUCCESS;
-
+    throw "Erro: teste nao lancou excecao como esperado!";
 }
 
 /**
@@ -171,18 +185,20 @@ int test_or_switch_first_index() {
 int test_or_switch_to_first_index() {
     print_sub_test_begin("or_switch", "Testando o movimento 2-Opt movendo vertices para V0");
 
+
     // Arrange
-    const int distance_matrix[4][4] = {
-            {0, 59, 73, 30},
-            {59, 0, 19, 45},
-            {73, 19, 0, 69},
-            {30, 45, 69, 0},
+    const int distance_matrix[5][5] = {
+            {0, 59, 73, 30, 28},
+            {59, 0, 19, 45, 32},
+            {73, 19, 0, 69, 64},
+            {30, 45, 69, 0, 20},
+            {28, 32, 64, 20, 0},
     };
 
     Solution solution = {
             .objective_function = 0,
-            .size_of_solution = 4,
-            .vertices = {0, 1, 2, 3}
+            .size_of_solution = 5,
+            .vertices = {0, 1, 2, 3, 4}
     };
 
     // Act
@@ -190,9 +206,11 @@ int test_or_switch_to_first_index() {
         or_switch(solution, 3, 0, reinterpret_cast<const int *>(distance_matrix));
     } catch (const char * error) {
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
+        print_sub_test_end();
+        return EXIT_SUCCESS;
     }
 
-    return EXIT_SUCCESS;
+    throw "Erro: teste nao lancou excecao como esperado!";
 
 }
 
@@ -204,7 +222,7 @@ int test_or_switch_to_first_index() {
  * resultado esperado: [0, 3, 1, 2, 4, 5]
  * @return
  */
-int test_or_switch_next_position() {
+int test_or_switch_position_after() {
     print_sub_test_begin("or_switch", "Testando o movimento 2-Opt para uma posicao na frente");
 
     // Arrange
@@ -234,6 +252,8 @@ int test_or_switch_next_position() {
     assert(solution.vertices.at(3) == 2);
     assert(solution.vertices.at(4) == 4);
     assert(solution.vertices.at(5) == 5);
+
+    print_sub_test_end();
 
     return EXIT_SUCCESS;
 
@@ -267,8 +287,7 @@ int test_or_switch_last_vertices() {
     };
 
     // Act
-    or_switch(solution, 1, 2, reinterpret_cast<const int *>(distance_matrix));
-
+    or_switch(solution, 4, 1, reinterpret_cast<const int *>(distance_matrix));
 
     // Assert
     assert(solution.vertices.at(0) == 0);
@@ -277,6 +296,8 @@ int test_or_switch_last_vertices() {
     assert(solution.vertices.at(3) == 1);
     assert(solution.vertices.at(4) == 2);
     assert(solution.vertices.at(5) == 3);
+
+    print_sub_test_end();
 
     return EXIT_SUCCESS;
 
@@ -311,9 +332,11 @@ int test_or_switch_three_vertices_array() {
         or_switch(solution, 1, 2, reinterpret_cast<const int *>(distance_matrix));
     } catch (const char * error) {
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
+        print_sub_test_end();
+        return EXIT_SUCCESS;
     }
 
-    return EXIT_SUCCESS;
+    throw "Erro: teste nao lancou excecao como esperado!";
 }
 
 /**
@@ -346,9 +369,11 @@ int test_or_switch_invalid_greater_index() {
         or_switch(solution, 1, 4, reinterpret_cast<const int *>(distance_matrix));
     } catch (const char * error) {
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
+        print_sub_test_end();
+        return EXIT_SUCCESS;
     }
 
-    return EXIT_SUCCESS;
+    throw "Erro: teste nao lancou excecao como esperado!";
 }
 
 
@@ -382,26 +407,66 @@ int test_or_switch_invalid_negative_index() {
         or_switch(solution, 1, -1, reinterpret_cast<const int *>(distance_matrix));
     } catch (const char * error) {
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
+        print_sub_test_end();
+        return EXIT_SUCCESS;
     }
 
-    return EXIT_SUCCESS;
+    throw "Erro: teste nao lancou excecao como esperado!";
+}
+
+/**
+ * Caso 11 - Erro, não é possível inserir os vértices na mesma posição
+ * vertices: [0, 1, 2, 3]<br>
+ * vertices escolhidos: 1, 2<br>
+ * nova posicao: 1<br>
+ * resultado esperado: Erro
+ * @return
+ */
+int test_or_switch_same_position() {
+    print_sub_test_begin("or_switch", "Testando o movimento 2-Opt com nova posicao igual a posicao inicial");
+
+    // Arrange
+    const int distance_matrix[4][4] = {
+            {0, 59, 73, 30},
+            {59, 0, 19, 45},
+            {73, 19, 0, 69},
+            {30, 45, 69, 0},
+    };
+
+    Solution solution = {
+            .objective_function = 0,
+            .size_of_solution = 4,
+            .vertices = {0, 1, 2, 3}
+    };
+
+    // Act
+    try {
+        or_switch(solution, 1, 1, reinterpret_cast<const int *>(distance_matrix));
+    } catch (const char * error) {
+        assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
+        print_sub_test_end();
+        return EXIT_SUCCESS;
+    }
+
+    throw "Erro: teste nao lancou excecao como esperado!";
 }
 
 
 
 
 int test_or_opt2() {
-    print_test_begin("two-opt.cpp");
+    print_test_begin("or-opt2.cpp");
     test_or_switch();
     test_or_switch_before();
     test_or_switch_last_index();
     test_or_switch_first_index();
     test_or_switch_to_first_index();
-    test_or_switch_next_position();
+    test_or_switch_position_after();
     test_or_switch_last_vertices();
     test_or_switch_three_vertices_array();
     test_or_switch_invalid_greater_index();
     test_or_switch_invalid_negative_index();
-    print_test_end("two-opt.cpp");
+    test_or_switch_same_position();
+    print_test_end("or-opt2.cpp");
     return EXIT_SUCCESS;
 }

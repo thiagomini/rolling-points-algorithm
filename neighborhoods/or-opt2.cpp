@@ -5,59 +5,29 @@
 #include "or-opt2.h"
 
 void or_switch(Solution &solution, size_t vertex_1, size_t new_position, const int * matriz_distancias) {
-    if (solution.size_of_solution <= 3 || new_position == vertex_1 || vertex_1 == 0 || new_position == 0)
+    if (solution.size_of_solution <= 3 ||
+    new_position == vertex_1 ||
+    vertex_1 == 0 ||
+    new_position == 0 ||
+    new_position >= solution.size_of_solution - 1
+    ) {
         throw "Vertice invalido escolhido para troca";
+    }
+    int vertex_in_initial_position = solution.vertices.at(vertex_1);
+    int adjacent_vertex = solution.vertices.at(vertex_1 + 1);
 
-    size_t next_vertex_position = vertex_1 == solution.size_of_solution - 1 ? 0 : vertex_1 + 1;
-    size_t reallocated_vertex_position = next_vertex_position == solution.size_of_solution - 1 ? 0 : next_vertex_position + 1;
-    int selected_position_vertex = solution.vertices.at(new_position);
+    if (new_position > vertex_1) {
+        for (int i = (int) vertex_1; i < new_position; i++)
+            solution.vertices.at(i) = solution.vertices.at(i + 2);
 
-    solution.vertices.at(new_position) = solution.vertices.at(vertex_1);
-    solution.vertices.at(new_position + 1) = solution.vertices.at(next_vertex_position);
-    solution.vertices.at(reallocated_vertex_position) = selected_position_vertex;
+    } else {
+        for (int i = (int) vertex_1 + 1; i > new_position + 1; i--)
+            solution.vertices.at(i) = solution.vertices.at(i - 2);
+
+    }
+
+    solution.vertices.at(new_position) = vertex_in_initial_position;
+    solution.vertices.at(new_position + 1) = adjacent_vertex;
 
     calculate_objective_function(&solution, matriz_distancias);
 }
-
-
-// Caso 1
-// 0, 1, 2, 3, 4
-// 1, 2 -> 2
-
-// 0, 3, 1, 2, 4
-
-// Caso 2
-// 0, 1, 2, 3, 4
-// 3, 4 -> 1
-
-// 0, 3, 4, 1, 2
-
-// Caso 3
-// 0, 1, 2, 3, 4
-// 1, 2 -> 4
-
-// erro
-
-// Caso 4
-// 0, 1, 2, 3, 4
-// 0, 1 -> 2
-
-// erro
-
-// Caso 5
-// 0, 1, 2, 3, 4
-// 3, 4 -> 0
-
-// erro
-
-// Caso 6
-// 0, 1, 2, 3, 4, 5
-// 1, 2 -> 2
-
-// 0, 3, 1, 2, 4, 5
-
-// Caso 7
-// 0, 1, 2, 3, 4, 5
-// 4, 5 -> 1
-
-// 0, 4, 5, 1, 2, 3
