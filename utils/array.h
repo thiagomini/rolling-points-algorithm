@@ -6,6 +6,7 @@
 #define ALGORITMO_TCC_ARRAY_H
 
 #include <cstdio>
+#include <vector>
 
 /**
  * Duplica os valores de uma lista
@@ -58,5 +59,15 @@ int * clone_array(int array[], size_t size);
  * Testa todas as funções do módulo <b>array.cpp</b>
  */
 int test_array();
+
+/**
+ * Retorna uma copia de parte de um vector, de acordo com a posição inicial e final passadas
+ * @param v - Vetor a ser copiado
+ * @param begin - Posição inicial da cópia
+ * @param end - Posição final da cópia
+ * @return Sub-vector contendo os elementos entre as posições indicadas
+ */
+std::vector<int> slice(std::vector<int> &v, int begin, int end);
+
 
 #endif //ALGORITMO_TCC_ARRAY_H

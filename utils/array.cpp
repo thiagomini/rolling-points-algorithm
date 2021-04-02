@@ -64,3 +64,10 @@ int * clone_array(int array[], size_t size) {
     }
     return new_array;
 }
+
+std::vector<int> slice(std::vector<int> &v, int begin, int end)
+{
+    std::vector<int> vec;
+    std::copy(v.begin() + begin, v.begin() + end + 1, std::back_inserter(vec));
+    return vec;
+}
