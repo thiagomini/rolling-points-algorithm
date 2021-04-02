@@ -20,7 +20,7 @@
  * @return
  */
 int test_or_switch() {
-    print_sub_test_begin("or_switch", "Testando o movimento 2-Opt para dois vertices no meio");
+    print_sub_test_begin("or_switch", "Testando o movimento Or-Opt2 para dois vertices no meio");
 
     // Arrange
     const int distance_matrix[5][5] = {
@@ -63,7 +63,7 @@ int test_or_switch() {
  * @return
  */
 int test_or_switch_before() {
-    print_sub_test_begin("or_switch", "Testando o movimento 2-Opt movendo para posicao anterior");
+    print_sub_test_begin("or_switch", "Testando o movimento Or-Opt2 movendo para posicao anterior");
 
     // Arrange
     const int distance_matrix[5][5] = {
@@ -106,9 +106,7 @@ int test_or_switch_before() {
  * @return
  */
 int test_or_switch_last_index() {
-    print_sub_test_begin("or_switch", "Testando o movimento 2-Opt movendo para ultima posicao");
-
-    // Arrange
+    print_sub_test_begin("or_switch", "Testando o movimento Or-Opt2 movendo para ultima posicao");
 
     // Arrange
     const int distance_matrix[5][5] = {
@@ -146,7 +144,7 @@ int test_or_switch_last_index() {
  * @return
  */
 int test_or_switch_first_index() {
-    print_sub_test_begin("or_switch", "Testando o movimento 2-Opt movendo os primeiros vertices");
+    print_sub_test_begin("or_switch", "Testando o movimento Or-Opt2 movendo os primeiros vertices");
 
     // Arrange
     const int distance_matrix[5][5] = {
@@ -183,8 +181,7 @@ int test_or_switch_first_index() {
  * @return
  */
 int test_or_switch_to_first_index() {
-    print_sub_test_begin("or_switch", "Testando o movimento 2-Opt movendo vertices para V0");
-
+    print_sub_test_begin("or_switch", "Testando o movimento Or-Opt2 movendo vertices para V0");
 
     // Arrange
     const int distance_matrix[5][5] = {
@@ -211,7 +208,6 @@ int test_or_switch_to_first_index() {
     }
 
     throw "Erro: teste nao lancou excecao como esperado!";
-
 }
 
 /**
@@ -223,7 +219,7 @@ int test_or_switch_to_first_index() {
  * @return
  */
 int test_or_switch_position_after() {
-    print_sub_test_begin("or_switch", "Testando o movimento 2-Opt para uma posicao na frente");
+    print_sub_test_begin("or_switch", "Testando o movimento Or-Opt2 para uma posicao na frente");
 
     // Arrange
     const int distance_matrix[6][6] = {
@@ -244,7 +240,6 @@ int test_or_switch_position_after() {
     // Act
     or_switch(solution, 1, 2, reinterpret_cast<const int *>(distance_matrix));
 
-
     // Assert
     assert(solution.vertices.at(0) == 0);
     assert(solution.vertices.at(1) == 3);
@@ -256,7 +251,6 @@ int test_or_switch_position_after() {
     print_sub_test_end();
 
     return EXIT_SUCCESS;
-
 }
 
 /**
@@ -268,7 +262,7 @@ int test_or_switch_position_after() {
  * @return
  */
 int test_or_switch_last_vertices() {
-    print_sub_test_begin("or_switch", "Testando o movimento 2-Opt selecionando os ultimos vertices");
+    print_sub_test_begin("or_switch", "Testando o movimento Or-Opt2 selecionando os ultimos vertices");
 
     // Arrange
     const int distance_matrix[6][6] = {
@@ -300,7 +294,6 @@ int test_or_switch_last_vertices() {
     print_sub_test_end();
 
     return EXIT_SUCCESS;
-
 }
 
 /**
@@ -312,7 +305,7 @@ int test_or_switch_last_vertices() {
  * @return
  */
 int test_or_switch_three_vertices_array() {
-    print_sub_test_begin("or_switch", "Testando o movimento 2-Opt para um array de 3 posicoes");
+    print_sub_test_begin("or_switch", "Testando o movimento Or-Opt2 para um array de 3 posicoes");
 
     // Arrange
     const int distance_matrix[3][3] = {
@@ -348,7 +341,7 @@ int test_or_switch_three_vertices_array() {
  * @return
  */
 int test_or_switch_invalid_greater_index() {
-    print_sub_test_begin("or_switch", "Testando o movimento 2-Opt com a nova posicao maior que o limite");
+    print_sub_test_begin("or_switch", "Testando o movimento Or-Opt2 com a nova posicao maior que o limite");
 
     // Arrange
     const int distance_matrix[4][4] = {
@@ -376,7 +369,6 @@ int test_or_switch_invalid_greater_index() {
     throw "Erro: teste nao lancou excecao como esperado!";
 }
 
-
 /**
  * Caso 10 - Erro, não é possível inserir os vértices em posição negativa<br>
  * vertices: [0, 1, 2, 3]<br>
@@ -386,7 +378,7 @@ int test_or_switch_invalid_greater_index() {
  * @return
  */
 int test_or_switch_invalid_negative_index() {
-    print_sub_test_begin("or_switch", "Testando o movimento 2-Opt com a nova posicao negativa");
+    print_sub_test_begin("or_switch", "Testando o movimento Or-Opt2 com a nova posicao negativa");
 
     // Arrange
     const int distance_matrix[4][4] = {
@@ -423,7 +415,7 @@ int test_or_switch_invalid_negative_index() {
  * @return
  */
 int test_or_switch_same_position() {
-    print_sub_test_begin("or_switch", "Testando o movimento 2-Opt com nova posicao igual a posicao inicial");
+    print_sub_test_begin("or_switch", "Testando o movimento Or-Opt2 com nova posicao igual a posicao inicial");
 
     // Arrange
     const int distance_matrix[4][4] = {
@@ -450,9 +442,6 @@ int test_or_switch_same_position() {
 
     throw "Erro: teste nao lancou excecao como esperado!";
 }
-
-
-
 
 int test_or_opt2() {
     print_test_begin("or-opt2.cpp");

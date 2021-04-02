@@ -3,6 +3,7 @@
 //
 
 #include "or-opt2.h"
+#include "../utils/randomizer.h"
 
 void or_switch(Solution &solution, size_t vertex_1, size_t new_position, const int * matriz_distancias) {
     if (solution.size_of_solution <= 3 ||
@@ -30,4 +31,15 @@ void or_switch(Solution &solution, size_t vertex_1, size_t new_position, const i
     solution.vertices.at(new_position + 1) = adjacent_vertex;
 
     calculate_objective_function(&solution, matriz_distancias);
+}
+
+void or_switch(Solution &solution, const int * matriz_distancias) {
+    size_t random_vertex = RANDOM_BETWEEN(1, solution.size_of_solution - 1);
+    size_t random_new_position = RANDOM_BETWEEN(1, solution.size_of_solution - 2);
+
+    while (random_new_position == random_vertex) {
+        random_new_position = RANDOM_BETWEEN(1, solution.size_of_solution - 2);
+    }
+
+    or_switch(solution, random_vertex, random_new_position, matriz_distancias);
 }
