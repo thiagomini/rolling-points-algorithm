@@ -12,7 +12,7 @@
 // 0, 3, 1, 2
 
 /**
- * Caso 1
+ * Caso 1<br>
  * vertices: [0, 1, 2, 3, 4]<br>
  * vertices escolhidos: 1, 2<br>
  * nova posicao: 2<br>
@@ -55,7 +55,7 @@ int test_or_switch() {
 }
 
 /**
- * Caso 2
+ * Caso 2<br>
  * vertices: [0, 1, 2, 3, 4]<br>
  * vertices escolhidos: 3, 4<br>
  * nova posicao: 1<br>
@@ -304,7 +304,7 @@ int test_or_switch_last_vertices() {
 }
 
 /**
- * Caso 8 - Erro, não é possível realizar esse movimento com apenas 3 vértices
+ * Caso 8 - Erro, não é possível realizar esse movimento com apenas 3 vértices<br>
  * vertices: [0, 1, 2]<br>
  * vertices escolhidos: 1, 2<br>
  * nova posicao: 2<br>
@@ -340,7 +340,7 @@ int test_or_switch_three_vertices_array() {
 }
 
 /**
- * Caso 9 - Erro, não é possível inserir os vértices em uma posição maior que o tamanho do array
+ * Caso 9 - Erro, não é possível inserir os vértices em uma posição maior que o tamanho do array<br>
  * vertices: [0, 1, 2, 3]<br>
  * vertices escolhidos: 1, 2<br>
  * nova posicao: 4<br>
@@ -378,7 +378,7 @@ int test_or_switch_invalid_greater_index() {
 
 
 /**
- * Caso 10 - Erro, não é possível inserir os vértices em posição negativa
+ * Caso 10 - Erro, não é possível inserir os vértices em posição negativa<br>
  * vertices: [0, 1, 2, 3]<br>
  * vertices escolhidos: 1, 2<br>
  * nova posicao: -1<br>
@@ -415,7 +415,7 @@ int test_or_switch_invalid_negative_index() {
 }
 
 /**
- * Caso 11 - Erro, não é possível inserir os vértices na mesma posição
+ * Caso 11 - Erro, não é possível inserir os vértices na mesma posição<br>
  * vertices: [0, 1, 2, 3]<br>
  * vertices escolhidos: 1, 2<br>
  * nova posicao: 1<br>
