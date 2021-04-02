@@ -26,7 +26,7 @@ void or_switch(Solution &solution, size_t vertex_1, size_t new_position, const i
  * seu adjacente.
  * @param matriz_distancias
  */
-void or_switch(Solution &solution, size_t vertex_1, const int * matriz_distancias);
+void or_switch(Solution &solution, const int * matriz_distancias);
 
 /**
  * Realiza um movimento do tipo 2-Opt, considerando todas as trocas adjacentes do problema
