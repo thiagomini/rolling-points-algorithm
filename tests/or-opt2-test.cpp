@@ -127,6 +127,7 @@ int test_or_switch_last_index() {
     try {
         or_switch(solution, 1, 4, reinterpret_cast<const int *>(distance_matrix));
     } catch (const char * error) {
+        // Assert
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
         print_sub_test_end();
         return EXIT_SUCCESS;
@@ -164,6 +165,7 @@ int test_or_switch_first_index() {
     try {
         or_switch(solution, 0, 2, reinterpret_cast<const int *>(distance_matrix));
     } catch (const char * error) {
+        // Assert
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
         print_sub_test_end();
         return EXIT_SUCCESS;
@@ -202,6 +204,7 @@ int test_or_switch_to_first_index() {
     try {
         or_switch(solution, 3, 0, reinterpret_cast<const int *>(distance_matrix));
     } catch (const char * error) {
+        // Assert
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
         print_sub_test_end();
         return EXIT_SUCCESS;
@@ -324,6 +327,7 @@ int test_or_switch_three_vertices_array() {
     try {
         or_switch(solution, 1, 2, reinterpret_cast<const int *>(distance_matrix));
     } catch (const char * error) {
+        // Assert
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
         print_sub_test_end();
         return EXIT_SUCCESS;
@@ -361,6 +365,7 @@ int test_or_switch_invalid_greater_index() {
     try {
         or_switch(solution, 1, 4, reinterpret_cast<const int *>(distance_matrix));
     } catch (const char * error) {
+        // Assert
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
         print_sub_test_end();
         return EXIT_SUCCESS;
@@ -398,6 +403,7 @@ int test_or_switch_invalid_negative_index() {
     try {
         or_switch(solution, 1, -1, reinterpret_cast<const int *>(distance_matrix));
     } catch (const char * error) {
+        // Assert
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
         print_sub_test_end();
         return EXIT_SUCCESS;
@@ -435,12 +441,80 @@ int test_or_switch_same_position() {
     try {
         or_switch(solution, 1, 1, reinterpret_cast<const int *>(distance_matrix));
     } catch (const char * error) {
+        // Assert
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
         print_sub_test_end();
         return EXIT_SUCCESS;
     }
 
     throw "Erro: teste nao lancou excecao como esperado!";
+}
+
+int test_or_switch_random_positions() {
+    print_sub_test_begin("or_switch", "Testando o movimento Or-Opt2 com posicoes aleatorias");
+
+    // Arrange
+    const int distance_matrix[4][4] = {
+            {0, 59, 73, 30},
+            {59, 0, 19, 45},
+            {73, 19, 0, 69},
+            {30, 45, 69, 0},
+    };
+
+    Solution solution = {
+            .objective_function = 0,
+            .size_of_solution = 4,
+            .vertices = {0, 1, 2, 3}
+    };
+    int objective_function = solution.objective_function;
+
+    or_switch(solution, reinterpret_cast<const int *>(distance_matrix));
+
+    // Prepare-Response
+    bool same_order = solution.vertices[0] == 0 &&
+                      solution.vertices[1] == 1 &&
+                      solution.vertices[2] == 2 &&
+                      solution.vertices[3] == 3 &&
+                      solution.vertices[4] == 4;
+
+    bool same_objective_function = solution.objective_function == objective_function;
+
+    // Assert
+    assert(same_order == false);
+    assert(same_objective_function == false);
+    assert(solution.vertices[0] == 0);
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+}
+
+int test_or_opt2_local_search() {
+    print_sub_test_begin("or_opt2", "Testando a busca local Or-Opt2");
+    // Arrange
+    const int distance_matrix[4][4] = {
+            {0, 59, 73, 30},
+            {59, 0, 19, 45},
+            {73, 19, 0, 69},
+            {30, 45, 69, 0},
+    };
+
+    Solution solution = {
+            .objective_function = CLASSICAL_PROBLEM ? 311 : 488,
+            .size_of_solution = 4,
+            .vertices = {0, 1, 2, 3}
+    };
+
+    int best_fo = CLASSICAL_PROBLEM ? 199 : 272;
+
+    // Act
+    Solution best_solution = or_opt2(solution, reinterpret_cast<const int *>(distance_matrix));
+
+    // Assert
+    assert(best_solution.vertices[0] == 0);
+    assert(best_solution.objective_function == best_fo);
+
+    print_sub_test_end();
+    return EXIT_SUCCESS;
 }
 
 int test_or_opt2() {
@@ -456,6 +530,8 @@ int test_or_opt2() {
     test_or_switch_invalid_greater_index();
     test_or_switch_invalid_negative_index();
     test_or_switch_same_position();
+    test_or_switch_random_positions();
+    test_or_opt2_local_search();
     print_test_end("or-opt2.cpp");
     return EXIT_SUCCESS;
 }

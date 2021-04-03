@@ -8,7 +8,7 @@
 #include "../data_structures/solution.h"
 
 /**
- * Realiza um movimento do tipo 2-Opt, que reinsere dois vértices adjacentes em uma nova posição na solução
+ * Realiza um movimento do tipo Or-Opt2, que reinsere dois vértices adjacentes em uma nova posição na solução
  * @param solution - Ponteiro para a solução que será utilizada para o movimento
  * @param vertex_1 - Posição do primeiro vértice que será utilizado no movimento. O vértice adjacente será considerado
  * o vértice logo a seguir na solução. Caso o vértice indicado aqui seja o último do ciclo, antes do V0, o V0 será considerado
@@ -19,7 +19,7 @@
 void or_switch(Solution &solution, size_t vertex_1, size_t new_position, const int * matriz_distancias);
 
 /**
- * Realiza um movimento do tipo 2-Opt, que reinsere dois vértices adjacentes em uma nova posição <b>aleatória</b> na solução
+ * Realiza um movimento do tipo Or-Opt2, que reinsere dois vértices adjacentes em uma nova posição <b>aleatória</b> na solução
  * @param solution - Ponteiro para a solução que será utilizada para o movimento
  * @param vertex_1 - Posição do primeiro vértice que será utilizado no movimento. O vértice adjacente será considerado
  * o vértice logo a seguir na solução. Caso o vértice indicado aqui seja o último do ciclo, antes do V0, o V0 será considerado
@@ -29,7 +29,7 @@ void or_switch(Solution &solution, size_t vertex_1, size_t new_position, const i
 void or_switch(Solution &solution, const int * matriz_distancias);
 
 /**
- * Realiza um movimento do tipo 2-Opt, considerando todas as trocas adjacentes do problema
+ * Realiza uma busca local do tipo Or-Opt2 considerando todas as trocas adjacentes possíveis
  * @param solution Ponteiro para a solução que será utilizada para o movimento
  * @param matriz_distancias
  * @return Melhor Solução encontrada pelo movimento de vizinhança
