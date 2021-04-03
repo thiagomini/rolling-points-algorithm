@@ -16,6 +16,7 @@
 #include "heuristic.h"
 #include "neighborhoods/neighborhood-generator.h"
 #include "neighborhoods/or-opt2.h"
+#include "data_structures/edge.h"
 
 using namespace std;
 
@@ -90,6 +91,7 @@ void execute_tests() {
     test_distance_matrix();
     test_array();
     test_solution();
+    test_edge();
     test_constructive_heuristic();
     test_swap();
     test_reinsert();
