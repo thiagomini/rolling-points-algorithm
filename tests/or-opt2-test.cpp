@@ -499,12 +499,12 @@ int test_or_opt2_local_search() {
     };
 
     Solution solution = {
-            .objective_function = CLASSICAL_PROBLEM ? 311 : 488,
+            .objective_function = CLASSICAL_PROBLEM ? 284 : 461,
             .size_of_solution = 4,
             .vertices = {0, 1, 2, 3}
     };
 
-    int best_fo = CLASSICAL_PROBLEM ? 199 : 272;
+    int best_fo = CLASSICAL_PROBLEM ? 199 : 366;
 
     // Act
     Solution best_solution = or_opt2(solution, reinterpret_cast<const int *>(distance_matrix));

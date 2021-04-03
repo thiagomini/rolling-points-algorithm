@@ -49,10 +49,8 @@ Solution or_opt2(Solution &solution, const int * matriz_distancias) {
 
     Solution best_solution;
 
-    for (int i = 1; i < solution.size_of_solution - 1; i++) {
-        for (int j = 1; j < solution.size_of_solution - 1; j++) {
-            if (j == i) continue;
-
+    for (int i = 1; i < solution.size_of_solution - 2; i++) {
+        for (int j = i + 1; j < solution.size_of_solution - 1; j++) {
             or_switch(solution, i, j, matriz_distancias);
 
             if (solution.objective_function < best_value) {
