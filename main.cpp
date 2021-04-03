@@ -17,6 +17,7 @@
 #include "neighborhoods/neighborhood-generator.h"
 #include "neighborhoods/or-opt2.h"
 #include "data_structures/edge.h"
+#include "neighborhoods/2-optimal.h"
 
 using namespace std;
 
@@ -97,6 +98,7 @@ void execute_tests() {
     test_reinsert();
     test_neighborhood_generator();
     test_or_opt2();
+    test_two_optimal();
     test_heuristic();
 }
 

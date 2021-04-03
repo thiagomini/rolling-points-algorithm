@@ -31,6 +31,12 @@ std::vector<edge> extract_edges(Solution &solution);
  */
 bool edges_are_equal(edge edge_1, edge edge_2);
 
+/**
+ * Inverte o direcionamento da aresta, ou seja, o first_node passa a ser o second_node e vice-versa.
+ * @param edge
+ */
+void swap_edge(edge &edge);
+
 int test_edge();
 
 #endif //ALGORITMO_TCC_EDGE_H

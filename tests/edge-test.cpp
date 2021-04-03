@@ -86,12 +86,30 @@ int test_edges_are_equal_same_vertices() {
     return EXIT_SUCCESS;
 }
 
+int test_swap_edge() {
+    print_sub_test_begin("swap_edge", "Testando a inversao do direcionamento da aresta");
+
+    // Arrange
+    edge edge = {1, 2};
+
+    // Act
+    swap_edge(edge);
+
+    // Assert
+    assert(edge.first_node == 2);
+    assert(edge.second_node == 1);
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+}
+
 int test_edge() {
     print_test_begin("edge.cpp");
     test_extract_edges();
     test_edges_are_equal_same_edges();
     test_edges_are_equal_different_edges();
     test_edges_are_equal_same_vertices();
+    test_swap_edge();
     print_test_end("edge.cpp");
 
     return EXIT_SUCCESS;

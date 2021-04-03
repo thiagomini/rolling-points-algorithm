@@ -25,4 +25,6 @@ void two_optimal_move(Solution &solution, const int * distance_matrix);
 
 Solution two_optimal(Solution &solution, const int * distance_matrix);
 
+int test_two_optimal();
+
 #endif //ALGORITMO_TCC_2_OPTIMAL_H
