@@ -67,6 +67,34 @@ int test_clone_array_maintain_original() {
     return EXIT_SUCCESS;
 }
 
+int test_slice_array() {
+    print_sub_test_begin("slice", "Testando copia parcial de um vector");
+
+    vector<int> array = { 2, 4, 6, 8 };
+    vector<int> sliced_array = slice(array, 0, 1);
+
+    assert(sliced_array.size() == 2);
+    assert(sliced_array[0] == 2);
+    assert(sliced_array[1] == 4);
+
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+}
+
+int test_slice_array_single_element() {
+    print_sub_test_begin("slice", "Testando copia de apenas um elemento de um vector");
+
+    vector<int> array = { 2, 4, 6, 8 };
+    vector<int> sliced_array = slice(array, 0, 0);
+
+    assert(sliced_array.size() == 1);
+    assert(sliced_array[0] == 2);
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+}
+
 
 int test_array() {
     print_test_begin("array.cpp");
@@ -75,6 +103,8 @@ int test_array() {
     test_sum_array();
     test_clone_array();
     test_clone_array_maintain_original();
+    test_slice_array();
+    test_slice_array_single_element();
 
     print_test_end("array.cpp");
 

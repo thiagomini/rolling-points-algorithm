@@ -51,7 +51,7 @@ int test_rolling_points_heuristic() {
 int test_heuristic() {
     print_test_begin("heuristic.cpp");
     test_random_iterative_heuristic();
-    test_rolling_points_heuristic();
+//    test_rolling_points_heuristic();
     print_test_end("heuristic.cpp");
     return EXIT_SUCCESS;
 }

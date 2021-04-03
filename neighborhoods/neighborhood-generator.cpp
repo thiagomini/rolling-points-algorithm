@@ -5,6 +5,7 @@
 #include "neighborhood-generator.h"
 #include "reinsertion.h"
 #include "swap.h"
+#include "or-opt2.h"
 #include "../utils/randomizer.h"
 
 Solution generate_neighbor(Solution &solution, const int *distance_matrix, int neighborhood) {
@@ -18,6 +19,9 @@ Solution generate_neighbor(Solution &solution, const int *distance_matrix, int n
         case SWAP:
             swap(neighbor, distance_matrix);
             break;
+        case OR_OPT2:
+            or_switch(neighbor, distance_matrix);
+            break;
 
         default:
             throw "neighborhood invalido!";
@@ -27,7 +31,7 @@ Solution generate_neighbor(Solution &solution, const int *distance_matrix, int n
 }
 
 Solution generate_random_neighbor(Solution &solution, const int *distance_matrix) {
-    int random_neighorbood = RANDOM_BETWEEN(0, 1);
+    int random_neighorbood = RANDOM_BETWEEN(0, 2);
     Solution neighbor = generate_neighbor(solution, distance_matrix, random_neighorbood);
     return neighbor;
 }

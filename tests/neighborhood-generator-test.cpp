@@ -84,6 +84,48 @@ int test_generate_neighbor_reinsertion() {
     return EXIT_SUCCESS;
 }
 
+int test_generate_neighbor_or_opt2() {
+    print_sub_test_begin("generate_neighbor", "Testando a geracao de vizinho OR_OPT2");
+
+    // Arrange
+    const int distance_matrix[5][5] = {
+            {0, 59, 73, 30, 28},
+            {59, 0, 19, 45, 32},
+            {73, 19, 0, 69, 64},
+            {30, 45, 69, 0, 20},
+            {28, 32, 64, 20, 0},
+    };
+
+    Solution solution = {
+            .objective_function = 0,
+            .size_of_solution = 5,
+            .vertices = {0, 1, 2, 3, 4}
+    };
+
+    int objective_function = solution.objective_function;
+
+    // Act
+    Solution neighbor = generate_neighbor(solution, reinterpret_cast<const int *>(distance_matrix), OR_OPT2);
+
+    // Prepare-Response
+    bool same_order = neighbor.vertices[0] == 0 &&
+                      neighbor.vertices[1] == 1 &&
+                      neighbor.vertices[2] == 2 &&
+                      neighbor.vertices[3] == 3 &&
+                      neighbor.vertices[4] == 4;
+
+    bool same_objective_function = neighbor.objective_function == objective_function;
+
+    // Assert
+
+    assert(same_order == false);
+    assert(same_objective_function == false);
+    assert(neighbor.vertices[0] == 0);
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+}
+
 int test_generate_neighbor_error() {
     print_sub_test_begin("generate_neighbor", "Testando o caso de erro para vizinhanca que nao existe");
 
@@ -155,6 +197,7 @@ int test_neighborhood_generator() {
     print_test_begin("neighborhood-generator.cpp");
     test_generate_neighbor_swap();
     test_generate_neighbor_reinsertion();
+    test_generate_neighbor_or_opt2();
     test_generate_neighbor_error();
     test_generate_random_neighbor();
     print_test_end("neighborhood-generator.cpp");

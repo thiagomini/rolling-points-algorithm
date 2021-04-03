@@ -15,6 +15,7 @@
 
 #include "heuristic.h"
 #include "neighborhoods/neighborhood-generator.h"
+#include "neighborhoods/or-opt2.h"
 
 using namespace std;
 
@@ -54,9 +55,9 @@ void execute_random_heuristic(const char * file_path, size_t number_of_nodes);
 int main() {
     srand(time(NULL));
 
-//    execute_tests();
+    execute_tests();
 
-    execute_heuristic(ROLLING_POINTS_ALGORITHM, "../instances/st70.tsp", 70);
+//    execute_heuristic(ROLLING_POINTS_ALGORITHM, "../instances/st70.tsp", 70);
 //    calculate_time();
 
     return EXIT_SUCCESS;
@@ -93,6 +94,7 @@ void execute_tests() {
     test_swap();
     test_reinsert();
     test_neighborhood_generator();
+    test_or_opt2();
     test_heuristic();
 }
 
