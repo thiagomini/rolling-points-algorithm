@@ -4,6 +4,8 @@
 
 #include "2-optimal.h"
 #include "../data_structures/edge.h"
+#include "../utils/randomizer.h"
+#include <cstdlib>
 
 /**
  * Encontra a posição no vector de arestas que contenha o nó informado. Caso nenhuma aresta possua esse nó, a função
@@ -23,6 +25,9 @@ int find_edge_containing_node(const std::vector<edge>& edges, int node) {
 }
 
 void two_optimal_move(Solution &solution, const int * distance_matrix, size_t edge_1, size_t edge_2) {
+    if (abs(int(edge_1 - edge_2)) <= 1)
+        throw "Vertice escolhidos nao podem ser adjacentes";
+
     std::vector<edge> edges_of_solution = extract_edges(solution);
 
     // Define as arestas que serão removidas
@@ -73,4 +78,31 @@ void two_optimal_move(Solution &solution, const int * distance_matrix, size_t ed
     solution.vertices = new_solution_vertices;
     calculate_objective_function(&solution, distance_matrix);
 
+}
+
+void two_optimal_move(Solution &solution, const int * distance_matrix) {
+    size_t random_edge_1 = RANDOM_BETWEEN(1, solution.size_of_solution - 1);
+    size_t random_edge_2 = RANDOM_BETWEEN(1, solution.size_of_solution - 1);
+
+    while (random_edge_2 == random_edge_1 || (abs(int(random_edge_1 - random_edge_2)) <= 1)) {
+        random_edge_2 = RANDOM_BETWEEN(1, solution.size_of_solution - 1);
+    }
+
+    two_optimal_move(solution, distance_matrix, random_edge_1, random_edge_2);
+}
+
+Solution two_optimal(Solution &solution, const int * distance_matrix) {
+    int best_value = solution.objective_function;
+    Solution best_solution;
+
+    for (int i = 1; i < solution.size_of_solution - 1; i++) {
+        for (int j = i + 2; j < (solution.size_of_solution - 1); ++j) {
+            two_optimal_move(solution, distance_matrix, i, j);
+            if (solution.objective_function < best_value) {
+                clone_solution(solution, best_solution);
+            }
+        }
+    }
+
+    return best_solution;
 }

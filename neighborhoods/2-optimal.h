@@ -21,8 +21,19 @@
  */
 void two_optimal_move(Solution &solution, const int * distance_matrix, size_t edge_1, size_t edge_2);
 
+/**
+ * Realiza o movimento 2-Optimal em uma solução utilizando arestas aleatórias
+ * @param solution - Ponteiro para a Solução
+ * @param distance_matrix - Ponteiro para a matriz de distâncias.
+ */
 void two_optimal_move(Solution &solution, const int * distance_matrix);
 
+/**
+ * Realiza a busca local 2-Optimal, retornando a solução com a melhor FO
+ * @param solution - Ponteiro para a Solução
+ * @param distance_matrix -  Ponteiro para a matriz de distâncias.
+ * @return A solução com melhor FO
+ */
 Solution two_optimal(Solution &solution, const int * distance_matrix);
 
 int test_two_optimal();
