@@ -7,6 +7,7 @@
 #include "swap.h"
 #include "or-opt2.h"
 #include "../utils/randomizer.h"
+#include "2-optimal.h"
 
 Solution generate_neighbor(Solution &solution, const int *distance_matrix, int neighborhood) {
     Solution neighbor;
@@ -23,6 +24,10 @@ Solution generate_neighbor(Solution &solution, const int *distance_matrix, int n
             or_switch(neighbor, distance_matrix);
             break;
 
+        case TWO_OPTIMAL:
+            two_optimal_move(neighbor, distance_matrix);
+            break;
+
         default:
             throw "neighborhood invalido!";
     }
@@ -31,7 +36,7 @@ Solution generate_neighbor(Solution &solution, const int *distance_matrix, int n
 }
 
 Solution generate_random_neighbor(Solution &solution, const int *distance_matrix) {
-    int random_neighorbood = RANDOM_BETWEEN(0, 2);
+    int random_neighorbood = RANDOM_BETWEEN(0, 3);
     Solution neighbor = generate_neighbor(solution, distance_matrix, random_neighorbood);
     return neighbor;
 }
