@@ -75,6 +75,7 @@ Solution rolling_points_heuristic(const int *distance_matrix, size_t number_of_v
     best_solution = swap_opt(best_solution, distance_matrix);
     best_solution = reinsert_opt(best_solution, distance_matrix);
     best_solution = or_opt_n(best_solution, distance_matrix);
+    best_solution = or_opt_n(best_solution, distance_matrix, 3);
     best_solution = two_optimal(best_solution, distance_matrix);
 
     #ifdef VERBOSE
