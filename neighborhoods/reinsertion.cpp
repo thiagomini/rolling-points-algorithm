@@ -35,18 +35,27 @@ void reinsert(Solution &solucao, const int * matriz_distancias) {
     reinsert(solucao, random_index_1, random_index_2, matriz_distancias);
 }
 
-Solution reinsert_opt(Solution solucao, const int * matriz_distancias) {
-    int best_value = solucao.objective_function;
+Solution build_reinsert(Solution solucao, size_t posicao_1, size_t posicao_2, const int * matriz_distancias) {
+    reinsert(solucao, posicao_1, posicao_2, matriz_distancias);
+    return solucao;
+}
 
-    Solution best_solution;
+Solution build_reinsert(Solution solucao, const int * matriz_distancias) {
+    reinsert(solucao, matriz_distancias);
+    return solucao;
+}
+
+Solution reinsert_opt(Solution solucao, const int * matriz_distancias) {
+    Solution best_solution, new_solution;
+    clone_solution(solucao, best_solution);
+    clone_solution(solucao, new_solution);
 
     for (int i = 1; i < solucao.size_of_solution - 1; i++) {
         for (int j = i + 1; j < solucao.size_of_solution; j++) {
-            reinsert(solucao, i, j, matriz_distancias);
+            new_solution = build_reinsert(solucao, i, j, matriz_distancias);
 
-            if (solucao.objective_function < best_value) {
-                best_value = solucao.objective_function;
-                clone_solution(solucao, best_solution);
+            if (new_solution.objective_function < best_solution.objective_function) {
+                clone_solution(new_solution, best_solution);
             }
         }
     }

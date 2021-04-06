@@ -201,27 +201,31 @@ int test_generate_random_neighbor() {
     print_sub_test_begin("generate_random_neighbor", "Testando a geracao de vizinho ALEATORIO");
 
     // Arrange
-    int distance_matrix[3][3] = {
-            {0, 59, 73},
-            {59, 0, 19},
-            {73, 19, 0}
+    const int distance_matrix[5][5] = {
+            {0, 59, 73, 30, 28},
+            {59, 0, 19, 45, 32},
+            {73, 19, 0, 69, 64},
+            {30, 45, 69, 0, 20},
+            {28, 32, 64, 20, 0},
     };
-
-    int objective_function = CLASSICAL_PROBLEM ? 137 : 288;
 
     Solution solution = {
-            objective_function,
-            3,
-            {0, 1, 2}
+            .objective_function = 0,
+            .size_of_solution = 5,
+            .vertices = {0, 1, 2, 3, 4}
     };
 
+    int objective_function = solution.objective_function;
+
     // Act
-    Solution neighbor = generate_random_neighbor(solution, reinterpret_cast<int *>(distance_matrix));
+    Solution neighbor = generate_random_neighbor(solution, reinterpret_cast<const int *>(distance_matrix));
 
     // Prepare-Response
     bool same_order = neighbor.vertices[0] == 0 &&
                       neighbor.vertices[1] == 1 &&
-                      neighbor.vertices[2] == 2;
+                      neighbor.vertices[2] == 2 &&
+                      neighbor.vertices[3] == 3 &&
+                      neighbor.vertices[4] == 4;
 
     bool same_objective_function = neighbor.objective_function == objective_function;
 

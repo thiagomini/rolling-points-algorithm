@@ -24,18 +24,27 @@ void swap(Solution  &solucao, size_t posicao_1, size_t posicao_2, const int * ma
     calculate_objective_function(&solucao, matriz_distancias);
 }
 
-Solution swap_opt(Solution solucao, const int * matriz_distancias) {
-    int best_value = solucao.objective_function;
+Solution build_swap(Solution solution, size_t posicao_1, size_t posicao_2, const int * matriz_distancias) {
+    swap(solution, posicao_1, posicao_2, matriz_distancias);
+    return solution;
+}
 
-    Solution best_solution;
+Solution build_swap(Solution solution, const int * matriz_distancias) {
+    swap(solution, matriz_distancias);
+    return solution;
+}
+
+Solution swap_opt(Solution solucao, const int * matriz_distancias) {
+
+    Solution best_solution, new_solution;
+    clone_solution(solucao, best_solution);
+    clone_solution(solucao, new_solution);
 
     for (int i = 1; i < solucao.size_of_solution - 1; i++) {
         for (int j = i + 1; j < solucao.size_of_solution; j++) {
-            swap(solucao, i, j, matriz_distancias);
-
-            if (solucao.objective_function < best_value) {
-                best_value = solucao.objective_function;
-                clone_solution(solucao, best_solution);
+            new_solution = build_swap(solucao, i, j, matriz_distancias);
+            if (new_solution.objective_function < best_solution.objective_function) {
+                clone_solution(new_solution, best_solution);
             }
         }
     }

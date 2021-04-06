@@ -91,15 +91,27 @@ void two_optimal_move(Solution &solution, const int * distance_matrix) {
     two_optimal_move(solution, distance_matrix, random_edge_1, random_edge_2);
 }
 
+Solution build_two_optimal(Solution solution, const int * distance_matrix, size_t edge_1, size_t edge_2) {
+    two_optimal_move(solution, distance_matrix, edge_1, edge_2);
+    return solution;
+}
+
+Solution build_two_optimal(Solution solution, const int * distance_matrix) {
+    two_optimal_move(solution, distance_matrix);
+    return solution;
+}
+
 Solution two_optimal(Solution &solution, const int * distance_matrix) {
-    int best_value = solution.objective_function;
-    Solution best_solution;
+
+    Solution best_solution, new_solution;
+    clone_solution(solution, best_solution);
+    clone_solution(solution, new_solution);
 
     for (int i = 1; i < solution.size_of_solution - 1; i++) {
         for (int j = i + 2; j < (solution.size_of_solution - 1); ++j) {
-            two_optimal_move(solution, distance_matrix, i, j);
-            if (solution.objective_function < best_value) {
-                clone_solution(solution, best_solution);
+            new_solution = build_two_optimal(solution, distance_matrix, i, j);
+            if (new_solution.objective_function < best_solution.objective_function) {
+                clone_solution(new_solution, best_solution);
             }
         }
     }

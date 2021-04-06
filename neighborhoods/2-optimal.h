@@ -36,6 +36,24 @@ void two_optimal_move(Solution &solution, const int * distance_matrix);
  */
 Solution two_optimal(Solution &solution, const int * distance_matrix);
 
+/**
+ * Constrói e retorna uma solução vizinha aplicando o movimento 2-optimal em posições definidas
+ * @param solution - Ponteiro para a Solução
+ * @param distance_matrix - Ponteiro para a matriz de distâncias.
+ * @param edge_1 - Primeira aresta do grafo.
+ * @param edge_2 - Segunda aresta do grafo.
+ * @return Uma solução vizinha construída com o movimento 2-optimal
+ */
+Solution build_two_optimal(Solution solution, const int * distance_matrix, size_t edge_1, size_t edge_2);
+
+/**
+ * Constrói e retorna uma solução vizinha aplicando o movimento 2-optimal em posições aleatórias
+ * @param solution - Ponteiro para a Solução
+ * @param distance_matrix - Ponteiro para a matriz de distâncias.
+ * @return Uma solução vizinha construída com o movimento 2-optimal
+ */
+Solution build_two_optimal(Solution solution, const int * distance_matrix);
+
 int test_two_optimal();
 
 #endif //ALGORITMO_TCC_2_OPTIMAL_H

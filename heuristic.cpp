@@ -11,6 +11,8 @@
 #include "neighborhoods/neighborhood-generator.h"
 #include "neighborhoods/swap.h"
 #include "neighborhoods/reinsertion.h"
+#include "neighborhoods/or-opt2.h"
+#include "neighborhoods/2-optimal.h"
 
 Solution random_iterative_heuristic(int * distance_matrix, size_t number_of_vertices) {
     int epoch = 0;
@@ -53,7 +55,13 @@ Solution rolling_points_heuristic(const int *distance_matrix, size_t number_of_v
     // Busca Local Simples
     Solution neighbor;
     for (int i = 0; i < population; i++) {
-        neighbor = generate_random_neighbor(solucoes[i], distance_matrix);
+        try {
+            neighbor = generate_random_neighbor(solucoes[i], distance_matrix);
+        } catch (const char * error) {
+            cerr << error << endl;
+            exit(EXIT_FAILURE);
+        }
+
         if (compare(solucoes[i], neighbor) > 0) {
             solucoes[i] = neighbor;
         }
@@ -66,6 +74,8 @@ Solution rolling_points_heuristic(const int *distance_matrix, size_t number_of_v
     // Busca local profunda
     best_solution = swap_opt(best_solution, distance_matrix);
     best_solution = reinsert_opt(best_solution, distance_matrix);
+    best_solution = or_opt2(best_solution, distance_matrix);
+    best_solution = two_optimal(best_solution, distance_matrix);
 
     #ifdef VERBOSE
         cout << "Melhor Solucao Encontrada: " << endl;

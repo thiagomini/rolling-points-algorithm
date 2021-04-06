@@ -16,12 +16,32 @@ void reinsert(Solution &solucao, const int * matriz_distancias);
 
 /**
  * Reinsere um nó da solução um outra posição da solução, reajustando os demais nós "para trás"
- * @param solucao Ponteiro para a solução que deseja realizar o swap_opt
+ * @param solucao Ponteiro para a solução que deseja realizar o reinsertion
  * @param posicao_1 Posição do vértice que será reinserido
  * @param posicao_2 Posição que o vértice escolhido será inserido
- * @param matriz_distancias
+ * @param matriz_distancias A matriz de distâncias do problema, usada para calcular a nova FO da solução
  */
 void reinsert(Solution &solucao, size_t posicao_1, size_t posicao_2, const int * matriz_distancias);
+
+/**
+ * Constrói e retorna uma solução vizinha aplicando o movimento reinsertion em posições definidas
+ * @param solucao Ponteiro para a solução que deseja realizar o reinsertion
+ * @param posicao_1 Posição do vértice que será reinserido
+ * @param posicao_2 Posição que o vértice escolhido será inserido
+ * @param matriz_distancias A matriz de distâncias do problema, usada para calcular a nova FO da solução
+ * @return Uma solução vizinha construída com o movimento reinsertion
+ */
+Solution build_reinsert(Solution solucao, size_t posicao_1, size_t posicao_2, const int * matriz_distancias);
+
+/**
+ * Constrói e retorna uma solução vizinha aplicando o movimento reinsertion em posições aleatórias
+ * @param solucao Ponteiro para a solução que deseja realizar o reinsertion
+ * @param posicao_1 Posição do vértice que será reinserido
+ * @param posicao_2 Posição que o vértice escolhido será inserido
+ * @param matriz_distancias A matriz de distâncias do problema, usada para calcular a nova FO da solução
+ * @return Uma solução vizinha, construída com o movimento reinsertion
+ */
+Solution build_reinsert(Solution solucao, const int * matriz_distancias);
 
 /**
  * Calcula a melhor solução após realizar a reinserção de um nó em todas as demais posições

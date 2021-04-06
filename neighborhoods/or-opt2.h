@@ -24,17 +24,36 @@ void or_switch(Solution &solution, size_t vertex_1, size_t new_position, const i
  * @param vertex_1 - Posição do primeiro vértice que será utilizado no movimento. O vértice adjacente será considerado
  * o vértice logo a seguir na solução. Caso o vértice indicado aqui seja o último do ciclo, antes do V0, o V0 será considerado
  * seu adjacente.
- * @param matriz_distancias
+ * @param matriz_distancias - A nova posição onde o par de vértices adjacente será realocado
  */
 void or_switch(Solution &solution, const int * matriz_distancias);
 
 /**
  * Realiza uma busca local do tipo Or-Opt2 considerando todas as trocas adjacentes possíveis
- * @param solution Ponteiro para a solução que será utilizada para o movimento
- * @param matriz_distancias
+ * @param solution - Ponteiro para a solução que será utilizada para o movimento
+ * @param matriz_distancias - A nova posição onde o par de vértices adjacente será realocado
  * @return Melhor Solução encontrada pelo movimento de vizinhança
  */
 Solution or_opt2(Solution &solution, const int * matriz_distancias);
+
+/**
+ * Constrói e retorna uma solução vizinha aplicando o movimento or-opt2 em posições escolhidas
+ * @param solution - Ponteiro para a solução que será utilizada para o movimento
+ * @param vertex_1 Posição do primeiro vértice que será utilizado no movimento. O vértice adjacente será considerado
+ * @param new_position A nova posição onde o par de vértices adjacente será realocado
+ * @param matriz_distancias - A nova posição onde o par de vértices adjacente será realocado
+ * @return
+ */
+Solution build_or_opt2(Solution solution, size_t vertex_1, size_t new_position, const int * matriz_distancias);
+
+
+/**
+ * Constrói e retorna uma solução vizinha aplicando o movimento or-opt2 em posições aleatórias
+ * @param solution - Ponteiro para a solução que será utilizada para o movimento
+ * @param matriz_distancias - A nova posição onde o par de vértices adjacente será realocado
+ * @return
+ */
+Solution build_or_opt2(Solution solution, const int * matriz_distancias);
 
 int test_or_opt2();
 

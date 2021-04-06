@@ -44,18 +44,28 @@ void or_switch(Solution &solution, const int * matriz_distancias) {
     or_switch(solution, random_vertex, random_new_position, matriz_distancias);
 }
 
-Solution or_opt2(Solution &solution, const int * matriz_distancias) {
-    int best_value = solution.objective_function;
+Solution build_or_opt2(Solution solution, size_t vertex_1, size_t new_position, const int * matriz_distancias) {
+    or_switch(solution, vertex_1, new_position, matriz_distancias);
+    return solution;
+}
 
-    Solution best_solution;
+Solution build_or_opt2(Solution solution, const int * matriz_distancias) {
+    or_switch(solution, matriz_distancias);
+    return solution;
+}
+
+Solution or_opt2(Solution &solution, const int * matriz_distancias) {
+
+    Solution best_solution, new_solution;
+    clone_solution(solution, best_solution);
+    clone_solution(solution, new_solution);
 
     for (int i = 1; i < solution.size_of_solution - 2; i++) {
         for (int j = i + 1; j < solution.size_of_solution - 1; j++) {
-            or_switch(solution, i, j, matriz_distancias);
+            new_solution = build_or_opt2(solution, i, j, matriz_distancias);
 
-            if (solution.objective_function < best_value) {
-                best_value = solution.objective_function;
-                clone_solution(solution, best_solution);
+            if (new_solution.objective_function < best_solution.objective_function) {
+                clone_solution(new_solution, best_solution);
             }
         }
     }

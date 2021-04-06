@@ -24,6 +24,26 @@ void swap(Solution  &solucao, const int * matriz_distancias);
 void swap(Solution  &solucao, size_t posicao_1, size_t posicao_2, const int * matriz_distancias);
 
 /**
+ * Constrói e retorna uma solução vizinha aplicando o movimento swap em posições definidas
+ * @param solution
+ * @param posicao_1 Posição do primeiro vértice para realizar a troca
+ * @param posicao_2 Posição do segundo vértice para realizar a troca
+ * @param matriz_distancias A matriz de distâncias do problema, usada para calcular a novo FO da solução
+ * @return Uma solução vizinha, construída com o movimento swap
+ */
+Solution build_swap(Solution solution, size_t posicao_1, size_t posicao_2, const int * matriz_distancias);
+
+/**
+ * Constrói e retorna uma solução vizinha aplicando o movimento swap em posições aleatórias
+ * @param solution Ponteiro para a solução que se deseja realizar o movimento SWAP
+ * @param posicao_1 Posição do primeiro vértice para realizar a troca
+ * @param posicao_2 Posição do segundo vértice para realizar a troca
+ * @param matriz_distancias A matriz de distâncias do problema, usada para calcular a novo FO da solução
+ * @return Uma solução vizinha, construída com o movimento swap
+ */
+Solution build_swap(Solution solution, const int * matriz_distancias);
+
+/**
  * Calcula a melhor solução após realizar todas as possíveis trocas swap entre os pares da solução.
  * @param solucao Solução que deseja realizar o swap_opt
  * @param matriz_distancias A matriz de distâncias do problema, usada para calcular a nova FO da solução
