@@ -15,7 +15,7 @@
 
 #include "heuristic.h"
 #include "neighborhoods/neighborhood-generator.h"
-#include "neighborhoods/or-opt2.h"
+#include "neighborhoods/or-opt.h"
 #include "data_structures/edge.h"
 #include "neighborhoods/2-optimal.h"
 
@@ -57,9 +57,9 @@ void execute_random_heuristic(const char * file_path, size_t number_of_nodes);
 int main() {
     srand(time(NULL));
 
-//    execute_tests();
+    execute_tests();
 
-    execute_heuristic(ROLLING_POINTS_ALGORITHM, "../instances/st70.tsp", 70);
+//    execute_heuristic(ROLLING_POINTS_ALGORITHM, "../instances/st70.tsp", 70);
 //    calculate_time();
 
     return EXIT_SUCCESS;
@@ -96,9 +96,9 @@ void execute_tests() {
     test_constructive_heuristic();
     test_swap();
     test_reinsert();
-    test_neighborhood_generator();
-    test_or_opt2();
+    test_or_opt();
     test_two_optimal();
+    test_neighborhood_generator();
     test_heuristic();
 }
 
@@ -113,7 +113,7 @@ void execute_heuristic(int heuristic, const char * file_path, size_t number_of_n
             break;
 
         default:
-            throw "Algoritmo nao registrado!";
+            cerr << "Algoritmo " << heuristic << " nao registrado!";
     }
 }
 

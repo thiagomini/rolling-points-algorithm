@@ -3,7 +3,7 @@
 //
 
 #include <cassert>
-#include "../neighborhoods/or-opt2.h"
+#include "../neighborhoods/or-opt.h"
 #include "test-logger.h"
 #include "../utils/string-utils.h"
 
@@ -450,6 +450,126 @@ int test_or_switch_same_position() {
     throw "Erro: teste nao lancou excecao como esperado!";
 }
 
+/**
+ * Caso 12<br>
+ * vertices: [0, 1, 2, 3, 4]<br>
+ * vertices escolhidos: 1, 2, 3<br>
+ * nova posicao: 2<br>
+ * resultado esperado: [0, 4, 1, 2, 3]
+ * @return
+ */
+int test_or_switch_3() {
+    print_sub_test_begin("or_switch", "Testando o movimento Or-Opt3 para tres vertices do meio");
+
+    // Arrange
+    const int distance_matrix[5][5] = {
+            {0, 59, 73, 30, 28},
+            {59, 0, 19, 45, 32},
+            {73, 19, 0, 69, 64},
+            {30, 45, 69, 0, 20},
+            {28, 32, 64, 20, 0},
+    };
+
+    Solution solution = {
+            .objective_function = 0,
+            .size_of_solution = 5,
+            .vertices = {0, 1, 2, 3, 4}
+    };
+
+    // Act
+    or_switch(solution, 1, 2, reinterpret_cast<const int *>(distance_matrix), 3);
+
+
+    // Assert
+    assert(solution.vertices.at(0) == 0);
+    assert(solution.vertices.at(1) == 4);
+    assert(solution.vertices.at(2) == 1);
+    assert(solution.vertices.at(3) == 2);
+    assert(solution.vertices.at(4) == 3);
+
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+
+}
+
+/**
+ * Caso 13 - Erro, não é possível inserir os vértices em uma posição maior que o tamanho do array<br>
+ * vertices: [0, 1, 2, 3]<br>
+ * vertices escolhidos: 1, 2, 3<br>
+ * nova posicao: 4<br>
+ * resultado esperado: Erro
+ * @return
+ */
+int test_or_switch_3_invalid_greater_index() {
+    print_sub_test_begin("or_switch", "Testando o movimento Or-Opt3 com a nova posicao maior que o limite");
+
+    // Arrange
+    const int distance_matrix[4][4] = {
+            {0, 59, 73, 30},
+            {59, 0, 19, 45},
+            {73, 19, 0, 69},
+            {30, 45, 69, 0},
+    };
+
+    Solution solution = {
+            .objective_function = 0,
+            .size_of_solution = 4,
+            .vertices = {0, 1, 2, 3}
+    };
+
+    // Act
+    try {
+        or_switch(solution, 1, 4, reinterpret_cast<const int *>(distance_matrix), 3);
+    } catch (const char * error) {
+        // Assert
+        assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
+        print_sub_test_end();
+        return EXIT_SUCCESS;
+    }
+
+    throw "Erro: teste nao lancou excecao como esperado!";
+}
+
+/**
+ * Caso 14 - Não deve ser possível mover três vértices adjacentes para a penúltima posição do vetor<br>
+ * vertices: [0, 1, 2, 3, 4]<br>
+ * vertices escolhidos: 1, 2, 3<br>
+ * nova posicao: 3
+ * resultado esperado: Erro, posição inválida
+ * @return
+ */
+int test_or_switch_3_last_index() {
+    print_sub_test_begin("or_switch", "Testando o movimento Or-Opt2 movendo para ultima posicao");
+
+    // Arrange
+    const int distance_matrix[5][5] = {
+            {0, 59, 73, 30, 28},
+            {59, 0, 19, 45, 32},
+            {73, 19, 0, 69, 64},
+            {30, 45, 69, 0, 20},
+            {28, 32, 64, 20, 0},
+    };
+
+    Solution solution = {
+            .objective_function = 0,
+            .size_of_solution = 5,
+            .vertices = {0, 1, 2, 3, 4}
+    };
+
+    // Act
+    try {
+        or_switch(solution, 1, 3, reinterpret_cast<const int *>(distance_matrix), 3);
+    } catch (const char * error) {
+        // Assert
+        assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
+        print_sub_test_end();
+        return EXIT_SUCCESS;
+    }
+
+    throw "Erro: teste nao lancou excecao como esperado!";
+}
+
 int test_or_switch_random_positions() {
     print_sub_test_begin("or_switch", "Testando o movimento Or-Opt2 com posicoes aleatorias");
 
@@ -489,7 +609,7 @@ int test_or_switch_random_positions() {
 }
 
 int test_or_opt2_local_search() {
-    print_sub_test_begin("or_opt2", "Testando a busca local Or-Opt2");
+    print_sub_test_begin("or_opt_n", "Testando a busca local Or-Opt2");
     // Arrange
     const int distance_matrix[4][4] = {
             {0, 59, 73, 30},
@@ -507,7 +627,7 @@ int test_or_opt2_local_search() {
     int best_fo = CLASSICAL_PROBLEM ? 199 : 366;
 
     // Act
-    Solution best_solution = or_opt2(solution, reinterpret_cast<const int *>(distance_matrix));
+    Solution best_solution = or_opt_n(solution, reinterpret_cast<const int *>(distance_matrix));
 
     // Assert
     assert(best_solution.vertices[0] == 0);
@@ -517,7 +637,41 @@ int test_or_opt2_local_search() {
     return EXIT_SUCCESS;
 }
 
-int test_or_opt2() {
+int test_or_opt3_local_search() {
+    print_sub_test_begin("or_opt_n", "Testando a busca local Or-Opt3");
+    // Arrange
+    // Arrange
+    const int distance_matrix[6][6] = {
+            {0, 59, 73, 30, 28, 61},
+            {59, 0, 19, 45, 32, 42},
+            {73, 19, 0, 69, 64, 24},
+            {30, 45, 69, 0, 20, 39},
+            {28, 32, 64, 20, 0, 87},
+            {61, 42, 24, 39, 87, 0},
+    };
+
+    Solution solution = {
+            .size_of_solution = 6,
+            .vertices = {0, 1, 2, 3, 4, 5}
+    };
+
+    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix));
+
+    int first_fo = solution.objective_function;
+
+    // Act
+    Solution best_solution = or_opt_n(solution, reinterpret_cast<const int *>(distance_matrix), 3);
+
+    // Assert
+    assert(best_solution.vertices[0] == 0);
+    assert(best_solution.objective_function < first_fo);
+
+    print_sub_test_end();
+    return EXIT_SUCCESS;
+}
+
+
+int test_or_opt() {
     print_test_begin("or-opt2.cpp");
     test_or_switch();
     test_or_switch_before();
@@ -532,6 +686,10 @@ int test_or_opt2() {
     test_or_switch_same_position();
     test_or_switch_random_positions();
     test_or_opt2_local_search();
+    test_or_switch_3();
+    test_or_switch_3_invalid_greater_index();
+    test_or_switch_3_last_index();
+    test_or_opt3_local_search();
     print_test_end("or-opt2.cpp");
     return EXIT_SUCCESS;
 }

@@ -11,7 +11,7 @@
 #include "neighborhoods/neighborhood-generator.h"
 #include "neighborhoods/swap.h"
 #include "neighborhoods/reinsertion.h"
-#include "neighborhoods/or-opt2.h"
+#include "neighborhoods/or-opt.h"
 #include "neighborhoods/2-optimal.h"
 
 Solution random_iterative_heuristic(int * distance_matrix, size_t number_of_vertices) {
@@ -74,7 +74,7 @@ Solution rolling_points_heuristic(const int *distance_matrix, size_t number_of_v
     // Busca local profunda
     best_solution = swap_opt(best_solution, distance_matrix);
     best_solution = reinsert_opt(best_solution, distance_matrix);
-    best_solution = or_opt2(best_solution, distance_matrix);
+    best_solution = or_opt_n(best_solution, distance_matrix);
     best_solution = two_optimal(best_solution, distance_matrix);
 
     #ifdef VERBOSE

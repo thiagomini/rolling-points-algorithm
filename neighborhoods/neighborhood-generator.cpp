@@ -5,7 +5,7 @@
 #include "neighborhood-generator.h"
 #include "reinsertion.h"
 #include "swap.h"
-#include "or-opt2.h"
+#include "or-opt.h"
 #include "../utils/randomizer.h"
 #include "2-optimal.h"
 
