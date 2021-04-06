@@ -21,7 +21,11 @@ Solution generate_neighbor(Solution &solution, const int *distance_matrix, int n
             swap(neighbor, distance_matrix);
             break;
         case OR_OPT2:
-            or_switch(neighbor, distance_matrix);
+            or_switch(neighbor, distance_matrix, 2);
+            break;
+
+        case OR_OPT3:
+            or_switch(neighbor, distance_matrix, 3);
             break;
 
         case TWO_OPTIMAL:
@@ -36,7 +40,7 @@ Solution generate_neighbor(Solution &solution, const int *distance_matrix, int n
 }
 
 Solution generate_random_neighbor(Solution &solution, const int *distance_matrix) {
-    int random_neighorbood = RANDOM_BETWEEN(0, 3);
+    int random_neighorbood = RANDOM_BETWEEN(0, 4);
     Solution neighbor = generate_neighbor(solution, distance_matrix, random_neighorbood);
     return neighbor;
 }

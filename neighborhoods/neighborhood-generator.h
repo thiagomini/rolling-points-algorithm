@@ -8,7 +8,8 @@
 #define REINSERTION 0
 #define SWAP 1
 #define OR_OPT2 2
-#define TWO_OPTIMAL 3
+#define OR_OPT3 3
+#define TWO_OPTIMAL 4
 
 #include "../data_structures/solution.h"
 

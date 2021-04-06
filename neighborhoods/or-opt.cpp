@@ -38,11 +38,11 @@ void or_switch(Solution &solution, size_t vertex_1, size_t new_position, const i
 }
 
 void or_switch(Solution &solution, const int * matriz_distancias, int n) {
-    size_t random_vertex = RANDOM_BETWEEN(1, solution.size_of_solution - 2);
-    size_t random_new_position = RANDOM_BETWEEN(1, solution.size_of_solution - 2);
+    size_t random_vertex = RANDOM_BETWEEN(1, solution.size_of_solution - n);
+    size_t random_new_position = RANDOM_BETWEEN(1, solution.size_of_solution - n);
 
     while (random_new_position == random_vertex) {
-        random_new_position = RANDOM_BETWEEN(1, solution.size_of_solution - 2);
+        random_new_position = RANDOM_BETWEEN(1, solution.size_of_solution - n);
     }
 
     or_switch(solution, random_vertex, random_new_position, matriz_distancias, n);
