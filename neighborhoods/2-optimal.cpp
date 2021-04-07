@@ -15,7 +15,8 @@
  * @return O índice do vector que contém o nó informado, ou <b>-1</b> caso não encontre
  */
 int find_edge_containing_node(const std::vector<edge>& edges, int node) {
-    for (int i = 0; i < edges.size(); i++) {
+    int max_iterations = (int) edges.size();
+    for (int i = 0; i < max_iterations; i++) {
         if (edges.at(i).first_node == node ||
             edges.at(i).second_node == node)
             return i;
@@ -53,12 +54,14 @@ void two_optimal_move(Solution &solution, const int * distance_matrix, size_t ed
     new_solution_vertices.push_back(0);
 
     int index_of_array = 0,
-    max_iterations = edges_of_solution.size();
+    max_iterations = (int) edges_of_solution.size();
     edge next_selected_edge;
 
     // Monta o novo vetor de vértices da solução de acordo com as arestas
     for (int i = 0; i < max_iterations; i++) {
         next_selected_edge = edges_of_solution.at(index_of_array);
+
+        if (next_selected_edge.second_node == 0) break;
 
         // Caso a próxima aresta não possua o first_node = ao último vértice adicionado na lista de vértices,
         // é necessário trocar a posição dos nós dessa aresta
@@ -72,6 +75,10 @@ void two_optimal_move(Solution &solution, const int * distance_matrix, size_t ed
 
         edges_of_solution.erase(edges_of_solution.begin() + index_of_array);
         index_of_array = find_edge_containing_node(edges_of_solution, next_selected_edge.second_node);
+        if (index_of_array == -1) {
+            cerr << "[two_optimal_move] Erro: nao foi encontrada nenhuma aresta do grafo contendo o no " << next_selected_edge.second_node << endl;
+            throw "Erro";
+        }
     }
 
     new_solution_vertices.pop_back(); // Remove o vértice "0" do final do vetor de vértices
@@ -102,13 +109,13 @@ Solution build_two_optimal(Solution solution, const int * distance_matrix) {
 }
 
 Solution two_optimal(Solution &solution, const int * distance_matrix) {
-
+    cout << "[two_optimal] Realizando Busca Local 2-Optimal..." << endl;
     Solution best_solution, new_solution;
     clone_solution(solution, best_solution);
     clone_solution(solution, new_solution);
-
-    for (int i = 1; i < solution.size_of_solution - 1; i++) {
-        for (int j = i + 2; j < (solution.size_of_solution - 1); ++j) {
+    int size_of_solution = (int) solution.size_of_solution;
+    for (int i = 1; i < size_of_solution - 1; i++) {
+        for (int j = i + 2; j < size_of_solution - 1; ++j) {
             new_solution = build_two_optimal(solution, distance_matrix, i, j);
             if (new_solution.objective_function < best_solution.objective_function) {
                 clone_solution(new_solution, best_solution);

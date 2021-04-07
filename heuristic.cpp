@@ -47,11 +47,18 @@ Solution rolling_points_heuristic(const int *distance_matrix, size_t number_of_v
     solucoes[0] = build_random_solution(number_of_vertices, distance_matrix);
     Solution best_solution;
 
+    #ifdef VERBOSE
+        cout << "[rolling_points_heuristic] Construindo Solucoes Aleatorias..." << endl;
+    #endif
+
     // Fase Exploratória
     for (int i = 1; i < population; i++) {
         solucoes[i] = build_random_solution(number_of_vertices, distance_matrix);
     }
 
+    #ifdef VERBOSE
+        cout << "[rolling_points_heuristic] Buscando Vizinhancas..." << endl;
+    #endif
     // Busca Local Simples
     Solution neighbor;
     for (int i = 0; i < population; i++) {
@@ -63,14 +70,36 @@ Solution rolling_points_heuristic(const int *distance_matrix, size_t number_of_v
         }
 
         if (compare(solucoes[i], neighbor) > 0) {
-            solucoes[i] = neighbor;
+            clone_solution(neighbor, solucoes[i]);
         }
     }
 
+    #ifdef VERBOSE
+        cout << "[rolling_points_heuristic] Ordenando as solucoes encontradas..." << endl;
+    #endif
     // Busca a melhor solução
     qsort(solucoes, population, sizeof(Solution), reinterpret_cast<int (*)(const void *, const void *)>(compare));
     clone_solution(solucoes[0], best_solution);
 
+
+    Solution variable_neighbor;
+    // RVND
+    for (int i = 0; i < 10000; i++) {
+        try {
+            variable_neighbor = generate_random_neighbor(best_solution, distance_matrix);
+        } catch (const char * error) {
+            cerr << error << endl;
+            exit(EXIT_FAILURE);
+        }
+
+        if (compare(best_solution, neighbor) > 0) {
+            clone_solution(variable_neighbor, best_solution);
+        }
+    }
+
+    #ifdef VERBOSE
+        cout << "[rolling_points_heuristic] Realizando busca local profunda..." << endl;
+    #endif
     // Busca local profunda
     best_solution = swap_opt(best_solution, distance_matrix);
     best_solution = reinsert_opt(best_solution, distance_matrix);

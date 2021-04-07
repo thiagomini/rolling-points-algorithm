@@ -59,7 +59,7 @@ Solution build_or_opt_n(Solution solution, const int * matriz_distancias, int n)
 }
 
 Solution or_opt_n(Solution &solution, const int * matriz_distancias, int n) {
-
+    cout << "[or_opt_n] Realizando Busca Local or_opt" << n << "..." << endl;
     Solution best_solution, new_solution;
     clone_solution(solution, best_solution);
     clone_solution(solution, new_solution);

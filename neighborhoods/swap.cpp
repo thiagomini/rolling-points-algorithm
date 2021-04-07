@@ -35,7 +35,9 @@ Solution build_swap(Solution solution, const int * matriz_distancias) {
 }
 
 Solution swap_opt(Solution solucao, const int * matriz_distancias) {
-
+    #ifdef VERBOSE
+        cout << "[swap_opt] Realizando Busca Local swap..." << endl;
+    #endif
     Solution best_solution, new_solution;
     clone_solution(solucao, best_solution);
     clone_solution(solucao, new_solution);

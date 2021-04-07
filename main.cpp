@@ -128,8 +128,16 @@ void execute_rolling_points(const char * file_path, size_t number_of_nodes, size
             calculated_distance_matrix[i][j] = distance_matrix_pointer[i][j];
         }
     }
+    clock_t begin, end;
+    double time_spent;
+    begin = clock();
 
-    rolling_points_heuristic(reinterpret_cast<const int *>(calculated_distance_matrix), number_of_nodes, population);
+    Solution best_solution = rolling_points_heuristic(reinterpret_cast<const int *>(calculated_distance_matrix), number_of_nodes, population);
+    print_solution(&best_solution);
+
+    end = clock() - begin;
+    time_spent = ((double) end) / CLOCKS_PER_SEC;
+    printf("Tempo Gasto em Segundos: %f", time_spent);
     delete distance_matrix_pointer;
 }
 

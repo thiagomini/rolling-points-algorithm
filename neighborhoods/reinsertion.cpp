@@ -46,6 +46,9 @@ Solution build_reinsert(Solution solucao, const int * matriz_distancias) {
 }
 
 Solution reinsert_opt(Solution solucao, const int * matriz_distancias) {
+    #ifdef VERBOSE
+        cout << "[reinsert_opt] Realizando Busca Local Reinsert..." << endl;
+    #endif
     Solution best_solution, new_solution;
     clone_solution(solucao, best_solution);
     clone_solution(solucao, new_solution);
