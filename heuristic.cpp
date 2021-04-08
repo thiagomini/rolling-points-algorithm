@@ -61,6 +61,7 @@ Solution rolling_points_heuristic(const int *distance_matrix, size_t number_of_v
     #endif
     // Busca Local Simples
     Solution neighbor;
+    // Aplicar busca dos pontos aqui!
     for (int i = 0; i < population; i++) {
         try {
             neighbor = generate_random_neighbor(solucoes[i], distance_matrix);
@@ -83,8 +84,8 @@ Solution rolling_points_heuristic(const int *distance_matrix, size_t number_of_v
 
 
     Solution variable_neighbor;
-    // RVND
-    for (int i = 0; i < 10000; i++) {
+    // busca em vizinhança da melhor solução
+    for (int i = 0; i < 1000; i++) {
         try {
             variable_neighbor = generate_random_neighbor(best_solution, distance_matrix);
         } catch (const char * error) {
@@ -100,12 +101,13 @@ Solution rolling_points_heuristic(const int *distance_matrix, size_t number_of_v
     #ifdef VERBOSE
         cout << "[rolling_points_heuristic] Realizando busca local profunda..." << endl;
     #endif
+
     // Busca local profunda
+    best_solution = two_optimal(best_solution, distance_matrix);
     best_solution = swap_opt(best_solution, distance_matrix);
     best_solution = reinsert_opt(best_solution, distance_matrix);
     best_solution = or_opt_n(best_solution, distance_matrix);
     best_solution = or_opt_n(best_solution, distance_matrix, 3);
-    best_solution = two_optimal(best_solution, distance_matrix);
 
     #ifdef VERBOSE
         cout << "Melhor Solucao Encontrada: " << endl;

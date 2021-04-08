@@ -109,7 +109,10 @@ Solution build_two_optimal(Solution solution, const int * distance_matrix) {
 }
 
 Solution two_optimal(Solution &solution, const int * distance_matrix) {
+    #ifdef VERBOSE
     cout << "[two_optimal] Realizando Busca Local 2-Optimal..." << endl;
+    #endif
+
     Solution best_solution, new_solution;
     clone_solution(solution, best_solution);
     clone_solution(solution, new_solution);
