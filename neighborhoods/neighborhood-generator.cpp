@@ -23,7 +23,6 @@ Solution generate_neighbor(Solution &solution, const int *distance_matrix, int n
         case OR_OPT2:
             or_switch(neighbor, distance_matrix, 2);
             break;
-
         case OR_OPT3:
             or_switch(neighbor, distance_matrix, 3);
             break;

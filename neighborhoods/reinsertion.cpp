@@ -45,7 +45,7 @@ Solution build_reinsert(Solution solucao, const int * matriz_distancias) {
     return solucao;
 }
 
-Solution reinsert_opt(Solution solucao, const int * matriz_distancias) {
+Solution reinsert_opt(Solution solucao, const int * matriz_distancias, int strategy) {
     #ifdef VERBOSE
         cout << "[reinsert_opt] Realizando Busca Local Reinsert..." << endl;
     #endif
@@ -59,9 +59,11 @@ Solution reinsert_opt(Solution solucao, const int * matriz_distancias) {
 
             if (new_solution.objective_function < best_solution.objective_function) {
                 clone_solution(new_solution, best_solution);
+                if (strategy == FIRST_IMPROVEMENT) goto END_OF_LOOP;
             }
         }
     }
 
-    return best_solution;
+    END_OF_LOOP:
+        return best_solution;
 }

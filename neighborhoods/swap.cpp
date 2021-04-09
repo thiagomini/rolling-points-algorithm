@@ -34,7 +34,7 @@ Solution build_swap(Solution solution, const int * matriz_distancias) {
     return solution;
 }
 
-Solution swap_opt(Solution solucao, const int * matriz_distancias) {
+Solution swap_opt(Solution solucao, const int * matriz_distancias, int strategy) {
     #ifdef VERBOSE
         cout << "[swap_opt] Realizando Busca Local swap..." << endl;
     #endif
@@ -47,9 +47,11 @@ Solution swap_opt(Solution solucao, const int * matriz_distancias) {
             new_solution = build_swap(solucao, i, j, matriz_distancias);
             if (new_solution.objective_function < best_solution.objective_function) {
                 clone_solution(new_solution, best_solution);
+                if (strategy == FIRST_IMPROVEMENT) goto END_OF_LOOP;
             }
         }
     }
 
-    return best_solution;
+    END_OF_LOOP:
+        return best_solution;
 }

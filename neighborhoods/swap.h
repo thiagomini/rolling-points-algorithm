@@ -48,7 +48,7 @@ Solution build_swap(Solution solution, const int * matriz_distancias);
  * @param solucao Solução que deseja realizar o swap_opt
  * @param matriz_distancias A matriz de distâncias do problema, usada para calcular a nova FO da solução
  */
-Solution swap_opt(Solution solucao, const int * matriz_distancias);
+Solution swap_opt(Solution solucao, const int * matriz_distancias, int strategy = BEST_IMPROVEMENT);
 
 int test_swap();
 

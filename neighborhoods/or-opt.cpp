@@ -58,7 +58,7 @@ Solution build_or_opt_n(Solution solution, const int * matriz_distancias, int n)
     return solution;
 }
 
-Solution or_opt_n(Solution &solution, const int * matriz_distancias, int n) {
+Solution or_opt_n(Solution &solution, const int * matriz_distancias, int n, int strategy) {
     #ifdef VERBOSE
         cout << "[or_opt_n] Realizando Busca Local or_opt" << n << "..." << endl;
     #endif
@@ -72,9 +72,10 @@ Solution or_opt_n(Solution &solution, const int * matriz_distancias, int n) {
 
             if (new_solution.objective_function < best_solution.objective_function) {
                 clone_solution(new_solution, best_solution);
+                if (strategy == FIRST_IMPROVEMENT) goto END_OF_LOOP;
             }
         }
     }
-
-    return best_solution;
+    END_OF_LOOP:
+        return best_solution;
 }

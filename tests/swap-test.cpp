@@ -48,7 +48,7 @@ int test_swap_random() {
 }
 
 int test_swap_opt() {
-    print_sub_test_begin("swap_opt", "Testando busca local SWAP-OPT");
+    print_sub_test_begin("swap_opt", "Testando busca local SWAP-OPT (melhor melhora)");
 
     // Arrange
     const int distance_matrix[3][3] = {
@@ -115,11 +115,45 @@ int test_swap_selected() {
     return EXIT_SUCCESS;
 }
 
+int test_swap_opt_first_improvement() {
+    print_sub_test_begin("swap_opt", "Testando busca local SWAP-OPT (primeira melhora)");
+
+    // Arrange
+    const int distance_matrix[4][4] = {
+            {0, 59, 73, 30},
+            {59, 0, 19, 45},
+            {73, 19, 0, 69},
+            {30, 45, 69, 0},
+    };
+
+    Solution solution = {
+            .objective_function = CLASSICAL_PROBLEM ? 284 : 461,
+            .size_of_solution = 4,
+            .vertices = {0, 1, 2, 3}
+    };
+
+    // Act
+    Solution best_solution = swap_opt(solution, reinterpret_cast<const int *>(distance_matrix), FIRST_IMPROVEMENT);
+
+
+    // Assert
+    assert(best_solution.objective_function == (CLASSICAL_PROBLEM ? 247 : 424));
+    assert(best_solution.vertices[0] == 0);
+    assert(best_solution.vertices[1] == 3);
+    assert(best_solution.vertices[2] == 2);
+    assert(best_solution.vertices[3] == 1);
+
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+}
+
 int test_swap() {
     print_test_begin("swap.cpp");
     test_swap_random();
     test_swap_selected();
     test_swap_opt();
+    test_swap_opt_first_improvement();
     print_test_end("swap.cpp");
 
     return EXIT_SUCCESS;

@@ -49,7 +49,7 @@ Solution build_reinsert(Solution solucao, const int * matriz_distancias);
  * @param matriz_distancias A matriz de distâncias do problema, usada para calcular a nova FO da solução
  * @returns A solução com melhor FO após realizar a busca local
  */
-Solution reinsert_opt(Solution solucao, const int * matriz_distancias);
+Solution reinsert_opt(Solution solucao, const int * matriz_distancias, int strategy = BEST_IMPROVEMENT);
 
 int test_reinsert();
 

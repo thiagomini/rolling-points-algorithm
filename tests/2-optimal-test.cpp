@@ -54,10 +54,11 @@ int test_two_optimal_move_random() {
     };
 
     Solution solution = {
-            .objective_function = 0,
             .size_of_solution = 6,
             .vertices = {0, 1, 2, 3, 4, 5}
     };
+
+    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix));
 
     // Act
     two_optimal_move(solution, reinterpret_cast<const int *>(distance_matrix));
@@ -72,7 +73,6 @@ int test_two_optimal_move_random() {
 
     // Assert
     assert(has_same_order == false);
-    assert(solution.objective_function != 0);
 
     print_sub_test_end();
     return EXIT_SUCCESS;
@@ -105,11 +105,43 @@ int test_two_optimal_local_search() {
     return EXIT_SUCCESS;
 }
 
+int test_two_optimal_local_search_first_improvement() {
+    print_sub_test_begin("two_optimal", "Testando a busca local 2-Optimal (primeira melhora)");
+
+    // Arrange
+    const int distance_matrix[4][4] = {
+            {0, 59, 73, 30},
+            {59, 0, 19, 45},
+            {73, 19, 0, 69},
+            {30, 45, 69, 0},
+    };
+
+    Solution solution = {
+            .size_of_solution = 4,
+            .vertices = {0, 3, 2, 1}
+    };
+
+    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix));
+
+    // Act
+    solution = two_optimal(solution, reinterpret_cast<const int *>(distance_matrix), FIRST_IMPROVEMENT);
+
+    // Assert
+    assert(solution.vertices[0] == 0);
+    assert(solution.vertices[1] == 3);
+    assert(solution.vertices[2] == 1);
+    assert(solution.vertices[3] == 2);
+
+    print_sub_test_end();
+    return EXIT_SUCCESS;
+}
+
 int test_two_optimal() {
     print_test_begin("2-optimal.cpp");
     test_two_optimal_move();
     test_two_optimal_move_random();
     test_two_optimal_local_search();
+    test_two_optimal_local_search_first_improvement();
     print_test_end("2-optimal.cpp");
 
     return EXIT_SUCCESS;

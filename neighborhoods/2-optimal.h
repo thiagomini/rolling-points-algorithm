@@ -34,7 +34,7 @@ void two_optimal_move(Solution &solution, const int * distance_matrix);
  * @param distance_matrix -  Ponteiro para a matriz de distâncias.
  * @return A solução com melhor FO
  */
-Solution two_optimal(Solution &solution, const int * distance_matrix);
+Solution two_optimal(Solution &solution, const int * distance_matrix, int strategy = BEST_IMPROVEMENT);
 
 /**
  * Constrói e retorna uma solução vizinha aplicando o movimento 2-optimal em posições definidas

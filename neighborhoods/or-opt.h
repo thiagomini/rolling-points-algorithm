@@ -37,7 +37,7 @@ void or_switch(Solution &solution, const int * matriz_distancias, int n = 2);
  * @return Melhor Solução encontrada pelo movimento de vizinhança
  * @param n - O número de vértices adjacentes que serão realocados. O padrão é 2 (Or-Opt2)
  */
-Solution or_opt_n(Solution &solution, const int * matriz_distancias, int n = 2);
+Solution or_opt_n(Solution &solution, const int * matriz_distancias, int n = 2, int strategy = BEST_IMPROVEMENT);
 
 /**
  * Constrói e retorna uma solução vizinha aplicando o movimento or-opt(n) em posições escolhidas

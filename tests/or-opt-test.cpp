@@ -637,9 +637,40 @@ int test_or_opt2_local_search() {
     return EXIT_SUCCESS;
 }
 
+int test_or_opt2_local_search_first_improvement() {
+    print_sub_test_begin("or_opt_n", "Testando a busca local Or-Opt2 (primeira melhora)");
+    // Arrange
+    const int distance_matrix[4][4] = {
+            {0, 59, 73, 30},
+            {59, 0, 19, 45},
+            {73, 19, 0, 69},
+            {30, 45, 69, 0},
+    };
+
+    Solution solution = {
+            .objective_function = CLASSICAL_PROBLEM ? 302 : 469,
+            .size_of_solution = 4,
+            .vertices = {0, 2, 1, 3}
+    };
+
+    int best_fo = CLASSICAL_PROBLEM ? 247 : 424;
+
+    // Act
+    Solution best_solution = or_opt_n(solution, reinterpret_cast<const int *>(distance_matrix), 2, FIRST_IMPROVEMENT);
+
+    // Assert
+    assert(best_solution.vertices[0] == 0);
+    assert(best_solution.vertices[1] == 3);
+    assert(best_solution.vertices[2] == 2);
+    assert(best_solution.vertices[3] == 1);
+    assert(best_solution.objective_function == best_fo);
+
+    print_sub_test_end();
+    return EXIT_SUCCESS;
+}
+
 int test_or_opt3_local_search() {
     print_sub_test_begin("or_opt_n", "Testando a busca local Or-Opt3");
-    // Arrange
     // Arrange
     const int distance_matrix[6][6] = {
             {0, 59, 73, 30, 28, 61},
@@ -670,6 +701,42 @@ int test_or_opt3_local_search() {
     return EXIT_SUCCESS;
 }
 
+int test_or_opt3_local_search_first_improvement() {
+    print_sub_test_begin("or_opt_n", "Testando a busca local Or-Opt3 (primeira melhora)");
+    // Arrange
+    const int distance_matrix[6][6] = {
+            {0, 59, 73, 30, 28, 61},
+            {59, 0, 19, 45, 32, 42},
+            {73, 19, 0, 69, 64, 24},
+            {30, 45, 69, 0, 20, 39},
+            {28, 32, 64, 20, 0, 87},
+            {61, 42, 24, 39, 87, 0},
+    };
+
+    Solution solution = {
+            .size_of_solution = 6,
+            .vertices = {0, 1, 2, 3, 4, 5}
+    };
+
+    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix));
+
+    int best_fo = CLASSICAL_PROBLEM ? 502 : 750;
+
+    // Act
+    Solution best_solution = or_opt_n(solution, reinterpret_cast<const int *>(distance_matrix), 3, FIRST_IMPROVEMENT);
+
+    // Assert
+    assert(best_solution.vertices[0] == 0);
+    assert(best_solution.vertices[1] == 4);
+    assert(best_solution.vertices[2] == 1);
+    assert(best_solution.vertices[3] == 2);
+    assert(best_solution.vertices[4] == 3);
+    assert(best_solution.vertices[5] == 5);
+    assert(best_solution.objective_function == best_fo);
+
+    print_sub_test_end();
+    return EXIT_SUCCESS;
+}
 
 int test_or_opt() {
     print_test_begin("or-opt2.cpp");
@@ -690,6 +757,8 @@ int test_or_opt() {
     test_or_switch_3_invalid_greater_index();
     test_or_switch_3_last_index();
     test_or_opt3_local_search();
+    test_or_opt2_local_search_first_improvement();
+    test_or_opt3_local_search_first_improvement();
     print_test_end("or-opt2.cpp");
     return EXIT_SUCCESS;
 }

@@ -61,8 +61,6 @@ void two_optimal_move(Solution &solution, const int * distance_matrix, size_t ed
     for (int i = 0; i < max_iterations; i++) {
         next_selected_edge = edges_of_solution.at(index_of_array);
 
-        if (next_selected_edge.second_node == 0) break;
-
         // Caso a próxima aresta não possua o first_node = ao último vértice adicionado na lista de vértices,
         // é necessário trocar a posição dos nós dessa aresta
         if (i > 0 &&
@@ -75,10 +73,7 @@ void two_optimal_move(Solution &solution, const int * distance_matrix, size_t ed
 
         edges_of_solution.erase(edges_of_solution.begin() + index_of_array);
         index_of_array = find_edge_containing_node(edges_of_solution, next_selected_edge.second_node);
-        if (index_of_array == -1) {
-            cerr << "[two_optimal_move] Erro: nao foi encontrada nenhuma aresta do grafo contendo o no " << next_selected_edge.second_node << endl;
-            throw "Erro";
-        }
+        if (index_of_array == -1) break;
     }
 
     new_solution_vertices.pop_back(); // Remove o vértice "0" do final do vetor de vértices
@@ -108,7 +103,7 @@ Solution build_two_optimal(Solution solution, const int * distance_matrix) {
     return solution;
 }
 
-Solution two_optimal(Solution &solution, const int * distance_matrix) {
+Solution two_optimal(Solution &solution, const int * distance_matrix, int strategy) {
     #ifdef VERBOSE
     cout << "[two_optimal] Realizando Busca Local 2-Optimal..." << endl;
     #endif
@@ -118,13 +113,15 @@ Solution two_optimal(Solution &solution, const int * distance_matrix) {
     clone_solution(solution, new_solution);
     int size_of_solution = (int) solution.size_of_solution;
     for (int i = 1; i < size_of_solution - 1; i++) {
-        for (int j = i + 2; j < size_of_solution - 1; ++j) {
+        for (int j = i + 2; j < size_of_solution; ++j) {
             new_solution = build_two_optimal(solution, distance_matrix, i, j);
             if (new_solution.objective_function < best_solution.objective_function) {
                 clone_solution(new_solution, best_solution);
+                if (strategy == FIRST_IMPROVEMENT) goto END_OF_LOOP;
             }
         }
     }
 
-    return best_solution;
+    END_OF_LOOP:
+        return best_solution;
 }
