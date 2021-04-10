@@ -281,6 +281,196 @@ int test_generate_random_neighbor() {
     return EXIT_SUCCESS;
 }
 
+int test_apply_local_search_swap() {
+    print_sub_test_begin("apply_local_search", "Testando a geracao de busca local SWAP (primeira melhora)");
+
+    // Arrange
+    const int distance_matrix[5][5] = {
+            {0, 59, 73, 30, 28},
+            {59, 0, 19, 45, 32},
+            {73, 19, 0, 69, 64},
+            {30, 45, 69, 0, 20},
+            {28, 32, 64, 20, 0},
+    };
+
+    Solution solution = {
+            .objective_function = 0,
+            .size_of_solution = 5,
+            .vertices = {0, 1, 2, 3, 4}
+    };
+
+    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix));
+    int previous_fo = solution.objective_function;
+
+    // Act
+    Solution first_improvement = apply_local_search(solution, reinterpret_cast<const int *>(distance_matrix), SWAP, FIRST_IMPROVEMENT);
+
+    // Prepare-Response
+    bool same_order = first_improvement.vertices[0] == 0 &&
+            first_improvement.vertices[1] == 1 &&
+            first_improvement.vertices[2] == 2 &&
+            first_improvement.vertices[3] == 3 &&
+            first_improvement.vertices[4] == 4;
+
+    assert(same_order == false);
+    assert(first_improvement.objective_function < previous_fo);
+
+    print_sub_test_end();
+    return EXIT_SUCCESS;
+}
+
+int test_apply_local_search_reinsert() {
+    print_sub_test_begin("apply_local_search", "Testando a geracao de busca local REINSERT (primeira melhora)");
+
+    // Arrange
+    const int distance_matrix[5][5] = {
+            {0, 59, 73, 30, 28},
+            {59, 0, 19, 45, 32},
+            {73, 19, 0, 69, 64},
+            {30, 45, 69, 0, 20},
+            {28, 32, 64, 20, 0},
+    };
+
+    Solution solution = {
+            .objective_function = 0,
+            .size_of_solution = 5,
+            .vertices = {0, 1, 2, 3, 4}
+    };
+
+    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix));
+    int previous_fo = solution.objective_function;
+
+    // Act
+    Solution first_improvement = apply_local_search(solution, reinterpret_cast<const int *>(distance_matrix), REINSERTION, FIRST_IMPROVEMENT);
+
+    // Prepare-Response
+    bool same_order = first_improvement.vertices[0] == 0 &&
+                      first_improvement.vertices[1] == 1 &&
+                      first_improvement.vertices[2] == 2 &&
+                      first_improvement.vertices[3] == 3 &&
+                      first_improvement.vertices[4] == 4;
+
+    assert(same_order == false);
+    assert(first_improvement.objective_function < previous_fo);
+
+    print_sub_test_end();
+    return EXIT_SUCCESS;
+}
+
+int test_apply_local_search_or_opt2() {
+    print_sub_test_begin("apply_local_search", "Testando a geracao de busca local OR_OPT2 (primeira melhora)");
+
+    // Arrange
+    const int distance_matrix[5][5] = {
+            {0, 59, 73, 30, 28},
+            {59, 0, 19, 45, 32},
+            {73, 19, 0, 69, 64},
+            {30, 45, 69, 0, 20},
+            {28, 32, 64, 20, 0},
+    };
+
+    Solution solution = {
+            .objective_function = 0,
+            .size_of_solution = 5,
+            .vertices = {0, 1, 2, 3, 4}
+    };
+
+    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix));
+    int previous_fo = solution.objective_function;
+
+    // Act
+    Solution first_improvement = apply_local_search(solution, reinterpret_cast<const int *>(distance_matrix), OR_OPT2, FIRST_IMPROVEMENT);
+
+    // Prepare-Response
+    bool same_order = first_improvement.vertices[0] == 0 &&
+                      first_improvement.vertices[1] == 1 &&
+                      first_improvement.vertices[2] == 2 &&
+                      first_improvement.vertices[3] == 3 &&
+                      first_improvement.vertices[4] == 4;
+
+    assert(same_order == false);
+    assert(first_improvement.objective_function < previous_fo);
+
+    print_sub_test_end();
+    return EXIT_SUCCESS;
+}
+
+int test_apply_local_search_or_opt3() {
+    print_sub_test_begin("apply_local_search", "Testando a geracao de busca local OR_OPT3 (primeira melhora)");
+
+    // Arrange
+    const int distance_matrix[5][5] = {
+            {0, 59, 73, 30, 28},
+            {59, 0, 19, 45, 32},
+            {73, 19, 0, 69, 64},
+            {30, 45, 69, 0, 20},
+            {28, 32, 64, 20, 0},
+    };
+
+    Solution solution = {
+            .objective_function = 0,
+            .size_of_solution = 5,
+            .vertices = {0, 1, 2, 3, 4}
+    };
+
+    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix));
+    int previous_fo = solution.objective_function;
+
+    // Act
+    Solution first_improvement = apply_local_search(solution, reinterpret_cast<const int *>(distance_matrix), OR_OPT3, FIRST_IMPROVEMENT);
+
+    // Prepare-Response
+    bool same_order = first_improvement.vertices[0] == 0 &&
+                      first_improvement.vertices[1] == 1 &&
+                      first_improvement.vertices[2] == 2 &&
+                      first_improvement.vertices[3] == 3 &&
+                      first_improvement.vertices[4] == 4;
+
+    assert(same_order == false);
+    assert(first_improvement.objective_function < previous_fo);
+
+    print_sub_test_end();
+    return EXIT_SUCCESS;
+}
+
+int test_apply_local_search_two_optimal() {
+    print_sub_test_begin("apply_local_search", "Testando a geracao de busca local OPT_2 (primeira melhora)");
+
+    // Arrange
+    const int distance_matrix[5][5] = {
+            {0, 59, 73, 30, 28},
+            {59, 0, 19, 45, 32},
+            {73, 19, 0, 69, 64},
+            {30, 45, 69, 0, 20},
+            {28, 32, 64, 20, 0},
+    };
+
+    Solution solution = {
+            .objective_function = 0,
+            .size_of_solution = 5,
+            .vertices = {0, 1, 2, 3, 4}
+    };
+
+    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix));
+    int previous_fo = solution.objective_function;
+
+    // Act
+    Solution first_improvement = apply_local_search(solution, reinterpret_cast<const int *>(distance_matrix), TWO_OPTIMAL, FIRST_IMPROVEMENT);
+
+    // Prepare-Response
+    bool same_order = first_improvement.vertices[0] == 0 &&
+                      first_improvement.vertices[1] == 1 &&
+                      first_improvement.vertices[2] == 2 &&
+                      first_improvement.vertices[3] == 3 &&
+                      first_improvement.vertices[4] == 4;
+
+    assert(same_order == false);
+    assert(first_improvement.objective_function < previous_fo);
+
+    print_sub_test_end();
+    return EXIT_SUCCESS;
+}
+
 int test_neighborhood_generator() {
     print_test_begin("neighborhood-generator.cpp");
     test_generate_neighbor_swap();
@@ -290,6 +480,11 @@ int test_neighborhood_generator() {
     test_generate_neighbor_2_optimal();
     test_generate_random_neighbor();
     test_generate_neighbor_or_opt3();
+    test_apply_local_search_swap();
+    test_apply_local_search_reinsert();
+    test_apply_local_search_or_opt2();
+    test_apply_local_search_or_opt3();
+    test_apply_local_search_two_optimal();
     print_test_end("neighborhood-generator.cpp");
     return EXIT_SUCCESS;
 }

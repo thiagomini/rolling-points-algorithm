@@ -38,8 +38,42 @@ Solution generate_neighbor(Solution &solution, const int *distance_matrix, int n
     return neighbor;
 }
 
+Solution apply_local_search(Solution &solution, const int *distance_matrix, int neighborhood, int strategy) {
+    Solution best_solution;
+
+    switch (neighborhood) {
+        case REINSERTION:
+            best_solution = reinsert_opt(solution, distance_matrix, strategy);
+            break;
+        case SWAP:
+            best_solution = swap_opt(solution, distance_matrix, strategy);
+            break;
+        case OR_OPT2:
+            best_solution = or_opt_n(solution, distance_matrix, 2, strategy);
+            break;
+        case OR_OPT3:
+            best_solution = or_opt_n(solution, distance_matrix, 3, strategy);
+            break;
+
+        case TWO_OPTIMAL:
+            best_solution = two_optimal(solution, distance_matrix, strategy);
+            break;
+
+        default:
+            throw "neighborhood invalido!";
+    }
+
+    return best_solution;
+}
+
 Solution generate_random_neighbor(Solution &solution, const int *distance_matrix) {
     int random_neighorbood = RANDOM_BETWEEN(0, 4);
     Solution neighbor = generate_neighbor(solution, distance_matrix, random_neighorbood);
+    return neighbor;
+}
+
+Solution random_local_search(Solution &solution, const int *distance_matrix, int strategy) {
+    int random_neighorbood = RANDOM_BETWEEN(0, 4);
+    Solution neighbor = apply_local_search(solution, distance_matrix, random_neighorbood, strategy);
     return neighbor;
 }

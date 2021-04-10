@@ -17,7 +17,7 @@
  * Gera uma solução vizinha, utilizando a estratégia passada como parâmetro
  * @param solution Ponteiro para a solução que deseja encontrar a vizinhança
  * @param distance_matrix A matriz de distâncias
- * @param neighborhood 0 para Reinsertion, 1 para SWAP
+ * @param neighborhood - Um número indicando qual vizinhança deve ser aplicada (Verificar possibilidades no header do arquivo)
  * @throws errno 1 caso a vizinhança passada como parâmetro não exista
  * @returns O vizinho gerado
  */
@@ -25,11 +25,31 @@ Solution generate_neighbor(Solution &solution, const int *distance_matrix, int n
 
 /**
  * Gera uma solução vizinha utilizando uma estratégia aleatória
- * @param solution Ponteiro para a solução que deseja encontrar a vizinhança
- * @param distance_matrix A matriz de distâncias
+ * @param solution - Ponteiro para a solução que deseja encontrar a vizinhança
+ * @param distance_matrix - A matriz de distâncias
  * @returs O vizinho gerado
  */
 Solution generate_random_neighbor(Solution &solution, const int *distance_matrix);
+
+
+/**
+ * Aplica uma busca local em uma solução de acordo acordo com o parâmetro passado
+ * @param solution - Ponteiro para a solução que deseja encontrar a vizinhança
+ * @param distance_matrix -  A matriz de distâncias
+ * @param neighborhood - Um número indicando qual vizinhança deve ser aplicada ((Verificar possibilidades no header do arquivo)
+ * @param strategy - A estratégia da busca local, pode ser 0 (primeira melhora) ou 1 (melhor melhora)
+ * @return O vizinho gerado pela busca local
+ */
+Solution apply_local_search(Solution &solution, const int *distance_matrix, int neighborhood, int strategy = FIRST_IMPROVEMENT);
+
+/**
+ * Aplica uma busca local aleatória, escolhendo dentre as buscais locais disponíveis
+ * @param solution - Ponteiro para a solução que deseja encontrar a vizinhança
+ * @param distance_matrix - A matriz de distâncias
+ * @param strategy - A estratégia da busca local, pode ser 0 (primeira melhora) ou 1 (melhor melhora)
+ * @return O vizinho gerado pela busca local
+ */
+Solution random_local_search(Solution &solution, const int *distance_matrix, int strategy = FIRST_IMPROVEMENT);
 
 int test_neighborhood_generator();
 
