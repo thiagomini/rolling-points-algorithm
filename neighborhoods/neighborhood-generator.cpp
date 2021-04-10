@@ -77,3 +77,7 @@ Solution random_local_search(Solution &solution, const int *distance_matrix, int
     Solution neighbor = apply_local_search(solution, distance_matrix, random_neighorbood, strategy);
     return neighbor;
 }
+
+Solution random_variable_neighborhood_descent(Solution &solution, const int *distance_matrix) {
+
+}

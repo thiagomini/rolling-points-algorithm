@@ -95,6 +95,37 @@ int test_slice_array_single_element() {
     return EXIT_SUCCESS;
 }
 
+int test_shuffle_array() {
+    print_sub_test_begin("shuffle_array", "Testando shuffle de um array");
+
+    int array[6] = {1, 2, 3, 4, 5, 6};
+    shuffle_array(array, 4);
+
+    bool same_order = array[0] == 1 &&
+            array[1] == 2 &&
+            array[2] == 3 &&
+            array[3] == 4 &&
+            array[4] == 5 &&
+            array[5] == 6;
+
+    bool all_elements_are_different = true;
+
+    for (int i = 0; i < 6; i++) {
+        for (int j = i + 1; j < 5; j++) {
+            if (array[i] == array[j]) {
+                all_elements_are_different = false;
+                goto ASSERT;
+            }
+        }
+    }
+
+    ASSERT:
+        assert(same_order == false);
+        assert(all_elements_are_different == true);
+        print_sub_test_end();
+        return EXIT_SUCCESS;
+}
+
 
 int test_array() {
     print_test_begin("array.cpp");
@@ -105,7 +136,7 @@ int test_array() {
     test_clone_array_maintain_original();
     test_slice_array();
     test_slice_array_single_element();
-
+    test_shuffle_array();
     print_test_end("array.cpp");
 
     return EXIT_SUCCESS;

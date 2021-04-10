@@ -61,18 +61,18 @@ Solution rolling_points_heuristic(const int *distance_matrix, size_t number_of_v
     #endif
     // Busca Local Simples
     Solution neighbor;
+    int energy = 1000;
     // Aplicar busca dos pontos aqui!
     for (int i = 0; i < population; i++) {
-        try {
-            neighbor = generate_random_neighbor(solucoes[i], distance_matrix);
-        } catch (const char * error) {
-            cerr << error << endl;
-            exit(EXIT_FAILURE);
+        while (energy > 0) {
+            neighbor = random_local_search(solucoes[i], distance_matrix);
+            if (compare(solucoes[i], neighbor) > 0) {
+                clone_solution(neighbor, solucoes[i]);
+                energy += 10;
+            }
+            energy -= 10;
         }
 
-        if (compare(solucoes[i], neighbor) > 0) {
-            clone_solution(neighbor, solucoes[i]);
-        }
     }
 
     #ifdef VERBOSE

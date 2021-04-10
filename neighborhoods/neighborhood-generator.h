@@ -43,13 +43,22 @@ Solution generate_random_neighbor(Solution &solution, const int *distance_matrix
 Solution apply_local_search(Solution &solution, const int *distance_matrix, int neighborhood, int strategy = FIRST_IMPROVEMENT);
 
 /**
- * Aplica uma busca local aleatória, escolhendo dentre as buscais locais disponíveis
+ * Aplica uma busca local aleatória, escolhendo dentre as buscas locais disponíveis
  * @param solution - Ponteiro para a solução que deseja encontrar a vizinhança
  * @param distance_matrix - A matriz de distâncias
  * @param strategy - A estratégia da busca local, pode ser 0 (primeira melhora) ou 1 (melhor melhora)
  * @return O vizinho gerado pela busca local
  */
 Solution random_local_search(Solution &solution, const int *distance_matrix, int strategy = FIRST_IMPROVEMENT);
+
+/**
+ * Retorna a melhor solução obtida por meio do algoritmo RVND, que funciona realizando uma busca local em uma vizinhança
+ * aleatória. Quando a busca local termina nessa vizinhança, o algoritmo parte para a próxima.
+ * @param solution
+ * @param distance_matrix
+ * @return
+ */
+Solution random_variable_neighborhood_descent(Solution &solution, const int *distance_matrix);
 
 int test_neighborhood_generator();
 

@@ -5,8 +5,7 @@
 #include "array.h"
 #include <cstdlib>
 #include <cstdio>
-#include <cassert>
-#include "iostream"
+#include "randomizer.h"
 
 using namespace std;
 
@@ -70,4 +69,25 @@ std::vector<int> slice(std::vector<int> &v, int begin, int end)
     std::vector<int> vec;
     std::copy(v.begin() + begin, v.begin() + end + 1, std::back_inserter(vec));
     return vec;
+}
+
+void shuffle_array(int * array, int size) {
+    std::vector<int> pool = vector<int>(array, array + size);
+
+    int new_array[size];
+
+    int selected_index; // índice do pool que será selecionado
+    int new_positions_cursor = 0;
+
+    while (!pool.empty()) {
+        int size_of_pool = (int) pool.size();
+        selected_index = size_of_pool == 1 ? 0 : RANDOM_BETWEEN(0, size_of_pool - 1);
+        new_array[new_positions_cursor] = pool.at(selected_index);
+        pool.erase(pool.begin() + selected_index);
+        new_positions_cursor++;
+    }
+
+    for (int i = 0; i < size; i++) {
+        array[i] = new_array[i];
+    }
 }

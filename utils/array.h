@@ -69,5 +69,12 @@ int test_array();
  */
 std::vector<int> slice(std::vector<int> &v, int begin, int end);
 
+/**
+ * Embaralha os elementos de um array
+ * @param array
+ * @param size
+ */
+void shuffle_array(int * array, int size);
+
 
 #endif //ALGORITMO_TCC_ARRAY_H
