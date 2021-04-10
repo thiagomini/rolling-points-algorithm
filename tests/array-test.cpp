@@ -126,6 +126,20 @@ int test_shuffle_array() {
         return EXIT_SUCCESS;
 }
 
+int test_calculate_mean() {
+    print_sub_test_begin("calculate_mean", "Testando calculo de media um array");
+
+    // Arrange
+    double array[3] = { 13.5, 18.5, 19 };
+
+    // Act
+    double mean = calculate_mean(array, 3);
+
+    // Assert
+    assert(mean == 17);
+    print_sub_test_end();
+    return EXIT_SUCCESS;
+}
 
 int test_array() {
     print_test_begin("array.cpp");
@@ -137,6 +151,7 @@ int test_array() {
     test_slice_array();
     test_slice_array_single_element();
     test_shuffle_array();
+    test_calculate_mean();
     print_test_end("array.cpp");
 
     return EXIT_SUCCESS;

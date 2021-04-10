@@ -155,6 +155,27 @@ int test_clone_solution_mantain_vertices() {
     return EXIT_SUCCESS;
 }
 
+int test_calculate_mean_fo() {
+    print_sub_test_begin("calculate_mean_fo", "Testando calcula da media de fo");
+
+    // Arrange
+
+    Solution solutions[3] = {
+            { .objective_function = 10 },
+            { .objective_function = 20 },
+            { .objective_function = 30 },
+    };
+
+    // Act
+    double mean = calculate_mean_fo(solutions, 3);
+
+    // Assert
+    assert(mean == 20);
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+}
+
 int test_solution() {
     print_test_begin("solution.cpp");
 
@@ -165,6 +186,7 @@ int test_solution() {
     test_compare_even_solutions();
     test_clone_solution();
     test_clone_solution_mantain_vertices();
+    test_calculate_mean_fo();
 
     print_test_end("solution.cpp");
     return EXIT_SUCCESS;

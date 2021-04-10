@@ -54,3 +54,13 @@ void clone_solution(Solution &origem, Solution &destino) {
     destino.objective_function = origem.objective_function;
     destino.vertices = origem.vertices;
 }
+
+double calculate_mean_fo(Solution solutions[], int size) {
+    int total_sum = 0;
+
+    for (int i = 0; i < size; i++) {
+        total_sum += solutions[i].objective_function;
+    }
+
+    return (double) total_sum / size;
+}

@@ -51,6 +51,13 @@ void print_solution(Solution * solution);
  */
 void clone_solution(Solution &origem, Solution &destino);
 
+/**
+ * Calcula a média das funções-objetivo de uma lista de soluções
+ * @param solutions
+ * @param size
+ * @return a média das funções-objetivo
+ */
+double calculate_mean_fo(Solution solutions[], int size);
 
 /**
  * Testa todas as funções do Módulo solution.cpp

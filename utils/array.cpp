@@ -91,3 +91,13 @@ void shuffle_array(int * array, int size) {
         array[i] = new_array[i];
     }
 }
+
+double calculate_mean(double array[], int size) {
+    double total = 0;
+
+    for (int i = 0; i < size; i++) {
+        total += array[i];
+    }
+
+    return total / size;
+}

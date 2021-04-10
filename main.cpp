@@ -43,8 +43,9 @@ void execute_heuristic(int heuristic, const char * file_path, size_t number_of_n
  * sua localização relativa ao projeto.
  * @param number_of_nodes - O número de nós que o problema contempla
  * @param population O número de "pontos" que será criado na fase exploratória inicial da heurística.
+ * @param times - O número de vezes que o algoritmo deverá ser executado
  */
-void execute_rolling_points(const char * file_path, size_t number_of_nodes, size_t population = 50);
+void execute_rolling_points(const char * file_path, size_t number_of_nodes, size_t population = 50, int times = 20);
 
 /**
  * Realiza a otimização de um problema MLP utilizando uma heurística simples de geração e comparação de soluções aleatórias
@@ -53,6 +54,8 @@ void execute_rolling_points(const char * file_path, size_t number_of_nodes, size
  * @param number_of_nodes - O número de nós que o problema contempla
  */
 void execute_random_heuristic(const char * file_path, size_t number_of_nodes);
+
+void print_heuristic_metrics(Solution *solutions, double *time_spent_array, int times);
 
 int main() {
     srand(time(NULL));
@@ -117,30 +120,47 @@ void execute_heuristic(int heuristic, const char * file_path, size_t number_of_n
     }
 }
 
-void execute_rolling_points(const char * file_path, size_t number_of_nodes, size_t population) {
+void execute_rolling_points(const char * file_path, size_t number_of_nodes, size_t population, int times) {
     node_2d * nodes = read_nodes_euc_2d(file_path);
     int calculated_distance_matrix[number_of_nodes][number_of_nodes];
     int ** distance_matrix_pointer = build_distance_matrix(reinterpret_cast<node_2d *>(nodes), number_of_nodes);
+    double time_spent_array[times];
+    Solution solutions[times];
 
-    // Preenche a matrix com os valores retornados pelo ponteiro da função
-    for (int i = 0; i < number_of_nodes; i++) {
-        for (int j =0; j < number_of_nodes; j++) {
-            calculated_distance_matrix[i][j] = distance_matrix_pointer[i][j];
+
+    for (int iteration = 0; iteration < times; iteration++) {
+        // Preenche a matrix com os valores retornados pelo ponteiro da função
+        for (int i = 0; i < number_of_nodes; i++) {
+            for (int j =0; j < number_of_nodes; j++) {
+                calculated_distance_matrix[i][j] = distance_matrix_pointer[i][j];
+            }
         }
+        clock_t begin, end;
+        begin = clock();
+
+        solutions[iteration] = rolling_points_heuristic(reinterpret_cast<const int *>(calculated_distance_matrix), number_of_nodes, population);
+//        print_solution(&best_solution);
+
+        end = clock() - begin;
+        time_spent_array[iteration] = ((double) end) / CLOCKS_PER_SEC;
+//        printf("Tempo Gasto em Segundos: %f", time_spent);
     }
-    clock_t begin, end;
-    double time_spent;
-    begin = clock();
 
-    Solution best_solution = rolling_points_heuristic(reinterpret_cast<const int *>(calculated_distance_matrix), number_of_nodes, population);
-    print_solution(&best_solution);
-
-    end = clock() - begin;
-    time_spent = ((double) end) / CLOCKS_PER_SEC;
-    printf("Tempo Gasto em Segundos: %f", time_spent);
     delete distance_matrix_pointer;
+    print_heuristic_metrics(solutions, time_spent_array, times);
 }
 
 void execute_random_heuristic(const char * file_path, size_t number_of_nodes) {
 
+}
+
+void print_heuristic_metrics(Solution *solutions, double *time_spent_array, int times) {
+    qsort(solutions, times, sizeof(Solution), reinterpret_cast<int (*)(const void *, const void *)>(compare));
+    double mean_fo = calculate_mean_fo(solutions, times);
+    double mean_time_spent = calculate_mean(time_spent_array, times);
+
+    cout << "Media de FO: " << mean_fo << endl;
+    cout << "Media de tempo gasto: " << mean_time_spent << endl;
+    cout << "------ Melhor Solucao -------" << endl;
+    print_solution(&solutions[0]);
 }

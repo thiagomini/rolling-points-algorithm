@@ -76,5 +76,12 @@ std::vector<int> slice(std::vector<int> &v, int begin, int end);
  */
 void shuffle_array(int * array, int size);
 
+/**
+ * Calcula a média dos elementos de um array de <b>doubles</b>
+ * @param array
+ * @param size
+ * @return
+ */
+double calculate_mean(double array[], int size);
 
 #endif //ALGORITMO_TCC_ARRAY_H
