@@ -57,9 +57,9 @@ void execute_random_heuristic(const char * file_path, size_t number_of_nodes);
 int main() {
     srand(time(NULL));
 
-    execute_tests();
+//    execute_tests();
 
-//    execute_heuristic(ROLLING_POINTS_ALGORITHM, "../instances/st70.tsp", 70);
+    execute_heuristic(ROLLING_POINTS_ALGORITHM, "../instances/st70.tsp", 70);
 //    calculate_time();
 
     return EXIT_SUCCESS;
