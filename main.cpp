@@ -55,6 +55,17 @@ void execute_rolling_points(const char * file_path, size_t number_of_nodes, size
  */
 void execute_random_heuristic(const char * file_path, size_t number_of_nodes);
 
+/**
+ * Exibe no console as métricas da heurística executada, sendo elas:
+ * <ol>
+ *  <li>Média do tempo de Execução</li>
+ *  <li>Média do valor da Função Objetivo</li>
+ *  <li>Tempo de execução da Melhor FO</li>
+ *  <li>Valor da Melhor FO</li>
+ * </ol>
+ * @param solutions - Lista de soluções que foram geradas pela execução de uma heurística
+ * @param times - O número de vezes que a heurística foi executada
+ */
 void print_heuristic_metrics(Solution *solutions, int times);
 
 int main() {
