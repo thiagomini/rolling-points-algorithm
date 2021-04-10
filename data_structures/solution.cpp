@@ -64,3 +64,13 @@ double calculate_mean_fo(Solution solutions[], int size) {
 
     return (double) total_sum / size;
 }
+
+double calculate_mean_time(Solution solutions[], int size) {
+    double total_sum = 0;
+
+    for (int i = 0; i < size; i++) {
+        total_sum += solutions[i].time_spent;
+    }
+
+    return (double) total_sum / size;
+}

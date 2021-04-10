@@ -17,11 +17,13 @@ using namespace std;
  * @param objective_function Valor da Função Objetivo da solução
  * @param size_of_solution Tamanho da solução em vértices
  * @param vertices Ponteiro para array de vértices que compõe a solução
+ * @param time_spent - Tempo gasto para geração da solução
  */
 typedef struct {
     int objective_function;
     size_t size_of_solution;
     vector<int> vertices;
+    double time_spent;
 } Solution;
 
 /**
@@ -58,6 +60,14 @@ void clone_solution(Solution &origem, Solution &destino);
  * @return a média das funções-objetivo
  */
 double calculate_mean_fo(Solution solutions[], int size);
+
+/**
+ * Calcula a média do tempo de execução de uma lista de soluções
+ * @param solutions
+ * @param size
+ * @return a média do tempo de execução
+ */
+double calculate_mean_time(Solution solutions[], int size);
 
 /**
  * Testa todas as funções do Módulo solution.cpp

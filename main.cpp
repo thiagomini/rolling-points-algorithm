@@ -55,14 +55,14 @@ void execute_rolling_points(const char * file_path, size_t number_of_nodes, size
  */
 void execute_random_heuristic(const char * file_path, size_t number_of_nodes);
 
-void print_heuristic_metrics(Solution *solutions, double *time_spent_array, int times);
+void print_heuristic_metrics(Solution *solutions, int times);
 
 int main() {
     srand(time(NULL));
 
-//    execute_tests();
+    execute_tests();
 
-    execute_heuristic(ROLLING_POINTS_ALGORITHM, "../instances/st70.tsp", 70);
+//    execute_heuristic(ROLLING_POINTS_ALGORITHM, "../instances/st70.tsp", 70);
 //    calculate_time();
 
     return EXIT_SUCCESS;
@@ -124,7 +124,6 @@ void execute_rolling_points(const char * file_path, size_t number_of_nodes, size
     node_2d * nodes = read_nodes_euc_2d(file_path);
     int calculated_distance_matrix[number_of_nodes][number_of_nodes];
     int ** distance_matrix_pointer = build_distance_matrix(reinterpret_cast<node_2d *>(nodes), number_of_nodes);
-    double time_spent_array[times];
     Solution solutions[times];
 
 
@@ -142,25 +141,26 @@ void execute_rolling_points(const char * file_path, size_t number_of_nodes, size
 //        print_solution(&best_solution);
 
         end = clock() - begin;
-        time_spent_array[iteration] = ((double) end) / CLOCKS_PER_SEC;
+        solutions[iteration].time_spent = ((double) end) / CLOCKS_PER_SEC;
 //        printf("Tempo Gasto em Segundos: %f", time_spent);
     }
 
     delete distance_matrix_pointer;
-    print_heuristic_metrics(solutions, time_spent_array, times);
+    print_heuristic_metrics(solutions, times);
 }
 
 void execute_random_heuristic(const char * file_path, size_t number_of_nodes) {
 
 }
 
-void print_heuristic_metrics(Solution *solutions, double *time_spent_array, int times) {
+void print_heuristic_metrics(Solution *solutions, int times) {
     qsort(solutions, times, sizeof(Solution), reinterpret_cast<int (*)(const void *, const void *)>(compare));
     double mean_fo = calculate_mean_fo(solutions, times);
-    double mean_time_spent = calculate_mean(time_spent_array, times);
+    double mean_time_spent = calculate_mean_time(solutions, times);
 
     cout << "Media de FO: " << mean_fo << endl;
     cout << "Media de tempo gasto: " << mean_time_spent << endl;
     cout << "------ Melhor Solucao -------" << endl;
+    cout << "Tempo gasto: " << solutions[0].time_spent << endl;
     print_solution(&solutions[0]);
 }

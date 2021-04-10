@@ -176,6 +176,27 @@ int test_calculate_mean_fo() {
     return EXIT_SUCCESS;
 }
 
+int test_calculate_mean_time() {
+    print_sub_test_begin("calculate_mean_time", "Testando calcula da media de tempo de execucao");
+
+    // Arrange
+
+    Solution solutions[3] = {
+            { .time_spent = 13.5 },
+            { .time_spent = 18.5 },
+            { .time_spent = 19 },
+    };
+
+    // Act
+    double mean = calculate_mean_time(solutions, 3);
+
+    // Assert
+    assert(mean == 17);
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+}
+
 int test_solution() {
     print_test_begin("solution.cpp");
 
@@ -186,6 +207,7 @@ int test_solution() {
     test_compare_even_solutions();
     test_clone_solution();
     test_clone_solution_mantain_vertices();
+    test_calculate_mean_time();
     test_calculate_mean_fo();
 
     print_test_end("solution.cpp");
