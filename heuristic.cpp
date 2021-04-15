@@ -84,18 +84,6 @@ Solution rolling_points_heuristic(const int *distance_matrix, size_t number_of_v
 
 
     Solution variable_neighbor;
-    bool did_improve;
-
-
-    // busca em vizinhança da melhor solução
-    do {
-        did_improve = false;
-        variable_neighbor = generate_random_neighbor(best_solution, distance_matrix);
-        if (compare(best_solution, variable_neighbor) > 0) {
-            clone_solution(variable_neighbor, best_solution);
-            did_improve = true;
-        }
-    } while (did_improve);
 
     #ifdef VERBOSE
         cout << "[rolling_points_heuristic] Realizando busca local profunda..." << endl;
