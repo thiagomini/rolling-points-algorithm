@@ -93,9 +93,15 @@ Solution random_local_search(Solution &solution, const int *distance_matrix, int
 Solution random_variable_neighborhood_descent(Solution &solution, const int *distance_matrix) {
     int neighborhoods[5] = { SWAP, REINSERTION, OR_OPT2, OR_OPT3, TWO_OPTIMAL };
     shuffle_array(neighborhoods, 5);
-    for (int neighborhood : neighborhoods) {
-        solution = apply_local_search(solution, distance_matrix, neighborhood, BEST_IMPROVEMENT);
-    }
+    double last_fo;
 
-    return solution;
+    START_OF_LOOP:
+        for (int neighborhood : neighborhoods) {
+            last_fo = solution.objective_function;
+            solution = apply_local_search(solution, distance_matrix, neighborhood, BEST_IMPROVEMENT);
+            if (solution.objective_function < last_fo)
+                goto START_OF_LOOP;
+        }
+
+        return solution;
 }
