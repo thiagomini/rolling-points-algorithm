@@ -8,6 +8,11 @@
 #include <cstdio>
 #include "node.h"
 
+typedef struct {
+    int * distances;
+    int size;
+} distance_matrix;
+
 /**
  * Constrói a matriz de distâncias entre os nós, de acordo com o vetor de nós passado como parâmetro. cada célula
  * da matriz em uma linha "i" e coluna "j" representa a distância do nó "i" até o nó "j".

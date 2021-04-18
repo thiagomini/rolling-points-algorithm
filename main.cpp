@@ -18,6 +18,7 @@
 #include "neighborhoods/or-opt.h"
 #include "data_structures/edge.h"
 #include "neighborhoods/2-optimal.h"
+#include "data_structures/opt-solution.h"
 
 using namespace std;
 
@@ -71,9 +72,9 @@ void print_heuristic_metrics(Solution *solutions, int times);
 int main() {
     srand(time(NULL));
 
-//    execute_tests();
+    execute_tests();
 
-    execute_heuristic(ROLLING_POINTS_ALGORITHM, "../instances/st70.tsp", 70);
+//    execute_heuristic(ROLLING_POINTS_ALGORITHM, "../instances/st70.tsp", 70);
 //    calculate_time();
 
     return EXIT_SUCCESS;
@@ -114,6 +115,7 @@ void execute_tests() {
     test_two_optimal();
     test_neighborhood_generator();
     test_heuristic();
+    test_opt_solution();
 }
 
 void execute_heuristic(int heuristic, const char * file_path, size_t number_of_nodes) {
