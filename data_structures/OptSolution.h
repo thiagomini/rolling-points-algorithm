@@ -2,8 +2,8 @@
 // Created by Thiago on 18/04/2021.
 //
 
-#ifndef ALGORITMO_TCC_OPT_SOLUTION_H
-#define ALGORITMO_TCC_OPT_SOLUTION_H
+#ifndef ALGORITMO_TCC_OPTSOLUTION_H
+#define ALGORITMO_TCC_OPTSOLUTION_H
 
 
 #include <vector>
@@ -11,7 +11,7 @@
 #include "distance-matrix.h"
 
 
-class Opt_Solution {
+class OptSolution {
 
 public:
     // Indica o tamanho da solução, descontando o V0
@@ -33,20 +33,20 @@ public:
      * @param total_cost - A soma do custo de cada aresta da solução
      * @param vertices_of_solution - A lista contendo os vértices da solução
      */
-    Opt_Solution(int fo, int size, int total_cost, std::vector<int> vertices_of_solution);
+    OptSolution(int fo, int size, int total_cost, std::vector<int> vertices_of_solution);
 
     /**
      * Concatena a solução atual com uma nova, unindo o caminho parcial de ambas
      * @param other_solution
      * @param distance_matrix
      */
-    void concatenate(const Opt_Solution& other_solution, distance_matrix distance_matrix);
+    void concatenate(const OptSolution& other_solution, distance_matrix distance_matrix);
 
     /**
      * Clona a solução atual
      * @return Uma nova solução com as mesmas propriedades que a original
      */
-    Opt_Solution clone() const;
+    OptSolution clone() const;
 
 private:
     /**
@@ -55,7 +55,7 @@ private:
      * @param distance_matrix
      * @return o novo valor de T(S)
      */
-    int concatenate_T(const Opt_Solution& other_solution, distance_matrix distance_matrix);
+    int concatenate_T(const OptSolution& other_solution, distance_matrix distance_matrix);
 
     /**
      * Concatena o valor de C(S) da solução atual com a de uma outra solução
@@ -63,7 +63,7 @@ private:
      * @param distance_matrix
      * @return o novo valor de C(S)
      */
-    int concatenate_C(const Opt_Solution& other_solution, distance_matrix distance_matrix);
+    int concatenate_C(const OptSolution& other_solution, distance_matrix distance_matrix);
 
     /**
      * Calcula a distância da nova aresta inserida ao concatenar-se duas soluções
@@ -75,7 +75,7 @@ private:
      * solucao_1.concatenate(solucao_2); // Nova aresta criada: {2, 3}
      * @return a distância da nova aresta criada
      */
-    int calculate_new_edge_distance(const Opt_Solution& other_solution, distance_matrix distance_matrix);
+    int calculate_new_edge_distance(const OptSolution& other_solution, distance_matrix distance_matrix);
 };
 
 /**
@@ -85,8 +85,8 @@ private:
  * @param distance_matrix
  * @return
  */
-Opt_Solution concatenate_solutions(const Opt_Solution& solution_1, const Opt_Solution& solution_2, distance_matrix distance_matrix);
+OptSolution concatenate_solutions(const OptSolution& solution_1, const OptSolution& solution_2, distance_matrix distance_matrix);
 
 int test_opt_solution();
 
-#endif //ALGORITMO_TCC_OPT_SOLUTION_H
+#endif //ALGORITMO_TCC_OPTSOLUTION_H

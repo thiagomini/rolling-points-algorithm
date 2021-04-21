@@ -18,7 +18,7 @@
 #include "neighborhoods/or-opt.h"
 #include "data_structures/edge.h"
 #include "neighborhoods/2-optimal.h"
-#include "data_structures/opt-solution.h"
+#include "data_structures/OptSolution.h"
 
 using namespace std;
 
