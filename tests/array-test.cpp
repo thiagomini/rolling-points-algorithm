@@ -73,9 +73,7 @@ int test_slice_array() {
     vector<int> array = { 2, 4, 6, 8 };
     vector<int> sliced_array = slice(array, 0, 1);
 
-    assert(sliced_array.size() == 2);
-    assert(sliced_array[0] == 2);
-    assert(sliced_array[1] == 4);
+    assert(sliced_array == vector<int>({2, 4}));
 
     print_sub_test_end();
 
@@ -94,6 +92,20 @@ int test_slice_array_single_element() {
 
     return EXIT_SUCCESS;
 }
+
+int test_slice_array_backwards() {
+    print_sub_test_begin("slice", "Testando copia de um vector de tras para frente");
+
+    vector<int> array = { 2, 4, 6, 8 };
+    vector<int> sliced_array = slice(array, 2, 0);
+
+    assert(sliced_array == vector<int>({6, 4, 2}));
+
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+}
+
 
 int test_shuffle_array() {
     print_sub_test_begin("shuffle_array", "Testando shuffle de um array");
@@ -152,6 +164,7 @@ int test_array() {
     test_slice_array_single_element();
     test_shuffle_array();
     test_calculate_mean();
+    test_slice_array_backwards();
     print_test_end("array.cpp");
 
     return EXIT_SUCCESS;

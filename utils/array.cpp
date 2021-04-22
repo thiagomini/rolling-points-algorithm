@@ -67,7 +67,11 @@ int * clone_array(int array[], size_t size) {
 std::vector<int> slice(std::vector<int> &v, int begin, int end)
 {
     std::vector<int> vec;
-    std::copy(v.begin() + begin, v.begin() + end + 1, std::back_inserter(vec));
+
+    end >= begin
+    ? std::copy(v.begin() + begin, v.begin() + end + 1, std::back_inserter(vec))
+    : std::copy(v.rbegin() + ((int) v.size() - 1 - begin), v.rbegin() + ((int) v.size() - 1 - end) + 1, std::back_inserter(vec));
+
     return vec;
 }
 

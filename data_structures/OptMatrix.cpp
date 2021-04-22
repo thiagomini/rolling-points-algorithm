@@ -3,31 +3,47 @@
 //
 
 #include "OptMatrix.h"
+#include "../utils/array.h"
+
 
 OptMatrix::OptMatrix(int size, const std::vector<int>& vertices, distance_matrix distance_matrix) {
-    opt_matrix.resize(size);
+    matrix.resize(size);
+    initialize_vertices(vertices);
 
-    for (int i = 0; i < size; ++i) {
-        opt_matrix.at(i).at(i).T = 0;
-        opt_matrix.at(i).at(i).C = 0;
-        opt_matrix.at(i).at(i).W = i == 0 ? 0 : 1;
+    for (int i = 1; i < size; ++i) {
+        matrix.at(i).at(i).W = 1;
     }
 
     for (int i = 2; i <= size; i++) {
         for (int row = 0; row <= size - i; row++) {
             int column = row + (i - 1);
-            OptSolution previous_solution =  opt_matrix.at(row).at(column - 1);
-            OptSolution next_solution = opt_matrix.at(column).at(column);
-            opt_matrix.at(row).at(column) = concatenate_solutions(previous_solution, next_solution, distance_matrix);
+            OptSolution previous_solution =  matrix.at(row).at(column - 1);
+            OptSolution next_solution = matrix.at(column).at(column);
+            matrix.at(row).at(column) = concatenate_solutions(previous_solution, next_solution, distance_matrix);
         }
     }
 
     for (int i = 2; i <= size; i++) {
         for (int row = i - 1; row <= size - 1; row++) {
             int column = row - (i - 1);
-            OptSolution previous_solution =  opt_matrix.at(row).at(row);
-            OptSolution next_solution = opt_matrix.at(row - 1).at(column);
-            opt_matrix.at(row).at(column) = concatenate_solutions(previous_solution, next_solution, distance_matrix);
+            OptSolution previous_solution =  matrix.at(row).at(row);
+            OptSolution next_solution = matrix.at(row - 1).at(column);
+            matrix.at(row).at(column) = concatenate_solutions(previous_solution, next_solution, distance_matrix);
         }
     }
+}
+
+OptSolution OptMatrix::get_solution(int row, int column) {
+    return matrix.at(row).at(column);
+}
+
+void OptMatrix::initialize_vertices(std::vector<int> vertices) {
+    int size = (int) matrix.size();
+
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+            matrix.at(i).push_back(OptSolution(0, 0, 0, slice(vertices, i, j)));
+        }
+    }
+
 }

@@ -23,7 +23,10 @@ void OptSolution::concatenate(const OptSolution& other_solution, const distance_
     C = new_C;
     W = new_W;
 
-    vertices.insert(vertices.end(), other_solution.vertices.begin(), other_solution.vertices.end());
+    if (vertices.end() != other_solution.vertices.begin()) {
+        vertices.insert(vertices.end(), other_solution.vertices.begin(), other_solution.vertices.end());
+    }
+
 }
 
 int OptSolution::concatenate_T(const OptSolution& other_solution, const distance_matrix distance_matrix) {
@@ -32,7 +35,10 @@ int OptSolution::concatenate_T(const OptSolution& other_solution, const distance
 }
 
 int OptSolution::concatenate_C(const OptSolution& other_solution, distance_matrix distance_matrix) {
-    int new_vertex_distance = calculate_new_edge_distance(other_solution, distance_matrix);
+    int new_vertex_distance = other_solution.vertices.front() == 0 && CLASSICAL_PROBLEM
+            ? 0
+            : calculate_new_edge_distance(other_solution, distance_matrix);
+
     return C + other_solution.W * (T + new_vertex_distance) + other_solution.C;
 }
 
@@ -44,6 +50,13 @@ int OptSolution::calculate_new_edge_distance(const OptSolution& other_solution, 
 
 OptSolution OptSolution::clone() const {
     return OptSolution(C, W, T, vertices);
+}
+
+bool OptSolution::equals(const OptSolution& other_solution) const {
+    return T == other_solution.T &&
+        C == other_solution.C &&
+        W == other_solution.W &&
+        vertices == other_solution.vertices;
 }
 
 

@@ -48,6 +48,8 @@ public:
      */
     OptSolution clone() const;
 
+    bool equals(const OptSolution& other_solution) const;
+
 private:
     /**
      * Concatena o valor de T(S) da solução atual com a de outra solução

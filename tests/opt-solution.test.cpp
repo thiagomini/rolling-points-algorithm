@@ -5,16 +5,16 @@
 
 #include <cassert>
 #include "test-logger.h"
-#include "../data_structures/opt-solution.h"
+#include "../data_structures/OptSolution.h"
 
 int test_opt_solution_clone() {
     print_sub_test_begin("clone", "Testando clonagem de solucao");
 
     // Arrange
-    Opt_Solution solution_1 =  Opt_Solution(65, 2, 45, {0, 1, 2});
+    OptSolution solution_1 =  OptSolution(65, 2, 45, {0, 1, 2});
 
     // Act
-    Opt_Solution solution_2 = solution_1.clone();
+    OptSolution solution_2 = solution_1.clone();
 
     // Assert
     assert(solution_2.C == solution_1.C);
@@ -31,8 +31,8 @@ int test_opt_solution_clone_different_reference() {
     print_sub_test_begin("clone", "Testando se clonagem de solucao nao reutiliza ponteiro de vertices");
 
     // Arrange
-    Opt_Solution solution_1 =  Opt_Solution(65, 2, 45, {0, 1, 2});
-    Opt_Solution solution_2 = solution_1.clone();
+    OptSolution solution_1 =  OptSolution(65, 2, 45, {0, 1, 2});
+    OptSolution solution_2 = solution_1.clone();
 
     // Act
     solution_2.vertices.at(0) = 10;
@@ -50,8 +50,8 @@ int test_opt_solution_concatenate() {
     print_sub_test_begin("concatenate_solutions", "Testando concatenacao de solucoes");
 
     // Arrange
-    Opt_Solution solution_1 = Opt_Solution(65, 2, 45, {0, 1, 2});
-    Opt_Solution solution_2 = Opt_Solution(50, 3, 40, {3, 4, 5});
+    OptSolution solution_1 = OptSolution(65, 2, 45, {0, 1, 2});
+    OptSolution solution_2 = OptSolution(50, 3, 40, {3, 4, 5});
 
     int matrix[6][6] = {
             {0, 20, 0, 0, 0, 0},
@@ -68,7 +68,7 @@ int test_opt_solution_concatenate() {
     };
 
     // Act
-    Opt_Solution concatenated_solution = concatenate_solutions(solution_1, solution_2, distance_matrix);
+    OptSolution concatenated_solution = concatenate_solutions(solution_1, solution_2, distance_matrix);
 
 
     // Assert

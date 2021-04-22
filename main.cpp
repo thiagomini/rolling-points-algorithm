@@ -19,6 +19,7 @@
 #include "data_structures/edge.h"
 #include "neighborhoods/2-optimal.h"
 #include "data_structures/OptSolution.h"
+#include "data_structures/OptMatrix.h"
 
 using namespace std;
 
@@ -116,6 +117,7 @@ void execute_tests() {
     test_neighborhood_generator();
     test_heuristic();
     test_opt_solution();
+    test_opt_matrix();
 }
 
 void execute_heuristic(int heuristic, const char * file_path, size_t number_of_nodes) {
