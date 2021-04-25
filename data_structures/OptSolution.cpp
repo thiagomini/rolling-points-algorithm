@@ -59,9 +59,25 @@ bool OptSolution::equals(const OptSolution& other_solution) const {
         vertices == other_solution.vertices;
 }
 
+OptSolution::OptSolution() {
+    C = 0;
+    T = 0;
+    W = 0;
+}
+
 
 OptSolution concatenate_solutions(const OptSolution& solution_1, const OptSolution& solution_2, distance_matrix distance_matrix) {
     OptSolution new_solution = solution_1.clone();
     new_solution.concatenate(solution_2, distance_matrix);
     return new_solution;
+}
+
+OptSolution concatenate_solutions(std::vector<OptSolution> solutions, distance_matrix distance_matrix) {
+    OptSolution result = solutions.at(0);
+
+    for (int i = 1; i < (int) solutions.size(); ++i) {
+        result.concatenate(solutions.at(i), distance_matrix);
+    }
+
+    return result;
 }

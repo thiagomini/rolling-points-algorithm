@@ -24,6 +24,14 @@ public:
      */
     OptSolution get_solution(int row, int column);
 
+    /**
+     * Retorna a solução completa, representada pela solução que está armazenada na posição [0, n-1] da matriz
+     * @return A solução completa
+     */
+    OptSolution get_full_solution();
+
+    void concatenate_new_solution(OptSolution new_solution, distance_matrix distance_matrix);
+
 private:
 
     /**

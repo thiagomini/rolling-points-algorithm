@@ -79,12 +79,47 @@ int test_opt_solution_concatenate() {
 
 }
 
+int test_opt_solution_concatenate_vector() {
+    print_sub_test_begin("concatenate_solutions", "Testando concatenacao de solucoes em vetor");
+
+    // Arrange
+
+    int distances[3][3] = {
+            {0, 59, 73},
+            {59, 0, 19},
+            {73, 19, 0}
+    };
+
+    distance_matrix distance_matrix = {
+            .distances = reinterpret_cast<int *>(distances),
+            .size = 3
+    };
+
+    std::vector<OptSolution> solutions = {
+            OptSolution(0, 0, 0, {0}),
+            OptSolution(0, 1, 0, {1}),
+            OptSolution(0, 1, 0, {2}),
+    };
+
+    OptSolution concatenated_solution = concatenate_solutions(solutions, distance_matrix);
+
+    assert(concatenated_solution.C == 137);
+    assert(concatenated_solution.T == 78);
+    assert(concatenated_solution.W == 2);
+    assert(concatenated_solution.vertices == std::vector<int>({0, 1, 2}));
+
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+}
+
 
 int test_opt_solution() {
-    print_test_begin("opt-solution.cpp");
+    print_test_begin("OptSolution.cpp");
     test_opt_solution_concatenate();
     test_opt_solution_clone();
     test_opt_solution_clone_different_reference();
-    print_test_end("opt-solution.cpp");
+    test_opt_solution_concatenate_vector();
+    print_test_end("OptSolution.cpp");
     return EXIT_SUCCESS;
 }

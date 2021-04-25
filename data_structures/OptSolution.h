@@ -35,6 +35,8 @@ public:
      */
     OptSolution(int fo, int size, int total_cost, std::vector<int> vertices_of_solution);
 
+    OptSolution();
+
     /**
      * Concatena a solução atual com uma nova, unindo o caminho parcial de ambas
      * @param other_solution
@@ -88,6 +90,14 @@ private:
  * @return
  */
 OptSolution concatenate_solutions(const OptSolution& solution_1, const OptSolution& solution_2, distance_matrix distance_matrix);
+
+/**
+ * Concatena uma série de soluções
+ * @param solutions
+ * @param distance_matrix
+ * @return O resultado após concatenar todas as soluções do vetor
+ */
+OptSolution concatenate_solutions(std::vector<OptSolution> solutions, distance_matrix distance_matrix);
 
 int test_opt_solution();
 

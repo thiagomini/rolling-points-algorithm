@@ -47,3 +47,18 @@ void OptMatrix::initialize_vertices(std::vector<int> vertices) {
     }
 
 }
+
+OptSolution OptMatrix::get_full_solution() {
+    return matrix.at(0).back();
+}
+
+void OptMatrix::concatenate_new_solution(OptSolution new_solution, distance_matrix distance_matrix) {
+    OptSolution original_solution = get_full_solution();
+
+    std::vector<OptSolution> sub_solutions;
+    int size = (int) new_solution.vertices.size();
+
+    for (int i = 0; i < size; ++i) {
+
+    }
+}

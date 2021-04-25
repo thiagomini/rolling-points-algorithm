@@ -7,7 +7,7 @@
 #include "test-logger.h"
 
 int test_opt_matrix_construction() {
-    print_sub_test_begin("OptMatrix", "Testando criação de matriz otimizada");
+    print_sub_test_begin("construtor", "Testando criacao de matriz otimizada");
 
     // Arrange
     vector<int> vertices = {0, 1, 2};
@@ -43,12 +43,40 @@ int test_opt_matrix_construction() {
     print_sub_test_end();
 
     return EXIT_SUCCESS;
-    }
+}
+
+int test_get_full_solution() {
+    print_sub_test_begin("get_full_solution", "Testando a recuperacao da solucao completa");
+
+    // Arrange
+    vector<int> vertices = {0, 1, 2};
+
+    int distances[3][3] = {
+            {0, 59, 73},
+            {59, 0, 19},
+            {73, 19, 0}
+    };
+
+    distance_matrix distance_matrix = {
+            .distances = reinterpret_cast<int *>(distances),
+            .size = 3
+    };
+
+    // Act
+    OptMatrix opt_matrix = OptMatrix(3, vertices, distance_matrix);
+
+    // Assert
+    assert(opt_matrix.get_full_solution().vertices == vector<int>({0, 1, 2}));
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+}
 
 
 int test_opt_matrix() {
     print_test_begin("OptMatrix.cpp");
     test_opt_matrix_construction();
+    test_get_full_solution();
     print_test_end("OptMatrix.cpp");
     return EXIT_SUCCESS;
 }

@@ -6,6 +6,8 @@
 #define ALGORITMO_TCC_SWAP_H
 
 #include "../data_structures/solution.h"
+#include "../data_structures/OptSolution.h"
+#include "../data_structures/OptMatrix.h"
 
 /**
  * Troca aleatoriamente duas posições do vetor de solução
@@ -32,6 +34,8 @@ void swap(Solution  &solucao, size_t posicao_1, size_t posicao_2, const int * ma
  * @return Uma solução vizinha, construída com o movimento swap
  */
 Solution build_swap(Solution solution, size_t posicao_1, size_t posicao_2, const int * matriz_distancias);
+
+OptSolution build_swap(OptMatrix opt_matrix, int index_1, int index_2, distance_matrix distance_matrix);
 
 /**
  * Constrói e retorna uma solução vizinha aplicando o movimento swap em posições aleatórias
