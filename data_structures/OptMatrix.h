@@ -32,6 +32,8 @@ public:
 
     void concatenate_new_solution(OptSolution new_solution, distance_matrix distance_matrix);
 
+    int getSize();
+
 private:
 
     /**

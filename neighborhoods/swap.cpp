@@ -46,10 +46,19 @@ OptSolution build_swap(OptMatrix opt_matrix, int index_1, int index_2, distance_
 
     // Definir e concatenar as sub-soluções
     std::vector<OptSolution> sub_solutions;
-    sub_solutions.push_back(opt_matrix.get_solution(0, lower_index - 1));
-    sub_solutions.push_back(opt_matrix.get_solution(greater_index, lower_index));
+    int matrixSize = opt_matrix.getSize();
 
-    if (greater_index != solution.vertices.size() - 1) {
+    sub_solutions.push_back(opt_matrix.get_solution(0, lower_index - 1));
+
+    if (lower_index + 1 == greater_index) {
+        sub_solutions.push_back(opt_matrix.get_solution(greater_index, lower_index));
+    } else {
+        sub_solutions.push_back(opt_matrix.get_solution(greater_index, greater_index));
+        sub_solutions.push_back(opt_matrix.get_solution(lower_index + 1, greater_index - 1));
+        sub_solutions.push_back(opt_matrix.get_solution(lower_index, lower_index));
+    }
+
+    if (greater_index != matrixSize - 1) {
         sub_solutions.push_back(opt_matrix.get_solution(greater_index + 1, (int) solution.vertices.size() - 1));
     }
 

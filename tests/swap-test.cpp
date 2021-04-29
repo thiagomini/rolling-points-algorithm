@@ -148,6 +148,38 @@ int test_swap_opt_first_improvement() {
     return EXIT_SUCCESS;
 }
 
+int test_build_swap_opt_solution_1_and_2() {
+    print_sub_test_begin("build_swap", "Criando vizinhanca swap para vertices 1 e 2 (OptSolution)");
+
+    // Arrange
+    int distances[5][5] = {
+            {0, 59, 73, 55, 33},
+            {59, 0, 19, 9, 43},
+            {73, 19, 0, 19, 49},
+            { 55, 9, 19, 0, 35},
+            {33, 43, 49, 35, 0},
+    };
+
+    distance_matrix distance_matrix ={
+            .distances = reinterpret_cast<int *>(distances),
+            .size = 5
+    };
+
+    OptMatrix opt_matrix = OptMatrix(5, {0, 1, 2, 3, 4}, distance_matrix);
+
+    // Act
+    OptSolution swapped_solution = build_swap(opt_matrix, 1, 2, distance_matrix);
+
+    // Assert
+    assert(swapped_solution.vertices == std::vector<int>({0, 2, 1, 3, 4}));
+    assert(swapped_solution.C == (CLASSICAL_PROBLEM ? 402 : 571));
+    assert(swapped_solution.T == (CLASSICAL_PROBLEM ? 136 : 169));
+    assert(swapped_solution.W == (CLASSICAL_PROBLEM ? 4 : 5));
+
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+}
 
 int test_build_swap_opt_solution_1_and_3() {
     print_sub_test_begin("build_swap", "Criando vizinhanca swap para vertices 1 e 3 (OptSolution)");
@@ -183,13 +215,120 @@ int test_build_swap_opt_solution_1_and_3() {
     return EXIT_SUCCESS;
 }
 
+int test_build_swap_opt_solution_1_and_4() {
+    print_sub_test_begin("build_swap", "Criando vizinhanca swap para vertices 1 e 4 (OptSolution)");
+
+    // Arrange
+    int distances[5][5] = {
+            {0, 59, 73, 55, 33},
+            {59, 0, 19, 9, 43},
+            {73, 19, 0, 19, 49},
+            { 55, 9, 19, 0, 35},
+            {33, 43, 49, 35, 0},
+    };
+
+    distance_matrix distance_matrix ={
+            .distances = reinterpret_cast<int *>(distances),
+            .size = 5
+    };
+
+
+    OptMatrix opt_matrix = OptMatrix(5, {0, 1, 2, 3, 4}, distance_matrix);
+
+    // Act
+    OptSolution swapped_solution = build_swap(opt_matrix, 1, 4, distance_matrix);
+
+    // Assert
+    assert(swapped_solution.vertices == std::vector<int>({0, 4, 2, 3, 1}));
+    assert(swapped_solution.C == (CLASSICAL_PROBLEM ? 326 : 495));
+    assert(swapped_solution.T == (CLASSICAL_PROBLEM ? 110 : 169));
+    assert(swapped_solution.W == (CLASSICAL_PROBLEM ? 4 : 5));
+
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+}
+
+int test_build_swap_opt_solution_2_and_4() {
+    print_sub_test_begin("build_swap", "Criando vizinhanca swap para vertices 2 e 4 (OptSolution)");
+
+    // Arrange
+    int distances[5][5] = {
+            {0, 59, 73, 55, 33},
+            {59, 0, 19, 9, 43},
+            {73, 19, 0, 19, 49},
+            { 55, 9, 19, 0, 35},
+            {33, 43, 49, 35, 0},
+    };
+
+    distance_matrix distance_matrix ={
+            .distances = reinterpret_cast<int *>(distances),
+            .size = 5
+    };
+
+
+    OptMatrix opt_matrix = OptMatrix(5, {0, 1, 2, 3, 4}, distance_matrix);
+
+    // Act
+    OptSolution swapped_solution = build_swap(opt_matrix, 2, 4, distance_matrix);
+
+    // Assert
+    assert(swapped_solution.vertices == std::vector<int>({0, 1, 4, 3, 2}));
+    assert(swapped_solution.C == (CLASSICAL_PROBLEM ? 454 : 683));
+    assert(swapped_solution.T == (CLASSICAL_PROBLEM ? 156 : 229));
+    assert(swapped_solution.W == (CLASSICAL_PROBLEM ? 4 : 5));
+
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+}
+
+
+int test_build_swap_opt_solution_3_and_4() {
+    print_sub_test_begin("build_swap", "Criando vizinhanca swap para vertices 3 e 4 (OptSolution)");
+
+    // Arrange
+    int distances[5][5] = {
+            {0, 59, 73, 55, 33},
+            {59, 0, 19, 9, 43},
+            {73, 19, 0, 19, 49},
+            { 55, 9, 19, 0, 35},
+            {33, 43, 49, 35, 0},
+    };
+
+    distance_matrix distance_matrix ={
+            .distances = reinterpret_cast<int *>(distances),
+            .size = 5
+    };
+
+
+    OptMatrix opt_matrix = OptMatrix(5, {0, 1, 2, 3, 4}, distance_matrix);
+
+    // Act
+    OptSolution swapped_solution = build_swap(opt_matrix, 3, 4, distance_matrix);
+
+    // Assert
+    assert(swapped_solution.vertices == std::vector<int>({0, 1, 2, 4, 3}));
+    assert(swapped_solution.C == (CLASSICAL_PROBLEM ? 426 : 643));
+    assert(swapped_solution.T == (CLASSICAL_PROBLEM ? 162 : 217));
+    assert(swapped_solution.W == (CLASSICAL_PROBLEM ? 4 : 5));
+
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+}
+
 int test_swap() {
     print_test_begin("swap.cpp");
     test_swap_random();
     test_swap_selected();
     test_swap_opt();
     test_swap_opt_first_improvement();
+    test_build_swap_opt_solution_1_and_2();
     test_build_swap_opt_solution_1_and_3();
+    test_build_swap_opt_solution_1_and_4();
+    test_build_swap_opt_solution_2_and_4();
+    test_build_swap_opt_solution_3_and_4();
     print_test_end("swap.cpp");
 
     return EXIT_SUCCESS;

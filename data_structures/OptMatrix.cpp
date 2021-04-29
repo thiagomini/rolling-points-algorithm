@@ -62,3 +62,7 @@ void OptMatrix::concatenate_new_solution(OptSolution new_solution, distance_matr
 
     }
 }
+
+int OptMatrix::getSize() {
+    return (int) matrix.size();
+}
