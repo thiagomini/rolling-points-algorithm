@@ -24,7 +24,7 @@
 using namespace std;
 
 void execute_tests();
-void calculate_time();
+void calculate_time(const char * file_path, size_t number_of_nodes);
 
 /**
  * Realiza a otimização de um problema MLP, utilizando uma heurística passada como parâmetro
@@ -73,8 +73,8 @@ void print_heuristic_metrics(Solution *solutions, int times);
 int main() {
     srand(time(NULL));
 
-    execute_tests();
-
+//    execute_tests();
+      calculate_time("../instances/st70.tsp", 70);
 //    execute_heuristic(ROLLING_POINTS_ALGORITHM, "../instances/st70.tsp", 70);
 //    calculate_time();
 
@@ -82,22 +82,33 @@ int main() {
 
 }
 
-void calculate_time() {
+void calculate_time(const char * file_path, size_t number_of_nodes) {
     clock_t begin, end;
     double time_spent;
-    unsigned int i;
-    unsigned int vertices[10] = {
-            1,2,3,4,5,6,7,8,9,10
-    };
 
-    unsigned int * solution;
+    node_2d * nodes = read_nodes_euc_2d(file_path);
+    int calculated_distance_matrix[number_of_nodes][number_of_nodes];
+
+    int ** distance_matrix_pointer = build_distance_matrix(reinterpret_cast<node_2d *>(nodes), number_of_nodes);
+
+    // Preenche a matrix com os valores retornados pelo ponteiro da função
+    for (int i = 0; i < number_of_nodes; i++) {
+        for (int j =0; j < number_of_nodes; j++) {
+            calculated_distance_matrix[i][j] = distance_matrix_pointer[i][j];
+        }
+    }
+
+    Solution solution = build_random_solution(number_of_nodes, reinterpret_cast<const int *>(calculated_distance_matrix));
 
     begin = clock();
+
+    Solution best_solution = swap_opt_2(solution, reinterpret_cast<const int *>(calculated_distance_matrix), BEST_IMPROVEMENT);
 
     end = clock() - begin;
     time_spent = ((double) end) / CLOCKS_PER_SEC;
 
     printf("Tempo Gasto em Segundos: %f", time_spent);
+
 }
 
 void execute_tests() {

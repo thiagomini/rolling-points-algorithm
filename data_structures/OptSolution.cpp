@@ -65,6 +65,13 @@ OptSolution::OptSolution() {
     W = 0;
 }
 
+OptSolution::OptSolution(int size, std::vector<int> vertices_of_solution) {
+    W = size;
+    C = 0;
+    T = 0;
+    vertices = std::move(vertices_of_solution);
+}
+
 
 OptSolution concatenate_solutions(const OptSolution& solution_1, const OptSolution& solution_2, distance_matrix distance_matrix) {
     OptSolution new_solution = solution_1.clone();

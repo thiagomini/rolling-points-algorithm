@@ -26,3 +26,10 @@ int ** build_distance_matrix(node_2d * nodes, size_t size) {
 
     return distance_matrix;
 }
+
+distance_matrix build_distance_matrix(const int * distances, int size) {
+    return {
+            .distances = const_cast<int *>(distances),
+            .size = size,
+    };
+}

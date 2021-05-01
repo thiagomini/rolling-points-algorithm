@@ -54,6 +54,8 @@ Solution build_swap(Solution solution, const int * matriz_distancias);
  */
 Solution swap_opt(Solution solucao, const int * matriz_distancias, int strategy = BEST_IMPROVEMENT);
 
+Solution swap_opt_2(Solution solucao, const int * matriz_distancias, int strategy);
+
 int test_swap();
 
 #endif //ALGORITMO_TCC_SWAP_H

@@ -9,6 +9,7 @@
 #include "iostream"
 #include "../utils/array.h"
 #include "vector"
+#include "OptSolution.h"
 
 using namespace std;
 
@@ -73,5 +74,12 @@ double calculate_mean_time(Solution solutions[], int size);
  * Testa todas as funções do Módulo solution.cpp
  */
 int test_solution();
+
+/**
+ * Cria uma estrutura de Solution à partir de um opt_solution
+ * @param opt_solution
+ * @return
+ */
+Solution get_from_opt_solution(const OptSolution& opt_solution);
 
 #endif //ALGORITMO_TCC_SOLUTION_H

@@ -8,6 +8,7 @@
 #include <memory.h>
 #include <cassert>
 #include "iostream"
+#include "data_structures/OptSolution.h"
 
 using namespace std;
 

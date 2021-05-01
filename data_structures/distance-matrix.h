@@ -31,6 +31,14 @@ typedef struct {
 int ** build_distance_matrix(node_2d * nodes, size_t size);
 
 /**
+ * Constrói uma estrutura de distance_matrix que possui referência à matriz e ao tamanho da mesma
+ * @param distances - O ponteiro para a matriz de distâncias
+ * @param size - O tamanho de uma dimensão da matriz
+ * @return 
+ */
+distance_matrix build_distance_matrix(const int * distances, int size);
+
+/**
  * Testa todas as funções do módulo <b>distance-matrix</b>
  */
 int test_distance_matrix();

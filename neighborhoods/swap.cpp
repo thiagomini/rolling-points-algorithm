@@ -65,6 +65,17 @@ OptSolution build_swap(OptMatrix opt_matrix, int index_1, int index_2, distance_
     return concatenate_solutions(sub_solutions, distance_matrix);
 }
 
+OptSolution build_swap(OptMatrix opt_matrix, distance_matrix distance_matrix) {
+    int random_index_1 = RANDOM_BETWEEN(0, distance_matrix.size - 1);
+    int random_index_2 = RANDOM_BETWEEN(0, distance_matrix.size - 1);
+
+    while (random_index_2 == random_index_1) {
+        random_index_2 = RANDOM_BETWEEN(0, distance_matrix.size - 1);
+    }
+
+    return build_swap(opt_matrix, random_index_1, random_index_2, distance_matrix);
+}
+
 Solution build_swap(Solution solution, size_t posicao_1, size_t posicao_2, const int * matriz_distancias) {
     swap(solution, posicao_1, posicao_2, matriz_distancias);
     return solution;
@@ -95,4 +106,34 @@ Solution swap_opt(Solution solucao, const int * matriz_distancias, int strategy)
 
     END_OF_LOOP:
         return best_solution;
+}
+
+Solution swap_opt_2(Solution solucao, const int * matriz_distancias, int strategy) {
+#ifdef VERBOSE
+    cout << "[swap_opt] Realizando Busca Local swap..." << endl;
+#endif
+    Solution best_solution, new_solution;
+    OptSolution optNewSolution, optBestSolution;
+
+    clone_solution(solucao, best_solution);
+    clone_solution(solucao, new_solution);
+
+
+    distance_matrix distance_matrix = build_distance_matrix(matriz_distancias, solucao.size_of_solution);
+    OptMatrix optmized_structure = OptMatrix(solucao.size_of_solution, solucao.vertices, distance_matrix);
+
+    for (int i = 1; i < solucao.size_of_solution - 1; i++) {
+        for (int j = i + 1; j < solucao.size_of_solution; j++) {
+            optNewSolution = build_swap(optmized_structure, i, j, distance_matrix);
+            if (optNewSolution.C < best_solution.objective_function) {
+                clone_solution(new_solution, best_solution);
+                optBestSolution = optNewSolution.clone();
+//                optmized_structure = OptMatrix(solucao.size_of_solution, optBestSolution.vertices, distance_matrix);
+                if (strategy == FIRST_IMPROVEMENT) goto END_OF_LOOP;
+            }
+        }
+    }
+
+    END_OF_LOOP:
+    return best_solution;
 }

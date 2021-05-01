@@ -74,3 +74,11 @@ double calculate_mean_time(Solution solutions[], int size) {
 
     return (double) total_sum / size;
 }
+
+Solution get_from_opt_solution(const OptSolution& opt_solution) {
+    return {
+        .objective_function = opt_solution.C,
+        .size_of_solution = static_cast<size_t>(opt_solution.W),
+        .vertices = opt_solution.vertices,
+    };
+}

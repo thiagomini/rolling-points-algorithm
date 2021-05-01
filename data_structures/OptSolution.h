@@ -35,6 +35,8 @@ public:
      */
     OptSolution(int fo, int size, int total_cost, std::vector<int> vertices_of_solution);
 
+    OptSolution(int size, std::vector<int> vertices_of_solution);
+
     OptSolution();
 
     /**
