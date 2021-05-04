@@ -26,3 +26,7 @@ int ** build_distance_matrix(node_2d * nodes, size_t size) {
 
     return distance_matrix;
 }
+
+int get_distance(int vertex_1, int vertex_2, const int * distance_matrix, int size) {
+    return distance_matrix[vertex_1 * size + vertex_2];
+}

@@ -82,7 +82,7 @@ void shuffle_array(int * array, int size) {
     while (!pool.empty()) {
         int size_of_pool = (int) pool.size();
         selected_index = size_of_pool == 1 ? 0 : RANDOM_BETWEEN(0, size_of_pool - 1);
-        new_array[new_positions_cursor] = pool.at(selected_index);
+        new_array[new_positions_cursor] = pool[selected_index];
         pool.erase(pool.begin() + selected_index);
         new_positions_cursor++;
     }

@@ -14,23 +14,23 @@ void or_switch(Solution &solution, size_t vertex_1, size_t new_position, const i
     ) {
         throw "Vertice invalido escolhido para troca";
     }
-    int vertex_in_initial_position = solution.vertices.at(vertex_1);
+    int vertex_in_initial_position = solution.vertices[vertex_1];
     vector<int> adjacent_vertices = slice(solution.vertices,(int) vertex_1 + 1, (int) vertex_1 + (n - 1));
 
     if (new_position > vertex_1) {
         for (int i = (int) vertex_1; i < new_position; i++)
-            solution.vertices.at(i) = solution.vertices.at(i + n);
+            solution.vertices[i] = solution.vertices[i + n];
 
     } else {
         for (int i = (int) vertex_1 + 1; i > new_position + 1; i--)
-            solution.vertices.at(i) = solution.vertices.at(i - n);
+            solution.vertices[i] = solution.vertices[i - n];
 
     }
 
-    solution.vertices.at(new_position) = vertex_in_initial_position;
+    solution.vertices[new_position] = vertex_in_initial_position;
 
     for (int i = new_position; i < new_position + (n - 1); i++) {
-        solution.vertices.at(i + 1) = adjacent_vertices.front();
+        solution.vertices[i + 1] = adjacent_vertices.front();
         adjacent_vertices.erase(adjacent_vertices.cbegin());
     }
 

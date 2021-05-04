@@ -22,7 +22,7 @@
 using namespace std;
 
 void execute_tests();
-void calculate_time();
+void calculate_time(const char * file_path, size_t number_of_nodes, int times);
 
 /**
  * Realiza a otimização de um problema MLP, utilizando uma heurística passada como parâmetro
@@ -74,28 +74,23 @@ int main() {
 //    execute_tests();
 
     execute_heuristic(ROLLING_POINTS_ALGORITHM, "../instances/st70.tsp", 70);
-//    calculate_time();
+//    calculate_time("../instances/st70.tsp", 70, 100000);
 
     return EXIT_SUCCESS;
 
 }
 
-void calculate_time() {
-    clock_t begin, end;
-    double time_spent;
-    unsigned int i;
-    unsigned int vertices[10] = {
-            1,2,3,4,5,6,7,8,9,10
-    };
+void calculate_time(const char * file_path, size_t number_of_nodes, int times) {
+    node_2d * nodes = read_nodes_euc_2d(file_path);
+    int calculated_distance_matrix[number_of_nodes][number_of_nodes];
+    int ** distance_matrix_pointer = build_distance_matrix(reinterpret_cast<node_2d *>(nodes), number_of_nodes);
+    for (int i = 0; i < number_of_nodes; i++) {
+        for (int j =0; j < number_of_nodes; j++) {
+            calculated_distance_matrix[i][j] = distance_matrix_pointer[i][j];
+        }
+    }
 
-    unsigned int * solution;
-
-    begin = clock();
-
-    end = clock() - begin;
-    time_spent = ((double) end) / CLOCKS_PER_SEC;
-
-    printf("Tempo Gasto em Segundos: %f", time_spent);
+    calculate_build_random_solution_time(70, reinterpret_cast<const int *>(calculated_distance_matrix), times);
 }
 
 void execute_tests() {
@@ -149,11 +144,9 @@ void execute_rolling_points(const char * file_path, size_t number_of_nodes, size
         begin = clock();
 
         solutions[iteration] = rolling_points_heuristic(reinterpret_cast<const int *>(calculated_distance_matrix), number_of_nodes, population);
-//        print_solution(&best_solution);
 
         end = clock() - begin;
         solutions[iteration].time_spent = ((double) end) / CLOCKS_PER_SEC;
-//        printf("Tempo Gasto em Segundos: %f", time_spent);
     }
 
     delete distance_matrix_pointer;

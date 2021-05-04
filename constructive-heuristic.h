@@ -20,6 +20,8 @@ Solution build_random_solution(size_t size, const int * distance_matrix);
  */
 vector<int> build_vertices_array(size_t size);
 
+void calculate_build_random_solution_time(size_t size, const int * distance_matrix, int times);
+
 int test_constructive_heuristic();
 
 
