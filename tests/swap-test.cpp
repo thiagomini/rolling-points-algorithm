@@ -28,7 +28,7 @@ int test_swap_random() {
     };
 
     // Act
-    swap(solution, reinterpret_cast<const int *>(distance_matrix));
+    swap(solution, reinterpret_cast<const int *>(distance_matrix), 3);
 
 
     // Prepare-Response
@@ -64,7 +64,7 @@ int test_swap_opt() {
     };
 
     // Act
-    Solution best_solution = swap_opt(solution, reinterpret_cast<const int *>(distance_matrix));
+    Solution best_solution = swap_opt(solution, reinterpret_cast<const int *>(distance_matrix), 3);
 
 
     // Assert
@@ -99,7 +99,7 @@ int test_swap_selected() {
     };
 
     // Act
-    swap(solution, 1, 2, reinterpret_cast<const int *>(distance_matrix));
+    swap(solution, 1, 2, reinterpret_cast<const int *>(distance_matrix), 3);
 
 
     // Prepare-Response
@@ -133,7 +133,7 @@ int test_swap_opt_first_improvement() {
     };
 
     // Act
-    Solution best_solution = swap_opt(solution, reinterpret_cast<const int *>(distance_matrix), FIRST_IMPROVEMENT);
+    Solution best_solution = swap_opt(solution, reinterpret_cast<const int *>(distance_matrix), 4, FIRST_IMPROVEMENT);
 
 
     // Assert

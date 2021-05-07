@@ -95,12 +95,12 @@ void calculate_time(const char * file_path, size_t number_of_nodes, int times) {
 
 void execute_tests() {
     cout << "Iniciando Rotina de Testes...\n";
+    test_solution();
     test_distance();
     test_string_utils();
     test_data_read();
     test_distance_matrix();
     test_array();
-    test_solution();
     test_edge();
     test_constructive_heuristic();
     test_swap();
@@ -108,7 +108,7 @@ void execute_tests() {
     test_or_opt();
     test_two_optimal();
     test_neighborhood_generator();
-    test_heuristic();
+//    test_heuristic();
 }
 
 void execute_heuristic(int heuristic, const char * file_path, size_t number_of_nodes) {

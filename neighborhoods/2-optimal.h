@@ -19,14 +19,14 @@
  *  two_optimal_move(solution, distance_matrix, 0, 2) // Remove as arestas que ligam o vértice 0 ao 1, e a aresta que
  *  liga o vértice 2 ao 3
  */
-void two_optimal_move(Solution &solution, const int * distance_matrix, size_t edge_1, size_t edge_2);
+void two_optimal_move(Solution &solution, const int * distance_matrix, size_t edge_1, size_t edge_2, int size = SIZE);
 
 /**
  * Realiza o movimento 2-Optimal em uma solução utilizando arestas aleatórias
  * @param solution - Ponteiro para a Solução
  * @param distance_matrix - Ponteiro para a matriz de distâncias.
  */
-void two_optimal_move(Solution &solution, const int * distance_matrix);
+void two_optimal_move(Solution &solution, const int * distance_matrix, int size = SIZE);
 
 /**
  * Realiza a busca local 2-Optimal, retornando a solução com a melhor FO
@@ -34,7 +34,7 @@ void two_optimal_move(Solution &solution, const int * distance_matrix);
  * @param distance_matrix -  Ponteiro para a matriz de distâncias.
  * @return A solução com melhor FO
  */
-Solution two_optimal(Solution &solution, const int * distance_matrix, int strategy = BEST_IMPROVEMENT);
+Solution two_optimal(Solution &solution, const int * distance_matrix, int size = SIZE, int strategy = BEST_IMPROVEMENT);
 
 /**
  * Constrói e retorna uma solução vizinha aplicando o movimento 2-optimal em posições definidas
@@ -44,7 +44,7 @@ Solution two_optimal(Solution &solution, const int * distance_matrix, int strate
  * @param edge_2 - Segunda aresta do grafo.
  * @return Uma solução vizinha construída com o movimento 2-optimal
  */
-Solution build_two_optimal(Solution solution, const int * distance_matrix, size_t edge_1, size_t edge_2);
+Solution build_two_optimal(Solution solution, const int * distance_matrix, size_t edge_1, size_t edge_2, int size = SIZE);
 
 /**
  * Constrói e retorna uma solução vizinha aplicando o movimento 2-optimal em posições aleatórias
@@ -52,7 +52,7 @@ Solution build_two_optimal(Solution solution, const int * distance_matrix, size_
  * @param distance_matrix - Ponteiro para a matriz de distâncias.
  * @return Uma solução vizinha construída com o movimento 2-optimal
  */
-Solution build_two_optimal(Solution solution, const int * distance_matrix);
+Solution build_two_optimal(Solution solution, const int * distance_matrix, int size = SIZE);
 
 int test_two_optimal();
 

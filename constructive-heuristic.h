@@ -11,7 +11,7 @@
  * @param size - Tamanho da lista de vértices
  * @return Ponteiro para solução criada
  */
-Solution build_random_solution(size_t size, const int * distance_matrix);
+Solution build_random_solution(const int * distance_matrix, int size = SIZE);
 
 /**
  * Constrói o array de vértices para a solução, sempre começando do vértice 0

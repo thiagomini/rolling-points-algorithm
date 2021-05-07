@@ -69,6 +69,8 @@ int test_array();
  */
 std::vector<int> slice(std::vector<int> &v, int begin, int end);
 
+std::vector<int> slice(int * array, int begin, int end);
+
 /**
  * Embaralha os elementos de um array
  * @param array

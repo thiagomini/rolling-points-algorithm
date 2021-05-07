@@ -42,13 +42,14 @@ vector<int> build_vertices_array(size_t size) {
    return shuffled_array;
 }
 
-Solution build_random_solution(size_t size, const int * distance_matrix) {
+Solution build_random_solution(const int * distance_matrix, int size) {
     vector<int> vertices_of_solution = build_vertices_array(size);
     static Solution built_solution;
 
-    built_solution.vertices = vertices_of_solution;
+    memcpy(built_solution.vertices, vertices_of_solution.data(), size * sizeof(int));
+
     built_solution.size_of_solution = size;
-    calculate_objective_function(&built_solution, distance_matrix);
+    calculate_objective_function(&built_solution, distance_matrix, size);
     return built_solution;
 }
 
@@ -62,7 +63,9 @@ Solution build_greedy_solution(int size, const int * distance_matrix) {
     for (int i = 1; i < size; i++) {
 
     }
-
+    return {
+        .objective_function = 0
+    };
 }
 
 int find_nearest_neighbor(int vertex, const int * distance_matrix) {
@@ -77,7 +80,7 @@ void calculate_build_random_solution_time(size_t size, const int * distance_matr
     begin = clock();
 
     for (int i = 0; i < times; ++i) {
-        build_random_solution(size, distance_matrix);
+        build_random_solution(distance_matrix, size);
     }
 
     end = clock() - begin;

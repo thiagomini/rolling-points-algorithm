@@ -67,7 +67,7 @@ int test_calculate_objective_function_classical_problem() {
             {0, 1, 2}
     };
 
-    calculate_objective_function(&solution, reinterpret_cast<const int *>(matriz_distancias), 1);
+    calculate_objective_function(&solution, reinterpret_cast<const int *>(matriz_distancias), 3, 1);
 
     assert(solution.objective_function == 137);
 
@@ -93,7 +93,7 @@ int test_calculate_objective_function_non_classical_problem() {
     };
 
 
-    calculate_objective_function(&solution, reinterpret_cast<const int *>(matriz_distancias), 0);
+    calculate_objective_function(&solution, reinterpret_cast<const int *>(matriz_distancias), 3, 0);
 
     assert(solution.objective_function == 288);
     print_sub_test_end();

@@ -12,7 +12,7 @@
  * @param solucao Ponteiro para a solução que se deseja realizar o movimento SWAP
  * @param matriz_distancias A matriz de distâncias do problema, usada para calcular a novo FO da solução
  */
-void swap(Solution  &solucao, const int * matriz_distancias);
+void swap(Solution  &solucao, const int * matriz_distancias, int size = SIZE);
 
 /**
  * Troca a posição de dois vértices na solução, recalculando a FO
@@ -21,7 +21,7 @@ void swap(Solution  &solucao, const int * matriz_distancias);
  * @param posicao_2 Posição do segundo vértice para realizar a troca
  * @param matriz_distancias A matriz de distâncias do problema, usada para calcular a novo FO da solução
  */
-void swap(Solution  &solucao, size_t posicao_1, size_t posicao_2, const int * matriz_distancias);
+void swap(Solution  &solucao, size_t posicao_1, size_t posicao_2, const int * matriz_distancias, int size = SIZE);
 
 /**
  * Constrói e retorna uma solução vizinha aplicando o movimento swap em posições definidas
@@ -31,7 +31,7 @@ void swap(Solution  &solucao, size_t posicao_1, size_t posicao_2, const int * ma
  * @param matriz_distancias A matriz de distâncias do problema, usada para calcular a novo FO da solução
  * @return Uma solução vizinha, construída com o movimento swap
  */
-Solution build_swap(Solution solution, size_t posicao_1, size_t posicao_2, const int * matriz_distancias);
+Solution build_swap(Solution solution, size_t posicao_1, size_t posicao_2, const int * matriz_distancias, int size = SIZE);
 
 /**
  * Constrói e retorna uma solução vizinha aplicando o movimento swap em posições aleatórias
@@ -48,7 +48,7 @@ Solution build_swap(Solution solution, const int * matriz_distancias);
  * @param solucao Solução que deseja realizar o swap_opt
  * @param matriz_distancias A matriz de distâncias do problema, usada para calcular a nova FO da solução
  */
-Solution swap_opt(Solution solucao, const int * matriz_distancias, int strategy = BEST_IMPROVEMENT);
+Solution swap_opt(Solution solucao, const int * matriz_distancias, int size = SIZE, int strategy = BEST_IMPROVEMENT);
 
 int test_swap();
 
