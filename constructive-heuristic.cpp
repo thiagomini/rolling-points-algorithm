@@ -6,8 +6,7 @@
 #include "constructive-heuristic.h"
 #include <random>
 #include <memory.h>
-#include <cassert>
-#include "iostream"
+#include <ctime>
 
 using namespace std;
 
@@ -43,12 +42,48 @@ vector<int> build_vertices_array(size_t size) {
    return shuffled_array;
 }
 
-Solution build_random_solution(size_t size, const int * distance_matrix) {
+Solution build_random_solution(const int * distance_matrix, int size) {
     vector<int> vertices_of_solution = build_vertices_array(size);
     static Solution built_solution;
 
-    built_solution.vertices = vertices_of_solution;
+    memcpy(built_solution.vertices, vertices_of_solution.data(), size * sizeof(int));
+
     built_solution.size_of_solution = size;
-    calculate_objective_function(&built_solution, distance_matrix);
+    calculate_objective_function(&built_solution, distance_matrix, size);
     return built_solution;
+}
+
+Solution build_greedy_solution(int size, const int * distance_matrix) {
+    vector<int> vertices_of_solution(size);
+    vertices_of_solution.push_back(0);
+
+    int next_vertex;
+    int distances[size];
+
+    for (int i = 1; i < size; i++) {
+
+    }
+    return {
+        .objective_function = 0
+    };
+}
+
+int find_nearest_neighbor(int vertex, const int * distance_matrix) {
+    return 0;
+}
+
+
+void calculate_build_random_solution_time(size_t size, const int * distance_matrix, int times) {
+    clock_t begin, end;
+    double time_spent;
+
+    begin = clock();
+
+    for (int i = 0; i < times; ++i) {
+        build_random_solution(distance_matrix, size);
+    }
+
+    end = clock() - begin;
+    time_spent = ((double) end) / CLOCKS_PER_SEC;
+    printf("[build_random_solution] Tempo Gasto em Segundos: %f", time_spent);
 }

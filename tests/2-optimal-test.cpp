@@ -26,15 +26,15 @@ int test_two_optimal_move() {
     };
 
     // Act
-    two_optimal_move(solution, reinterpret_cast<const int *>(distance_matrix), 0, 3);
+    two_optimal_move(solution, reinterpret_cast<const int *>(distance_matrix), 0, 3, 6);
 
     // Assert
-    assert(solution.vertices.at(0) == 0);
-    assert(solution.vertices.at(1) == 3);
-    assert(solution.vertices.at(2) == 2);
-    assert(solution.vertices.at(3) == 1);
-    assert(solution.vertices.at(4) == 4);
-    assert(solution.vertices.at(5) == 5);
+    assert(solution.vertices[0] == 0);
+    assert(solution.vertices[1] == 3);
+    assert(solution.vertices[2] == 2);
+    assert(solution.vertices[3] == 1);
+    assert(solution.vertices[4] == 4);
+    assert(solution.vertices[5] == 5);
 
     print_sub_test_end();
     return EXIT_SUCCESS;
@@ -58,18 +58,18 @@ int test_two_optimal_move_random() {
             .vertices = {0, 1, 2, 3, 4, 5}
     };
 
-    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix));
+    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix), 6);
 
     // Act
-    two_optimal_move(solution, reinterpret_cast<const int *>(distance_matrix));
+    two_optimal_move(solution, reinterpret_cast<const int *>(distance_matrix), 6);
 
     // Prepare-Response
-    bool has_same_order = solution.vertices.at(0) == 0 &&
-            solution.vertices.at(1) == 1 &&
-            solution.vertices.at(2) == 2 &&
-            solution.vertices.at(3) == 3 &&
-            solution.vertices.at(4) == 4 &&
-            solution.vertices.at(5) == 5;
+    bool has_same_order = solution.vertices[0] == 0 &&
+            solution.vertices[1] == 1 &&
+            solution.vertices[2] == 2 &&
+            solution.vertices[3] == 3 &&
+            solution.vertices[4] == 4 &&
+            solution.vertices[5] == 5;
 
     // Assert
     assert(has_same_order == false);
@@ -96,7 +96,7 @@ int test_two_optimal_local_search() {
     };
 
     // Act
-    two_optimal(solution, reinterpret_cast<const int *>(distance_matrix));
+    two_optimal(solution, reinterpret_cast<const int *>(distance_matrix), 4);
 
     // Assert
     assert(solution.vertices[0] == 0);
@@ -121,10 +121,10 @@ int test_two_optimal_local_search_first_improvement() {
             .vertices = {0, 3, 2, 1}
     };
 
-    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix));
+    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix), 6);
 
     // Act
-    solution = two_optimal(solution, reinterpret_cast<const int *>(distance_matrix), FIRST_IMPROVEMENT);
+    solution = two_optimal(solution, reinterpret_cast<const int *>(distance_matrix), 6, FIRST_IMPROVEMENT);
 
     // Assert
     assert(solution.vertices[0] == 0);

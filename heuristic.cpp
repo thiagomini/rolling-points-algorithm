@@ -19,13 +19,13 @@ Solution random_iterative_heuristic(int * distance_matrix, size_t number_of_vert
     int i = 0;
 
     static Solution best_solution;
-    Solution random_solution = build_random_solution(number_of_vertices, distance_matrix);
+    Solution random_solution = build_random_solution(distance_matrix, number_of_vertices);
 
     clone_solution(random_solution, best_solution);
 
     while (epoch < MAX_ITERATIONS) {
         for (; i < NUMBER_OF_SOLUTIONS; i++) {
-             random_solution = build_random_solution(number_of_vertices, distance_matrix);
+             random_solution = build_random_solution(distance_matrix, number_of_vertices);
             if (compare(best_solution, random_solution) > 0) {
                 clone_solution(random_solution, best_solution);
             }
@@ -44,7 +44,7 @@ Solution random_iterative_heuristic(int * distance_matrix, size_t number_of_vert
 Solution rolling_points_heuristic(const int *distance_matrix, size_t number_of_vertices, size_t population) {
     Solution solucoes[population];
 
-    solucoes[0] = build_random_solution(number_of_vertices, distance_matrix);
+    solucoes[0] = build_random_solution(distance_matrix, (int) number_of_vertices);
     Solution best_solution;
 
     #ifdef VERBOSE
@@ -53,7 +53,7 @@ Solution rolling_points_heuristic(const int *distance_matrix, size_t number_of_v
 
     // Fase Exploratória
     for (int i = 1; i < population; i++) {
-        solucoes[i] = build_random_solution(number_of_vertices, distance_matrix);
+        solucoes[i] = build_random_solution(distance_matrix, (int) number_of_vertices);
     }
 
     #ifdef VERBOSE
@@ -65,7 +65,7 @@ Solution rolling_points_heuristic(const int *distance_matrix, size_t number_of_v
     // Aplicar busca dos pontos aqui!
     for (int i = 0; i < population; i++) {
         while (energy > 0) {
-            neighbor = random_local_search(solucoes[i], distance_matrix);
+            neighbor = random_local_search(solucoes[i], distance_matrix, (int) number_of_vertices);
             if (compare(solucoes[i], neighbor) > 0) {
                 clone_solution(neighbor, solucoes[i]);
                 energy += 10;
@@ -86,7 +86,7 @@ Solution rolling_points_heuristic(const int *distance_matrix, size_t number_of_v
     Solution variable_neighbor;
     // busca em vizinhança da melhor solução
     for (int i = 0; i < 1000; i++) {
-        variable_neighbor = generate_random_neighbor(best_solution, distance_matrix);
+        variable_neighbor = generate_random_neighbor(best_solution, distance_matrix, (int) number_of_vertices);
         if (compare(best_solution, neighbor) > 0) {
             clone_solution(variable_neighbor, best_solution);
         }
@@ -97,7 +97,7 @@ Solution rolling_points_heuristic(const int *distance_matrix, size_t number_of_v
     #endif
 
     // Busca local profunda
-    best_solution = random_variable_neighborhood_descent(best_solution, distance_matrix);
+    best_solution = random_variable_neighborhood_descent(best_solution, distance_matrix, (int) number_of_vertices);
 
     #ifdef VERBOSE
         cout << "Melhor Solucao Encontrada: " << endl;

@@ -64,10 +64,15 @@ int * clone_array(int array[], size_t size) {
     return new_array;
 }
 
-std::vector<int> slice(std::vector<int> &v, int begin, int end)
-{
+std::vector<int> slice(std::vector<int> &v, int begin, int end) {
     std::vector<int> vec;
     std::copy(v.begin() + begin, v.begin() + end + 1, std::back_inserter(vec));
+    return vec;
+}
+
+std::vector<int> slice(int * array, int begin, int end) {
+    std::vector<int> vec;
+    std::copy(array + begin, array + end + 1, std::back_inserter(vec));
     return vec;
 }
 
@@ -82,7 +87,7 @@ void shuffle_array(int * array, int size) {
     while (!pool.empty()) {
         int size_of_pool = (int) pool.size();
         selected_index = size_of_pool == 1 ? 0 : RANDOM_BETWEEN(0, size_of_pool - 1);
-        new_array[new_positions_cursor] = pool.at(selected_index);
+        new_array[new_positions_cursor] = pool[selected_index];
         pool.erase(pool.begin() + selected_index);
         new_positions_cursor++;
     }

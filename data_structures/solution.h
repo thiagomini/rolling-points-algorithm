@@ -22,7 +22,7 @@ using namespace std;
 typedef struct {
     int objective_function;
     size_t size_of_solution;
-    vector<int> vertices;
+    int vertices[SIZE];
     double time_spent;
 } Solution;
 
@@ -34,7 +34,7 @@ typedef struct {
  * clássico, ou seja, não é contabilizado a última aresta (para o vértice inicial) quando calcular a latência total.
  * Caso seja <b>0</b>, o problema considerará a última aresta no cálculo da FO
  */
-void calculate_objective_function(Solution * solucao, const int * matriz_distancias, int problem_class = CLASSICAL_PROBLEM);
+void calculate_objective_function(Solution * solucao, const int * matriz_distancias, int size = SIZE, int problem_class = CLASSICAL_PROBLEM);
 
 /**
  * Função que compara duas soluções de acordo com o valor da função objetivo

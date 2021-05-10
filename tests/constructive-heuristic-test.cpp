@@ -26,7 +26,7 @@ int test_build_random_solution() {
             {73, 19, 0}
     };
 
-    Solution solution = build_random_solution(3, reinterpret_cast<const int *>(distance_matrix));
+    Solution solution = build_random_solution(reinterpret_cast<const int *>(distance_matrix), 3);
     assert(solution.size_of_solution == 3);
     assert(solution.objective_function > 0);
     assert(solution.vertices[0] == 0);

@@ -38,15 +38,15 @@ int test_or_switch() {
     };
 
     // Act
-    or_switch(solution, 1, 2, reinterpret_cast<const int *>(distance_matrix));
+    or_switch(solution, 1, 2, reinterpret_cast<const int *>(distance_matrix), 2, 5);
 
 
     // Assert
-    assert(solution.vertices.at(0) == 0);
-    assert(solution.vertices.at(1) == 3);
-    assert(solution.vertices.at(2) == 1);
-    assert(solution.vertices.at(3) == 2);
-    assert(solution.vertices.at(4) == 4);
+    assert(solution.vertices[0] == 0);
+    assert(solution.vertices[1] == 3);
+    assert(solution.vertices[2] == 1);
+    assert(solution.vertices[3] == 2);
+    assert(solution.vertices[4] == 4);
 
     print_sub_test_end();
 
@@ -81,15 +81,15 @@ int test_or_switch_before() {
     };
 
     // Act
-    or_switch(solution, 3, 1, reinterpret_cast<const int *>(distance_matrix));
+    or_switch(solution, 3, 1, reinterpret_cast<const int *>(distance_matrix), 2, 5);
 
 
     // Assert
-    assert(solution.vertices.at(0) == 0);
-    assert(solution.vertices.at(1) == 3);
-    assert(solution.vertices.at(2) == 4);
-    assert(solution.vertices.at(3) == 1);
-    assert(solution.vertices.at(4) == 2);
+    assert(solution.vertices[0] == 0);
+    assert(solution.vertices[1] == 3);
+    assert(solution.vertices[2] == 4);
+    assert(solution.vertices[3] == 1);
+    assert(solution.vertices[4] == 2);
 
     print_sub_test_end();
 
@@ -125,7 +125,7 @@ int test_or_switch_last_index() {
 
     // Act
     try {
-        or_switch(solution, 1, 4, reinterpret_cast<const int *>(distance_matrix));
+        or_switch(solution, 1, 4, reinterpret_cast<const int *>(distance_matrix), 2, 5);
     } catch (const char * error) {
         // Assert
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
@@ -163,7 +163,7 @@ int test_or_switch_first_index() {
     };
     // Act
     try {
-        or_switch(solution, 0, 2, reinterpret_cast<const int *>(distance_matrix));
+        or_switch(solution, 0, 2, reinterpret_cast<const int *>(distance_matrix), 2, 5);
     } catch (const char * error) {
         // Assert
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
@@ -202,7 +202,7 @@ int test_or_switch_to_first_index() {
 
     // Act
     try {
-        or_switch(solution, 3, 0, reinterpret_cast<const int *>(distance_matrix));
+        or_switch(solution, 3, 0, reinterpret_cast<const int *>(distance_matrix), 2,5);
     } catch (const char * error) {
         // Assert
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
@@ -241,15 +241,15 @@ int test_or_switch_position_after() {
     };
 
     // Act
-    or_switch(solution, 1, 2, reinterpret_cast<const int *>(distance_matrix));
+    or_switch(solution, 1, 2, reinterpret_cast<const int *>(distance_matrix), 2, 6);
 
     // Assert
-    assert(solution.vertices.at(0) == 0);
-    assert(solution.vertices.at(1) == 3);
-    assert(solution.vertices.at(2) == 1);
-    assert(solution.vertices.at(3) == 2);
-    assert(solution.vertices.at(4) == 4);
-    assert(solution.vertices.at(5) == 5);
+    assert(solution.vertices[0] == 0);
+    assert(solution.vertices[1] == 3);
+    assert(solution.vertices[2] == 1);
+    assert(solution.vertices[3] == 2);
+    assert(solution.vertices[4] == 4);
+    assert(solution.vertices[5] == 5);
 
     print_sub_test_end();
 
@@ -284,15 +284,15 @@ int test_or_switch_last_vertices() {
     };
 
     // Act
-    or_switch(solution, 4, 1, reinterpret_cast<const int *>(distance_matrix));
+    or_switch(solution, 4, 1, reinterpret_cast<const int *>(distance_matrix), 2,6);
 
     // Assert
-    assert(solution.vertices.at(0) == 0);
-    assert(solution.vertices.at(1) == 4);
-    assert(solution.vertices.at(2) == 5);
-    assert(solution.vertices.at(3) == 1);
-    assert(solution.vertices.at(4) == 2);
-    assert(solution.vertices.at(5) == 3);
+    assert(solution.vertices[0] == 0);
+    assert(solution.vertices[1] == 4);
+    assert(solution.vertices[2] == 5);
+    assert(solution.vertices[3] == 1);
+    assert(solution.vertices[4] == 2);
+    assert(solution.vertices[5] == 3);
 
     print_sub_test_end();
 
@@ -325,7 +325,7 @@ int test_or_switch_three_vertices_array() {
 
     // Act
     try {
-        or_switch(solution, 1, 2, reinterpret_cast<const int *>(distance_matrix));
+        or_switch(solution, 1, 2, reinterpret_cast<const int *>(distance_matrix), 2,3);
     } catch (const char * error) {
         // Assert
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
@@ -363,7 +363,7 @@ int test_or_switch_invalid_greater_index() {
 
     // Act
     try {
-        or_switch(solution, 1, 4, reinterpret_cast<const int *>(distance_matrix));
+        or_switch(solution, 1, 4, reinterpret_cast<const int *>(distance_matrix), 2,4);
     } catch (const char * error) {
         // Assert
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
@@ -401,7 +401,7 @@ int test_or_switch_invalid_negative_index() {
 
     // Act
     try {
-        or_switch(solution, 1, -1, reinterpret_cast<const int *>(distance_matrix));
+        or_switch(solution, 1, -1, reinterpret_cast<const int *>(distance_matrix), 2,4);
     } catch (const char * error) {
         // Assert
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
@@ -439,7 +439,7 @@ int test_or_switch_same_position() {
 
     // Act
     try {
-        or_switch(solution, 1, 1, reinterpret_cast<const int *>(distance_matrix));
+        or_switch(solution, 1, 1, reinterpret_cast<const int *>(distance_matrix), 2,4);
     } catch (const char * error) {
         // Assert
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
@@ -477,15 +477,15 @@ int test_or_switch_3() {
     };
 
     // Act
-    or_switch(solution, 1, 2, reinterpret_cast<const int *>(distance_matrix), 3);
+    or_switch(solution, 1, 2, reinterpret_cast<const int *>(distance_matrix), 3, 5);
 
 
     // Assert
-    assert(solution.vertices.at(0) == 0);
-    assert(solution.vertices.at(1) == 4);
-    assert(solution.vertices.at(2) == 1);
-    assert(solution.vertices.at(3) == 2);
-    assert(solution.vertices.at(4) == 3);
+    assert(solution.vertices[0] == 0);
+    assert(solution.vertices[1] == 4);
+    assert(solution.vertices[2] == 1);
+    assert(solution.vertices[3] == 2);
+    assert(solution.vertices[4] == 3);
 
     print_sub_test_end();
 
@@ -520,7 +520,7 @@ int test_or_switch_3_invalid_greater_index() {
 
     // Act
     try {
-        or_switch(solution, 1, 4, reinterpret_cast<const int *>(distance_matrix), 3);
+        or_switch(solution, 1, 4, reinterpret_cast<const int *>(distance_matrix), 3, 4);
     } catch (const char * error) {
         // Assert
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
@@ -559,7 +559,7 @@ int test_or_switch_3_last_index() {
 
     // Act
     try {
-        or_switch(solution, 1, 3, reinterpret_cast<const int *>(distance_matrix), 3);
+        or_switch(solution, 1, 3, reinterpret_cast<const int *>(distance_matrix), 3, 5);
     } catch (const char * error) {
         // Assert
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
@@ -588,7 +588,7 @@ int test_or_switch_random_positions() {
     };
     int objective_function = solution.objective_function;
 
-    or_switch(solution, reinterpret_cast<const int *>(distance_matrix));
+    or_switch(solution, reinterpret_cast<const int *>(distance_matrix), 2, 4);
 
     // Prepare-Response
     bool same_order = solution.vertices[0] == 0 &&
@@ -627,7 +627,7 @@ int test_or_opt2_local_search() {
     int best_fo = CLASSICAL_PROBLEM ? 199 : 366;
 
     // Act
-    Solution best_solution = or_opt_n(solution, reinterpret_cast<const int *>(distance_matrix));
+    Solution best_solution = or_opt_n(solution, reinterpret_cast<const int *>(distance_matrix), 2, 4);
 
     // Assert
     assert(best_solution.vertices[0] == 0);
@@ -656,7 +656,7 @@ int test_or_opt2_local_search_first_improvement() {
     int best_fo = CLASSICAL_PROBLEM ? 247 : 424;
 
     // Act
-    Solution best_solution = or_opt_n(solution, reinterpret_cast<const int *>(distance_matrix), 2, FIRST_IMPROVEMENT);
+    Solution best_solution = or_opt_n(solution, reinterpret_cast<const int *>(distance_matrix), 2, 4, FIRST_IMPROVEMENT);
 
     // Assert
     assert(best_solution.vertices[0] == 0);
@@ -686,12 +686,12 @@ int test_or_opt3_local_search() {
             .vertices = {0, 1, 2, 3, 4, 5}
     };
 
-    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix));
+    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix), 6);
 
     int first_fo = solution.objective_function;
 
     // Act
-    Solution best_solution = or_opt_n(solution, reinterpret_cast<const int *>(distance_matrix), 3);
+    Solution best_solution = or_opt_n(solution, reinterpret_cast<const int *>(distance_matrix), 3, 6);
 
     // Assert
     assert(best_solution.vertices[0] == 0);
@@ -718,12 +718,12 @@ int test_or_opt3_local_search_first_improvement() {
             .vertices = {0, 1, 2, 3, 4, 5}
     };
 
-    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix));
+    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix), 6);
 
     int best_fo = CLASSICAL_PROBLEM ? 502 : 750;
 
     // Act
-    Solution best_solution = or_opt_n(solution, reinterpret_cast<const int *>(distance_matrix), 3, FIRST_IMPROVEMENT);
+    Solution best_solution = or_opt_n(solution, reinterpret_cast<const int *>(distance_matrix), 3, 6, FIRST_IMPROVEMENT);
 
     // Assert
     assert(best_solution.vertices[0] == 0);

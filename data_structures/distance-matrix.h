@@ -26,6 +26,16 @@
 int ** build_distance_matrix(node_2d * nodes, size_t size);
 
 /**
+ * Retorna a distância entre dois vértices da matriz
+ * @param vertex_1
+ * @param vertex_2
+ * @param distance_matrix - Ponteiro da matriz
+ * @param size - Tamanho de uma das dimensões da matriz
+ * @return A distância entre os vértices
+ */
+int get_distance(int vertex_1, int vertex_2, const int * distance_matrix, int size);
+
+/**
  * Testa todas as funções do módulo <b>distance-matrix</b>
  */
 int test_distance_matrix();

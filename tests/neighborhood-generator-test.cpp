@@ -27,7 +27,7 @@ int test_generate_neighbor_swap() {
     };
 
     // Act
-    Solution neighbor = generate_neighbor(solution, reinterpret_cast<int *>(distance_matrix), SWAP);
+    Solution neighbor = generate_neighbor(solution, reinterpret_cast<int *>(distance_matrix), SWAP, 3);
 
     // Prepare-Response
     bool same_order = neighbor.vertices[0] == 0 &&
@@ -65,7 +65,7 @@ int test_generate_neighbor_reinsertion() {
     };
 
     // Act
-    Solution neighbor = generate_neighbor(solution, reinterpret_cast<int *>(distance_matrix), REINSERTION);
+    Solution neighbor = generate_neighbor(solution, reinterpret_cast<int *>(distance_matrix), REINSERTION, 3);
 
     // Prepare-Response
     bool same_order = neighbor.vertices[0] == 0 &&
@@ -105,7 +105,7 @@ int test_generate_neighbor_or_opt2() {
     int objective_function = solution.objective_function;
 
     // Act
-    Solution neighbor = generate_neighbor(solution, reinterpret_cast<const int *>(distance_matrix), OR_OPT2);
+    Solution neighbor = generate_neighbor(solution, reinterpret_cast<const int *>(distance_matrix), OR_OPT2, 5);
 
     // Prepare-Response
     bool same_order = neighbor.vertices[0] == 0 &&
@@ -147,7 +147,7 @@ int test_generate_neighbor_or_opt3() {
     int objective_function = solution.objective_function;
 
     // Act
-    Solution neighbor = generate_neighbor(solution, reinterpret_cast<const int *>(distance_matrix), OR_OPT3);
+    Solution neighbor = generate_neighbor(solution, reinterpret_cast<const int *>(distance_matrix), OR_OPT3, 5);
 
     // Prepare-Response
     bool same_order = neighbor.vertices[0] == 0 &&
@@ -189,7 +189,7 @@ int test_generate_neighbor_2_optimal() {
     int objective_function = solution.objective_function;
 
     // Act
-    Solution neighbor = generate_neighbor(solution, reinterpret_cast<const int *>(distance_matrix), TWO_OPTIMAL);
+    Solution neighbor = generate_neighbor(solution, reinterpret_cast<const int *>(distance_matrix), TWO_OPTIMAL, 5);
 
     // Prepare-Response
     bool same_order = neighbor.vertices[0] == 0 &&
@@ -230,7 +230,7 @@ int test_generate_neighbor_error() {
 
     // Act
     try {
-        Solution neighbor = generate_neighbor(solution, reinterpret_cast<int *>(distance_matrix), 10);
+        Solution neighbor = generate_neighbor(solution, reinterpret_cast<int *>(distance_matrix), 10, 3);
     } catch (const char* msg) {
         assert(strcmp(msg, "neighborhood invalido!") == STRING_MATCH);
     }
@@ -260,7 +260,7 @@ int test_generate_random_neighbor() {
     int objective_function = solution.objective_function;
 
     // Act
-    Solution neighbor = generate_random_neighbor(solution, reinterpret_cast<const int *>(distance_matrix));
+    Solution neighbor = generate_random_neighbor(solution, reinterpret_cast<const int *>(distance_matrix), 5);
 
     // Prepare-Response
     bool same_order = neighbor.vertices[0] == 0 &&
@@ -299,11 +299,11 @@ int test_apply_local_search_swap() {
             .vertices = {0, 1, 2, 3, 4}
     };
 
-    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix));
+    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix), 5);
     int previous_fo = solution.objective_function;
 
     // Act
-    Solution first_improvement = apply_local_search(solution, reinterpret_cast<const int *>(distance_matrix), SWAP, FIRST_IMPROVEMENT);
+    Solution first_improvement = apply_local_search(solution, reinterpret_cast<const int *>(distance_matrix), SWAP, 5, FIRST_IMPROVEMENT);
 
     // Prepare-Response
     bool same_order = first_improvement.vertices[0] == 0 &&
@@ -337,11 +337,11 @@ int test_apply_local_search_reinsert() {
             .vertices = {0, 1, 2, 3, 4}
     };
 
-    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix));
+    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix), 5);
     int previous_fo = solution.objective_function;
 
     // Act
-    Solution first_improvement = apply_local_search(solution, reinterpret_cast<const int *>(distance_matrix), REINSERTION, FIRST_IMPROVEMENT);
+    Solution first_improvement = apply_local_search(solution, reinterpret_cast<const int *>(distance_matrix), REINSERTION, 5, FIRST_IMPROVEMENT);
 
     // Prepare-Response
     bool same_order = first_improvement.vertices[0] == 0 &&
@@ -375,11 +375,11 @@ int test_apply_local_search_or_opt2() {
             .vertices = {0, 1, 2, 3, 4}
     };
 
-    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix));
+    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix), 5);
     int previous_fo = solution.objective_function;
 
     // Act
-    Solution first_improvement = apply_local_search(solution, reinterpret_cast<const int *>(distance_matrix), OR_OPT2, FIRST_IMPROVEMENT);
+    Solution first_improvement = apply_local_search(solution, reinterpret_cast<const int *>(distance_matrix), OR_OPT2, 5, FIRST_IMPROVEMENT);
 
     // Prepare-Response
     bool same_order = first_improvement.vertices[0] == 0 &&
@@ -413,11 +413,11 @@ int test_apply_local_search_or_opt3() {
             .vertices = {0, 1, 2, 3, 4}
     };
 
-    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix));
+    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix), 5);
     int previous_fo = solution.objective_function;
 
     // Act
-    Solution first_improvement = apply_local_search(solution, reinterpret_cast<const int *>(distance_matrix), OR_OPT3, FIRST_IMPROVEMENT);
+    Solution first_improvement = apply_local_search(solution, reinterpret_cast<const int *>(distance_matrix), OR_OPT3, 5, FIRST_IMPROVEMENT);
 
     // Prepare-Response
     bool same_order = first_improvement.vertices[0] == 0 &&
@@ -451,11 +451,11 @@ int test_apply_local_search_two_optimal() {
             .vertices = {0, 1, 2, 3, 4}
     };
 
-    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix));
+    calculate_objective_function(&solution, reinterpret_cast<const int *>(distance_matrix), 5);
     int previous_fo = solution.objective_function;
 
     // Act
-    Solution first_improvement = apply_local_search(solution, reinterpret_cast<const int *>(distance_matrix), TWO_OPTIMAL, FIRST_IMPROVEMENT);
+    Solution first_improvement = apply_local_search(solution, reinterpret_cast<const int *>(distance_matrix), TWO_OPTIMAL, 5, FIRST_IMPROVEMENT);
 
     // Prepare-Response
     bool same_order = first_improvement.vertices[0] == 0 &&

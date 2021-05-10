@@ -7,8 +7,8 @@
 std::vector<edge> extract_edges(Solution &solution) {
     std::vector<edge> extracted_edges(solution.size_of_solution);
     for (int i = 0; i < solution.size_of_solution; i ++) {
-        extracted_edges.at(i).first_node = solution.vertices.at(i);
-        extracted_edges.at(i).second_node = i == solution.size_of_solution - 1 ? 0 : solution.vertices.at(i+1);
+        extracted_edges[i].first_node = solution.vertices[i];
+        extracted_edges[i].second_node = i == solution.size_of_solution - 1 ? 0 : solution.vertices[i + 1];
     }
 
     return extracted_edges;
@@ -41,8 +41,8 @@ edge get_edge(int initial_position, Solution solution) {
             : initial_position + 1;
 
     return {
-        .first_node = solution.vertices.at(first_node_position),
-        .second_node = solution.vertices.at(second_node_position)
+        .first_node = solution.vertices[first_node_position],
+        .second_node = solution.vertices[second_node_position]
     };
 }
 
@@ -50,7 +50,7 @@ vector<edge> get_edges(int positions[], int size, const Solution& solution) {
     vector<edge> edges = vector<edge>(size);
 
     for (int i = 0; i < size; i ++) {
-        edges.at(i) = get_edge(positions[i], solution);
+        edges[i] = get_edge(positions[i], solution);
     }
 
     return edges;

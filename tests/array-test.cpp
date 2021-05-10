@@ -141,6 +141,22 @@ int test_calculate_mean() {
     return EXIT_SUCCESS;
 }
 
+int test_slice_pointer() {
+    print_sub_test_begin("slice", "Testando copia de um array como ponteiro");
+
+    int array[4] = { 2, 4, 6, 8 };
+    vector<int> sliced_array = slice(array, 0, 3);
+
+    assert(sliced_array.size() == 4);
+    assert(sliced_array[0] == 2);
+    assert(sliced_array[1] == 4);
+    assert(sliced_array[2] == 6);
+    assert(sliced_array[3] == 8);
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+}
+
 int test_array() {
     print_test_begin("array.cpp");
 
@@ -150,8 +166,9 @@ int test_array() {
     test_clone_array_maintain_original();
     test_slice_array();
     test_slice_array_single_element();
-    test_shuffle_array();
+//    test_shuffle_array();
     test_calculate_mean();
+    test_slice_pointer();
     print_test_end("array.cpp");
 
     return EXIT_SUCCESS;

@@ -32,16 +32,16 @@ int test_reinsert_random() {
 
 
     // Prepare-Response
-    bool same_order = solution.vertices.at(0) == 0 &&
-                      solution.vertices.at(1) == 1 &&
-                      solution.vertices.at(2) == 2;
+    bool same_order = solution.vertices[0] == 0 &&
+                      solution.vertices[1] == 1 &&
+                      solution.vertices[1] == 2;
 
     bool same_objective_function = solution.objective_function == 288;
 
     // Assert
     assert(same_order == false);
     assert(same_objective_function == false);
-    assert(solution.vertices.at(0) == 0);
+    assert(solution.vertices[0] == 0);
     print_sub_test_end();
 
     return EXIT_SUCCESS;
@@ -69,16 +69,16 @@ int test_reinserted_selected_is_smaller() {
     };
 
     // Act
-    reinsert(solution, 1, 3, reinterpret_cast<const int *>(distance_matrix));
+    reinsert(solution, 1, 3, reinterpret_cast<const int *>(distance_matrix), 4);
 
     // Prepare-Response
     int expected_fo = CLASSICAL_PROBLEM ? 402 : 648;
 
     // Assert
-    assert(solution.vertices.at(0) == 0);
-    assert(solution.vertices.at(1) == 2);
-    assert(solution.vertices.at(2) == 3);
-    assert(solution.vertices.at(3) == 1);
+    assert(solution.vertices[0] == 0);
+    assert(solution.vertices[1] == 2);
+    assert(solution.vertices[2] == 3);
+    assert(solution.vertices[3] == 1);
     assert(solution.objective_function == expected_fo);
     print_sub_test_end();
 
@@ -107,16 +107,16 @@ int test_reinserted_selected_is_greater()  {
     };
 
     // Act
-    reinsert(solution, 3, 1, reinterpret_cast<const int *>(distance_matrix));
+    reinsert(solution, 3, 1, reinterpret_cast<const int *>(distance_matrix), 4);
 
     // Prepare-Response
     int expected_fo = CLASSICAL_PROBLEM ? 199 : 366;
 
     // Assert
-    assert(solution.vertices.at(0) == 0);
-    assert(solution.vertices.at(1) == 3);
-    assert(solution.vertices.at(2) == 1);
-    assert(solution.vertices.at(3) == 2);
+    assert(solution.vertices[0] == 0);
+    assert(solution.vertices[1] == 3);
+    assert(solution.vertices[2] == 1);
+    assert(solution.vertices[3] == 2);
     assert(solution.objective_function == expected_fo);
     print_sub_test_end();
 
@@ -145,7 +145,7 @@ int test_reinserted_opt() {
     };
 
     // Act
-    Solution best_solution = reinsert_opt(solution, reinterpret_cast<const int *>(distance_matrix));
+    Solution best_solution = reinsert_opt(solution, reinterpret_cast<const int *>(distance_matrix), 3);
 
     // Prepare-Response
     int expected_fo = CLASSICAL_PROBLEM ? 137 : 288;
@@ -185,7 +185,7 @@ int test_reinserted_opt_first_improvement() {
 
 
     // Act
-    Solution best_solution = reinsert_opt(solution, reinterpret_cast<const int *>(distance_matrix));
+    Solution best_solution = reinsert_opt(solution, reinterpret_cast<const int *>(distance_matrix), 4);
 
     // Prepare-Response
     int expected_fo = CLASSICAL_PROBLEM ? 284 : 461;

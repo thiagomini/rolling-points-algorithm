@@ -17,7 +17,8 @@
  * @param matriz_distancias
  * @param n - O número de vértices adjacentes que serão realocados. O padrão é 2 (Or-Opt2)
  */
-void or_switch(Solution &solution, size_t vertex_1, size_t new_position, const int * matriz_distancias, int n = 2);
+void
+or_switch(Solution &solution, size_t vertex_1, size_t new_position, const int *matriz_distancias, int n = 2, int size = SIZE);
 
 /**
  * Realiza um movimento do tipo Or-Opt(n), que reinsere <b>n</b> vértices adjacentes em uma nova posição <b>aleatória</b> na solução
@@ -28,7 +29,7 @@ void or_switch(Solution &solution, size_t vertex_1, size_t new_position, const i
  * @param matriz_distancias
  * @param n - O número de vértices adjacentes que serão realocados. O padrão é 2 (Or-Opt2)
  */
-void or_switch(Solution &solution, const int * matriz_distancias, int n = 2);
+void or_switch(Solution &solution, const int *matriz_distancias, int n = 2, int size = SIZE);
 
 /**
  * Realiza uma busca local do tipo Or-Opt(n) considerando todas as trocas adjacentes possíveis
@@ -37,7 +38,7 @@ void or_switch(Solution &solution, const int * matriz_distancias, int n = 2);
  * @return Melhor Solução encontrada pelo movimento de vizinhança
  * @param n - O número de vértices adjacentes que serão realocados. O padrão é 2 (Or-Opt2)
  */
-Solution or_opt_n(Solution &solution, const int * matriz_distancias, int n = 2, int strategy = BEST_IMPROVEMENT);
+Solution or_opt_n(Solution &solution, const int * matriz_distancias, int n = 2, int size = SIZE, int strategy = BEST_IMPROVEMENT);
 
 /**
  * Constrói e retorna uma solução vizinha aplicando o movimento or-opt(n) em posições escolhidas
@@ -48,7 +49,7 @@ Solution or_opt_n(Solution &solution, const int * matriz_distancias, int n = 2, 
  * @param n - O número de vértices adjacentes que serão realocados. O padrão é 2 (Or-Opt2)
  * @return
  */
-Solution build_or_opt_n(Solution solution, size_t vertex_1, size_t new_position, const int * matriz_distancias, int n = 2);
+Solution build_or_opt_n(Solution solution, size_t vertex_1, size_t new_position, const int * matriz_distancias, int n = 2, int size = SIZE);
 
 
 /**
@@ -58,7 +59,7 @@ Solution build_or_opt_n(Solution solution, size_t vertex_1, size_t new_position,
  * @param n - O número de vértices adjacentes que serão realocados. O padrão é 2 (Or-Opt2)
  * @return
  */
-Solution build_or_opt_n(Solution solution, const int * matriz_distancias, int n = 2);
+Solution build_or_opt_n(Solution solution, const int * matriz_distancias, int n = 2, int size = SIZE);
 
 int test_or_opt();
 
