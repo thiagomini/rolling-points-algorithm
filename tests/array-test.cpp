@@ -157,6 +157,48 @@ int test_slice_pointer() {
     return EXIT_SUCCESS;
 }
 
+int test_arrays_are_equal_true() {
+    print_sub_test_begin("arrays_are_equal", "Testando igualdade de dois arrays identicos");
+
+    int array[4] = { 2, 4, 6, 8 };
+    int other_array[4] = { 2, 4, 6, 8 };
+
+    bool equal = arrays_are_equal(array, other_array, 4);
+
+    assert(equal == true);
+
+    print_sub_test_end();
+    return EXIT_SUCCESS;
+}
+
+int test_arrays_are_equal_false() {
+    print_sub_test_begin("arrays_are_equal", "Testando igualdade de dois arrays diferentes");
+
+    int array[4] = { 2, 4, 6, 8 };
+    int other_array[4] = { 2, 4, 6, 9 };
+
+    bool equal = arrays_are_equal(array, other_array, 4);
+
+    assert(equal == false);
+
+    print_sub_test_end();
+    return EXIT_SUCCESS;
+}
+
+int test_empty_arrays_are_equal_true() {
+    print_sub_test_begin("arrays_are_equal", "Testando igualdade de dois arrays vazios");
+
+    int array[0] = { };
+    int other_array[0] = { };
+
+    bool equal = arrays_are_equal(array, other_array, 0);
+
+    assert(equal == true);
+
+    print_sub_test_end();
+    return EXIT_SUCCESS;
+}
+
 int test_array() {
     print_test_begin("array.cpp");
 
@@ -169,6 +211,9 @@ int test_array() {
 //    test_shuffle_array();
     test_calculate_mean();
     test_slice_pointer();
+    test_arrays_are_equal_true();
+    test_arrays_are_equal_false();
+    test_empty_arrays_are_equal_true();
     print_test_end("array.cpp");
 
     return EXIT_SUCCESS;

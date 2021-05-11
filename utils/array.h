@@ -86,4 +86,13 @@ void shuffle_array(int * array, int size);
  */
 double calculate_mean(double array[], int size);
 
+/**
+ * Verifica se todos os elementos dos arrays são iguais, considerando a ordem
+ * @param array
+ * @param other_array
+ * @param size - Tamanho dos arrays
+ * @return <b>true</b> caso todos os elementos dos arrays sejam iguais, <i>false</i> do contrário
+ */
+bool arrays_are_equal(const int array[], const int other_array[], int size);
+
 #endif //ALGORITMO_TCC_ARRAY_H

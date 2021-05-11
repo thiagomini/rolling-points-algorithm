@@ -106,3 +106,13 @@ double calculate_mean(double array[], int size) {
 
     return total / size;
 }
+
+bool arrays_are_equal(const int *array, const int *other_array, int size) {
+
+    for (int i = 0; i < size; ++i) {
+        if (array[i] != other_array[i]) {
+            return false;
+        }
+    }
+    return true;
+}
