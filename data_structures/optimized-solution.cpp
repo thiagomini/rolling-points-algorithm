@@ -48,6 +48,14 @@ int concatenate_C(OptimizedSolution solution_1, OptimizedSolution solution_2, co
     return solution_1.C + solution_2.W * (solution_1.T + new_vertex_distance) + solution_2.C;
 }
 
+/**
+ * Concatena duas soluções otimizadas, reaproveitando dos valores de C, T e W para realizar o cálculo mais facilmente
+ * @param solution_1 - Primeira solução a ser concatenada
+ * @param solution_2 - Segunda solução a ser concatenada
+ * @param distance_matrix - Matriz de distâncias
+ * @param size - dimensão da matriz (tamanho do problema)
+ * @return Uma nova solução, obtida pela concatenação das soluções passadas como parâmetro
+ */
 OptimizedSolution concatenate_solutions(OptimizedSolution solution_1, OptimizedSolution solution_2, const int * distance_matrix, int size) {
     int new_T = concatenate_T(solution_1, solution_2, distance_matrix, size);
     int new_C = concatenate_C(solution_1, solution_2, distance_matrix, size);

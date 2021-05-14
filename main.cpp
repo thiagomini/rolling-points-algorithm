@@ -19,6 +19,7 @@
 #include "data_structures/edge.h"
 #include "neighborhoods/2-optimal.h"
 #include "data_structures/optimized-solution.h"
+#include "data_structures/optmized-matrix.h"
 
 using namespace std;
 
@@ -105,6 +106,7 @@ void execute_tests() {
     test_edge();
     test_constructive_heuristic();
     test_optimized_solution();
+    test_opt_matrix();
     test_swap();
     test_reinsert();
     test_or_opt();

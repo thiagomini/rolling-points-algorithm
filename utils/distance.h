@@ -9,9 +9,19 @@
 #include "../data_structures/node.h"
 #include <cmath>
 #include <cassert>
+#include <cmath>
 
 #define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
 #define MIN(X, Y) ((X) < (Y) ? (X) : (Y))
+
+/**
+ * Retorna a diferença absoluta entre dois valores
+ * @example
+ * DIFF(1, 2) // => 1 <br>
+ * DIFF(0, 0) // => 0 <br>
+ * DIFF(4, 2) // => 2 <br>
+ */
+#define DIFF(X, Y) ((X) > (Y) ? (X) - (Y) : (Y) - X)
 
 #ifndef ALGORITMO_TCC_DISTANCE_H
 #define ALGORITMO_TCC_DISTANCE_H
