@@ -108,10 +108,10 @@ void execute_tests() {
     test_optimized_solution();
     test_opt_matrix();
     test_swap();
-    test_reinsert();
-    test_or_opt();
-    test_two_optimal();
-    test_neighborhood_generator();
+//    test_reinsert();
+//    test_or_opt();
+//    test_two_optimal();
+//    test_neighborhood_generator();
 
 //    test_heuristic();
 }

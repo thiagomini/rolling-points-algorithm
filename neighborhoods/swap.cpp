@@ -34,6 +34,62 @@ Solution build_swap(Solution solution, const int * matriz_distancias) {
     return solution;
 }
 
+OptimizedSolution build_swap(OptimizedMatrix &opt_matrix, int index_1, int index_2, const int *distance_matrix) {
+    // 1º - Escolher os dois vértices que serão trocados
+    OptimizedSolution solution = opt_matrix.get_full_solution();
+    int vertex_1 = solution.vertices[index_1];
+    int vertex_2 = solution.vertices[index_2];
+
+    // 2º - trocar os vértices de posição
+    solution.vertices[index_1] = vertex_2;
+    solution.vertices[index_2] = vertex_1;
+
+    // Encontrar o maior e o menor índice
+    int greater_index, lower_index;
+    if (index_1 > index_2) {
+        greater_index = index_1;
+        lower_index = index_2;
+    } else {
+        greater_index = index_2;
+        lower_index = index_1;
+    }
+
+    // Definir e concatenar as sub-soluções
+    std::vector<OptimizedSolution> sub_solutions;
+    sub_solutions.reserve(5);
+
+    int matrixSize = opt_matrix.size;
+
+    sub_solutions.push_back(opt_matrix.get_solution(0, lower_index - 1));
+
+    if (lower_index + 1 == greater_index) {
+        sub_solutions.push_back(opt_matrix.get_solution(greater_index, lower_index));
+    } else {
+        sub_solutions.push_back(opt_matrix.get_solution(greater_index, greater_index));
+        sub_solutions.push_back(opt_matrix.get_solution(lower_index + 1, greater_index - 1));
+        sub_solutions.push_back(opt_matrix.get_solution(lower_index, lower_index));
+    }
+
+    if (greater_index != matrixSize - 1) {
+        sub_solutions.push_back(opt_matrix.get_solution(greater_index + 1, (int) solution.size - 1));
+    }
+
+    return concatenate_solutions(sub_solutions, distance_matrix, opt_matrix.size);
+}
+
+OptimizedSolution build_swap(OptimizedMatrix &opt_matrix, const int * distance_matrix) {
+    int size = opt_matrix.size;
+
+    int random_index_1 = RANDOM_BETWEEN(0, size - 1);
+    int random_index_2 = RANDOM_BETWEEN(0, size - 1);
+
+    while (random_index_2 == random_index_1) {
+        random_index_2 = RANDOM_BETWEEN(0, size - 1);
+    }
+
+    return build_swap(opt_matrix, random_index_1, random_index_2, distance_matrix);
+}
+
 Solution swap_opt(Solution solucao, const int * matriz_distancias, int size, int strategy) {
     #ifdef VERBOSE
         cout << "[swap_opt] Realizando Busca Local swap..." << endl;

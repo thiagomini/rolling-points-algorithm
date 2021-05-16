@@ -51,8 +51,40 @@ typedef struct OptimizedSolution {
 
 } OptimizedSolution;
 
+/**
+ * Concatena duas soluções do tipo OPT, utilizando os valores calculados de C, T e W
+ * @param solution_1
+ * @param solution_2
+ * @param distance_matrix
+ * @param size - Tamanho da matriz de distâncias
+ * @return Uma nova solução, resultado da concatenação das duas sub-soluções passadas como parâmetro
+ */
 OptimizedSolution concatenate_solutions(OptimizedSolution solution_1, OptimizedSolution solution_2, const int * distance_matrix, int size = SIZE);
 
+/**
+ * Concatena uma lista de soluções do tipo OPT, utilizando os valores calculados de C, T e W
+ * @param solutions - Lista de soluções
+ * @param distance_matrix
+ * @param number_of_solutions - Número de soluções na lista
+ * @param size - Tamanho da matriz de distâncias
+ * @return Uma nova solução, resultado da concatenação das sub-soluções da lista
+ */
+OptimizedSolution concatenate_solutions(OptimizedSolution solutions[], const int * distance_matrix, int number_of_solutions, int size = SIZE);
+
+/**
+ * Concatena um <b>vector</b> de soluções do tipo OPT, utilizando os valores calculados de C, T e W
+ * @param solutions - O vector contendo as soluções
+ * @param distance_matrix
+ * @param size - Tamanho das soluções
+ * @return Uma nova solução, resultado da concatenação das sub-soluções do vector
+ */
+OptimizedSolution concatenate_solutions(std::vector<OptimizedSolution> solutions, const int * distance_matrix, int size = SIZE);
+
+/**
+ * Clona uma solução do tipo OPT
+ * @param source - Solução original
+ * @return Clone da solução original
+ */
 OptimizedSolution clone(OptimizedSolution &source);
 
 int test_optimized_solution();

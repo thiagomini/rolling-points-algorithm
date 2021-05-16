@@ -17,7 +17,7 @@ typedef struct OptimizedMatrix {
     }
 
     OptimizedSolution get_full_solution() {
-        return sub_solutions[0][size];
+        return sub_solutions[0][size - 1];
     }
 
 } OptimizedMatrix;
