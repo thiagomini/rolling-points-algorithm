@@ -338,6 +338,33 @@ int test_opt_solution_concatenate_vector() {
     return EXIT_SUCCESS;
 }
 
+int test_to_normal_solution() {
+    print_sub_test_begin("to_normal_solution", "Testando a transformacao para uma Solution");
+
+    // Arrange
+    OptimizedSolution opt_solution = {
+            .C = 100,
+            .T = 50,
+            .size = 3,
+            .vertices = {1, 2, 3}
+    };
+
+    // Act
+    Solution solution = opt_solution.to_normal_solution();
+
+    // Prepare-Response
+    int expected_array[3] = {1, 2, 3};
+
+    // Assert
+    assert(arrays_are_equal(expected_array, solution.vertices, 3));
+    assert(solution.objective_function == 100);
+    assert(solution.size_of_solution == 3);
+
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+}
+
 int test_optimized_solution() {
     print_test_begin("optimized-solution.cpp");
     test_get_last_vertex();
@@ -351,6 +378,7 @@ int test_optimized_solution() {
     test_opt_single_vertex_solution_concatenate();
     test_opt_solution_concatenate_array();
     test_opt_solution_concatenate_vector();
+    test_to_normal_solution();
     print_test_end("optimized-solution.cpp");
     return EXIT_SUCCESS;
 }

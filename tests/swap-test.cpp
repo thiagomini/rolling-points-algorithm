@@ -77,6 +77,40 @@ int test_swap_opt() {
     return EXIT_SUCCESS;
 }
 
+int test_swap_opt_2() {
+    print_sub_test_begin("swap_opt_2", "Testando busca local SWAP-OPT-2 (melhor melhora)");
+
+    // Arrange
+    const int distance_matrix[3][3] = {
+            {0, 59, 73},
+            {59, 0, 19},
+            {73, 19, 0}
+    };
+
+    Solution solution = {
+            .objective_function = CLASSICAL_PROBLEM ? 165 : 316,
+            .size_of_solution = 3,
+            .vertices = {0, 2, 1}
+    };
+
+    OptimizedMatrix optimized_matrix = build_opt_matrix(solution.vertices,
+                                                        reinterpret_cast<const int *>(distance_matrix), 3);
+
+    // Act
+    Solution best_solution = swap_opt_2(solution, reinterpret_cast<const int *>(distance_matrix), optimized_matrix,3);
+
+
+    // Assert
+    assert(best_solution.objective_function == (CLASSICAL_PROBLEM ? 137 : 288));
+    assert(best_solution.vertices[0] == 0);
+    assert(best_solution.vertices[1] == 1);
+    assert(best_solution.vertices[2] == 2);
+
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+}
+
 /**
  * Testa a função swap com posições passadas como parâmetro
  * @return
@@ -357,6 +391,7 @@ int test_swap() {
     test_build_swap_opt_solution_2_and_3();
     test_build_swap_opt_solution_2_and_4();
     test_build_swap_opt_solution_3_and_4();
+    test_swap_opt_2();
     print_test_end("swap.cpp");
 
     return EXIT_SUCCESS;

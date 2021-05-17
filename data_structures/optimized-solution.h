@@ -8,6 +8,7 @@
 #include <cstring>
 #include "../configurations.h"
 #include "../utils/array.h"
+#include "solution.h"
 
 typedef struct OptimizedSolution {
     // Indica a soma da latência de cada vértice dessa solução
@@ -47,6 +48,20 @@ typedef struct OptimizedSolution {
 
     bool operator==(OptimizedSolution other_solution) {
         return equals(other_solution.C, other_solution.T, other_solution.W, other_solution.size, other_solution.vertices);
+    }
+
+    /**
+     * Retorna uma <b>Solution</b> à partir dessa solução otimizada
+     * @return
+     */
+    Solution to_normal_solution() {
+        Solution cloned_solution = {
+                .objective_function = C,
+                .size_of_solution = static_cast<size_t>(size)
+        };
+
+        memcpy(cloned_solution.vertices, vertices, sizeof(int) * size);
+        return cloned_solution;
     }
 
 } OptimizedSolution;

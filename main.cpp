@@ -47,7 +47,7 @@ void execute_heuristic(int heuristic, const char * file_path, size_t number_of_n
  * @param population O número de "pontos" que será criado na fase exploratória inicial da heurística.
  * @param times - O número de vezes que o algoritmo deverá ser executado
  */
-void execute_rolling_points(const char * file_path, size_t number_of_nodes, size_t population = 50, int times = 100);
+void execute_rolling_points(const char * file_path, size_t number_of_nodes, size_t population = 50, int times = 10);
 
 /**
  * Realiza a otimização de um problema MLP utilizando uma heurística simples de geração e comparação de soluções aleatórias
