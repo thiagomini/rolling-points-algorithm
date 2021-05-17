@@ -70,7 +70,7 @@ Solution rolling_points_heuristic(const int *distance_matrix, size_t number_of_v
                 clone_solution(neighbor, solucoes[i]);
                 energy += 10;
             }
-            energy -= 10;
+            energy -= 15;
         }
 
     }
@@ -82,15 +82,6 @@ Solution rolling_points_heuristic(const int *distance_matrix, size_t number_of_v
     qsort(solucoes, population, sizeof(Solution), reinterpret_cast<int (*)(const void *, const void *)>(compare));
     clone_solution(solucoes[0], best_solution);
 
-
-    Solution variable_neighbor;
-    // busca em vizinhança da melhor solução
-    for (int i = 0; i < 1000; i++) {
-        variable_neighbor = generate_random_neighbor(best_solution, distance_matrix, (int) number_of_vertices);
-        if (compare(best_solution, neighbor) > 0) {
-            clone_solution(variable_neighbor, best_solution);
-        }
-    }
 
     #ifdef VERBOSE
         cout << "[rolling_points_heuristic] Realizando busca local profunda..." << endl;
