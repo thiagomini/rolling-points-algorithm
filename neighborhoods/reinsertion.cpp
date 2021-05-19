@@ -40,6 +40,37 @@ Solution build_reinsert(Solution solucao, size_t posicao_1, size_t posicao_2, co
     return solucao;
 }
 
+OptimizedSolution build_reinsert(OptimizedMatrix optimized_matrix, int posicao_1, int posicao_2, const int * matriz_distancias) {
+    std::vector<OptimizedSolution> sub_solutions;
+    sub_solutions.reserve(5);
+    int last_index_of_matrix = optimized_matrix.size - 1;
+
+    if (posicao_2 > posicao_1) {
+        sub_solutions.push_back(optimized_matrix.get_solution(0, posicao_1 - 1));
+
+        if (posicao_1 + 1 == posicao_2) {
+            sub_solutions.push_back(optimized_matrix.get_solution(posicao_2, posicao_1));
+        } else {
+            sub_solutions.push_back(optimized_matrix.get_solution(posicao_1 + 1, posicao_2));
+            sub_solutions.push_back(optimized_matrix.get_solution(posicao_1, posicao_1));
+        }
+
+        if (posicao_2 + 1 <= last_index_of_matrix) {
+            sub_solutions.push_back(optimized_matrix.get_solution(posicao_2 + 1, last_index_of_matrix));
+        }
+    } else {
+        sub_solutions.push_back(optimized_matrix.get_solution(0, posicao_2 - 1));
+        sub_solutions.push_back(optimized_matrix.get_solution(posicao_2, posicao_2));
+        sub_solutions.push_back(optimized_matrix.get_solution(posicao_1, posicao_2 - 1));
+
+        if (posicao_1 + 1 <= last_index_of_matrix) {
+            sub_solutions.push_back(optimized_matrix.get_solution(posicao_2 + 1, last_index_of_matrix));
+        }
+    }
+
+    return concatenate_solutions(sub_solutions, matriz_distancias, optimized_matrix.size);;
+}
+
 Solution build_reinsert(Solution solucao, const int * matriz_distancias, int size) {
     reinsert(solucao, matriz_distancias, size);
     return solucao;
@@ -49,16 +80,20 @@ Solution reinsert_opt(Solution solucao, const int * matriz_distancias, int size,
     #ifdef VERBOSE
         cout << "[reinsert_opt] Realizando Busca Local Reinsert..." << endl;
     #endif
-    Solution best_solution, new_solution;
+    Solution best_solution, new_solution_1, new_solution_2, best_new_solution;
     clone_solution(solucao, best_solution);
-    clone_solution(solucao, new_solution);
+    clone_solution(solucao, new_solution_1);
 
     for (int i = 1; i < size - 1; i++) {
         for (int j = i + 1; j < size; j++) {
-            new_solution = build_reinsert(solucao, i, j, matriz_distancias, size);
+            new_solution_1 = build_reinsert(solucao, i, j, matriz_distancias, size);
+            new_solution_2 = build_reinsert(solucao, j, i, matriz_distancias, size);
+            best_new_solution = new_solution_1.objective_function < new_solution_2.objective_function
+                    ? new_solution_1
+                    : new_solution_2;
 
-            if (new_solution.objective_function < best_solution.objective_function) {
-                clone_solution(new_solution, best_solution);
+            if (best_new_solution.objective_function < best_solution.objective_function) {
+                clone_solution(best_new_solution, best_solution);
                 if (strategy == FIRST_IMPROVEMENT) goto END_OF_LOOP;
             }
         }

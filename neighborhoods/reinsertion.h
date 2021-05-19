@@ -6,6 +6,8 @@
 #define ALGORITMO_TCC_REINSERTION_H
 
 #include "../data_structures/solution.h"
+#include "../data_structures/optimized-solution.h"
+#include "../data_structures/optmized-matrix.h"
 
 /**
  * Reinsere um nó da solução em uma posição aleatória diferente
@@ -32,6 +34,8 @@ void reinsert(Solution &solucao, size_t posicao_1, size_t posicao_2, const int *
  * @return Uma solução vizinha construída com o movimento reinsertion
  */
 Solution build_reinsert(Solution solucao, size_t posicao_1, size_t posicao_2, const int * matriz_distancias, int size = SIZE);
+
+OptimizedSolution build_reinsert(OptimizedMatrix optimized_matrix, int posicao_1, int posicao_2, const int * matriz_distancias);
 
 /**
  * Constrói e retorna uma solução vizinha aplicando o movimento reinsertion em posições aleatórias

@@ -47,7 +47,7 @@ void execute_heuristic(int heuristic, const char * file_path, size_t number_of_n
  * @param population O número de "pontos" que será criado na fase exploratória inicial da heurística.
  * @param times - O número de vezes que o algoritmo deverá ser executado
  */
-void execute_rolling_points(const char * file_path, size_t number_of_nodes, size_t population = 50, int times = 10);
+void execute_rolling_points(const char * file_path, size_t number_of_nodes, size_t population = 50, int times = 100);
 
 /**
  * Realiza a otimização de um problema MLP utilizando uma heurística simples de geração e comparação de soluções aleatórias
@@ -75,7 +75,7 @@ int main() {
 
     execute_tests();
 
-//    execute_heuristic(ROLLING_POINTS_ALGORITHM, "../instances/st70.tsp", 70);
+//    execute_heuristic(ROLLING_POINTS_ALGORITHM, "../instances/kroD100.tsp", 100);
 //    calculate_time("../instances/st70.tsp", 70, 100000);
 
     return EXIT_SUCCESS;
@@ -108,7 +108,7 @@ void execute_tests() {
     test_optimized_solution();
     test_opt_matrix();
     test_swap();
-//    test_reinsert();
+    test_reinsert();
 //    test_or_opt();
 //    test_two_optimal();
 //    test_neighborhood_generator();
