@@ -416,6 +416,38 @@ int test_build_reinsert_solution_3_and_2() {
     return EXIT_SUCCESS;
 }
 
+int test_build_reinsert_solution_3_and_1() {
+    print_sub_test_begin("build_reinsert", "Criando vizinhanca reinsert para vertices 3 e 1 (OptimizedSolution)");
+
+    // Arrange
+    int distances[5][5] = {
+            {0, 59, 73, 55, 33},
+            {59, 0, 19, 9, 43},
+            {73, 19, 0, 19, 49},
+            { 55, 9, 19, 0, 35},
+            {33, 43, 49, 35, 0},
+    };
+
+    int vertices[5] = {0, 1, 2, 3, 4};
+
+    OptimizedMatrix opt_matrix = build_opt_matrix(vertices, reinterpret_cast<const int *>(distances), 5);
+
+    // Act
+    OptimizedSolution reinserted_solution = build_reinsert(opt_matrix, 3, 1, reinterpret_cast<const int *>(distances));
+
+    // Prepare-Response
+    int result_array[5] = {0, 3, 1, 2, 4};
+
+    // Assert
+    assert(arrays_are_equal(reinserted_solution.vertices, result_array, 5));
+    assert(reinserted_solution.C == (CLASSICAL_PROBLEM ? 334 : 499));
+    assert(reinserted_solution.T == (CLASSICAL_PROBLEM ? 132 : 165));
+    assert(reinserted_solution.W == (CLASSICAL_PROBLEM ? 4 : 5));
+
+    print_sub_test_end();
+    return EXIT_SUCCESS;
+}
+
 
 
 /**
@@ -474,6 +506,7 @@ int test_reinsert() {
     test_build_reinsert_solution_3_and_4();
     test_build_reinsert_solution_4_and_1();
     test_build_reinsert_solution_3_and_2();
+    test_build_reinsert_solution_3_and_1();
     print_test_end("reinsertion.cpp");
 
     return EXIT_SUCCESS;
