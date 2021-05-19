@@ -352,6 +352,72 @@ int test_build_reinsert_solution_3_and_4() {
     return EXIT_SUCCESS;
 }
 
+int test_build_reinsert_solution_4_and_1() {
+    print_sub_test_begin("build_reinsert", "Criando vizinhanca reinsert para vertices 4 e 1 (OptimizedSolution)");
+
+    // Arrange
+    int distances[5][5] = {
+            {0, 59, 73, 55, 33},
+            {59, 0, 19, 9, 43},
+            {73, 19, 0, 19, 49},
+            { 55, 9, 19, 0, 35},
+            {33, 43, 49, 35, 0},
+    };
+
+    int vertices[5] = {0, 1, 2, 3, 4};
+
+    OptimizedMatrix opt_matrix = build_opt_matrix(vertices, reinterpret_cast<const int *>(distances), 5);
+
+    // Act
+    OptimizedSolution reinserted_solution = build_reinsert(opt_matrix, 4, 1, reinterpret_cast<const int *>(distances));
+
+    // Prepare-Response
+    int result_array[5] = {0, 4, 1, 2, 3};
+
+    // Assert
+    assert(arrays_are_equal(reinserted_solution.vertices, result_array, 5));
+    assert(reinserted_solution.C == (CLASSICAL_PROBLEM ? 318 : 487));
+    assert(reinserted_solution.T == (CLASSICAL_PROBLEM ? 114 : 147));
+    assert(reinserted_solution.W == (CLASSICAL_PROBLEM ? 4 : 5));
+
+    print_sub_test_end();
+    return EXIT_SUCCESS;
+}
+
+int test_build_reinsert_solution_3_and_2() {
+    print_sub_test_begin("build_reinsert", "Criando vizinhanca reinsert para vertices 3 e 2 (OptimizedSolution)");
+
+    // Arrange
+    int distances[5][5] = {
+            {0, 59, 73, 55, 33},
+            {59, 0, 19, 9, 43},
+            {73, 19, 0, 19, 49},
+            { 55, 9, 19, 0, 35},
+            {33, 43, 49, 35, 0},
+    };
+
+    int vertices[5] = {0, 1, 2, 3, 4};
+
+    OptimizedMatrix opt_matrix = build_opt_matrix(vertices, reinterpret_cast<const int *>(distances), 5);
+
+    // Act
+    OptimizedSolution reinserted_solution = build_reinsert(opt_matrix, 3, 2, reinterpret_cast<const int *>(distances));
+
+    // Prepare-Response
+    int result_array[5] = {0, 1, 3, 2, 4};
+
+    // Assert
+    assert(arrays_are_equal(reinserted_solution.vertices, result_array, 5));
+    assert(reinserted_solution.C == (CLASSICAL_PROBLEM ? 350 : 519));
+    assert(reinserted_solution.T == (CLASSICAL_PROBLEM ? 136 : 169));
+    assert(reinserted_solution.W == (CLASSICAL_PROBLEM ? 4 : 5));
+
+    print_sub_test_end();
+    return EXIT_SUCCESS;
+}
+
+
+
 /**
  * Testa a busca local reinserindo cada nó em uma nova posição
  * @return 0 se o teste passou
@@ -406,6 +472,8 @@ int test_reinsert() {
     test_build_reinsert_solution_2_and_3();
     test_build_reinsert_solution_2_and_4();
     test_build_reinsert_solution_3_and_4();
+    test_build_reinsert_solution_4_and_1();
+    test_build_reinsert_solution_3_and_2();
     print_test_end("reinsertion.cpp");
 
     return EXIT_SUCCESS;

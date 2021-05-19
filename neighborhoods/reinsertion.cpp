@@ -60,11 +60,15 @@ OptimizedSolution build_reinsert(OptimizedMatrix optimized_matrix, int posicao_1
         }
     } else {
         sub_solutions.push_back(optimized_matrix.get_solution(0, posicao_2 - 1));
-        sub_solutions.push_back(optimized_matrix.get_solution(posicao_2, posicao_2));
-        sub_solutions.push_back(optimized_matrix.get_solution(posicao_1, posicao_2 - 1));
+        if (posicao_1 == posicao_2 + 1) {
+            sub_solutions.push_back(optimized_matrix.get_solution(posicao_1, posicao_2));
+        } else {
+            sub_solutions.push_back(optimized_matrix.get_solution(posicao_1, posicao_1));
+            sub_solutions.push_back(optimized_matrix.get_solution(posicao_2, posicao_1 - 1));
+        }
 
         if (posicao_1 + 1 <= last_index_of_matrix) {
-            sub_solutions.push_back(optimized_matrix.get_solution(posicao_2 + 1, last_index_of_matrix));
+            sub_solutions.push_back(optimized_matrix.get_solution(posicao_1 + 1, last_index_of_matrix));
         }
     }
 
