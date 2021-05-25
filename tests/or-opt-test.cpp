@@ -1002,7 +1002,7 @@ int test_build_or_opt_three_vertices_array() {
             {73, 19, 0}
     };
 
-    int vertices[3] = { 0, 1, 2};
+    int vertices[3] = {0, 1, 2};
     OptimizedMatrix opt_matrix = build_opt_matrix(vertices, reinterpret_cast<const int *>(distance_matrix), 3);
 
     // Act
@@ -1037,15 +1037,13 @@ int test_build_or_opt_n_invalid_greater_index() {
             {30, 45, 69, 0},
     };
 
-    Solution solution = {
-            .objective_function = 0,
-            .size_of_solution = 4,
-            .vertices = {0, 1, 2, 3}
-    };
+    int vertices[4] = {0, 1, 2, 3};
+
+    OptimizedMatrix opt_matrix = build_opt_matrix(vertices, reinterpret_cast<const int *>(distance_matrix), 4);
 
     // Act
     try {
-        or_switch(solution, 1, 4, reinterpret_cast<const int *>(distance_matrix), 2,4);
+        OptimizedSolution final_solution = build_or_opt_n(opt_matrix, 1, 4, reinterpret_cast<const int *>(distance_matrix), 2);
     } catch (const char * error) {
         // Assert
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
@@ -1065,7 +1063,10 @@ int test_build_or_opt_n_invalid_greater_index() {
  * @return
  */
 int test_build_or_opt_invalid_negative_index() {
-    print_sub_test_begin("or_switch", "Testando o movimento Or-Opt2 com a nova posicao negativa");
+    print_sub_test_begin(
+            "build_or_opt_n",
+            "Testando o movimento Or-Opt2 com a nova posicao negativa (OptimizedSolution)"
+    );
 
     // Arrange
     const int distance_matrix[4][4] = {
@@ -1075,15 +1076,14 @@ int test_build_or_opt_invalid_negative_index() {
             {30, 45, 69, 0},
     };
 
-    Solution solution = {
-            .objective_function = 0,
-            .size_of_solution = 4,
-            .vertices = {0, 1, 2, 3}
-    };
+
+    int vertices[4] = {0, 1, 2, 3};
+
+    OptimizedMatrix opt_matrix = build_opt_matrix(vertices, reinterpret_cast<const int *>(distance_matrix), 4);
 
     // Act
     try {
-        or_switch(solution, 1, -1, reinterpret_cast<const int *>(distance_matrix), 2,4);
+        OptimizedSolution final_solution = build_or_opt_n(opt_matrix, 1, -1, reinterpret_cast<const int *>(distance_matrix), 2);
     } catch (const char * error) {
         // Assert
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
@@ -1103,7 +1103,10 @@ int test_build_or_opt_invalid_negative_index() {
  * @return
  */
 int test_build_or_opt_same_position() {
-    print_sub_test_begin("or_switch", "Testando o movimento Or-Opt2 com nova posicao igual a posicao inicial");
+    print_sub_test_begin(
+            "build_or_opt_n",
+            "Testando o movimento Or-Opt2 com nova posicao igual a posicao inicial (OptimizedSolution)"
+    );
 
     // Arrange
     const int distance_matrix[4][4] = {
@@ -1113,15 +1116,13 @@ int test_build_or_opt_same_position() {
             {30, 45, 69, 0},
     };
 
-    Solution solution = {
-            .objective_function = 0,
-            .size_of_solution = 4,
-            .vertices = {0, 1, 2, 3}
-    };
+    int vertices[4] = {0, 1, 2, 3};
+
+    OptimizedMatrix opt_matrix = build_opt_matrix(vertices, reinterpret_cast<const int *>(distance_matrix), 4);
 
     // Act
     try {
-        or_switch(solution, 1, 1, reinterpret_cast<const int *>(distance_matrix), 2,4);
+        OptimizedSolution final_solution = build_or_opt_n(opt_matrix, 1, 1, reinterpret_cast<const int *>(distance_matrix), 2);
     } catch (const char * error) {
         // Assert
         assert(strings_are_equal(error, "Vertice invalido escolhido para troca"));
@@ -1162,6 +1163,9 @@ int test_or_opt() {
     test_build_or_opt_first_index();
     test_build_or_opt_to_first_index();
     test_build_or_opt_three_vertices_array();
+    test_build_or_opt_n_invalid_greater_index();
+    test_build_or_opt_invalid_negative_index();
+    test_build_or_opt_same_position();
     print_test_end("or-opt2.cpp");
     return EXIT_SUCCESS;
 }

@@ -60,7 +60,7 @@ OptimizedSolution build_or_opt_n(OptimizedMatrix optimized_matrix, int vertex_1,
     if ( size_of_solution <= n + 1 ||
         new_position == vertex_1 ||
         vertex_1 == 0 ||
-        new_position == 0 ||
+        new_position <= 0 ||
         new_position >= (size_of_solution - (n - 1))
             ) {
         throw "Vertice invalido escolhido para troca";
