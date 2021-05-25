@@ -109,7 +109,7 @@ void execute_tests() {
     test_opt_matrix();
     test_swap();
     test_reinsert();
-//    test_or_opt();
+    test_or_opt();
 //    test_two_optimal();
 //    test_neighborhood_generator();
 

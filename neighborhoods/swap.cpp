@@ -37,12 +37,6 @@ Solution build_swap(Solution solution, const int * matriz_distancias) {
 OptimizedSolution build_swap(OptimizedMatrix &opt_matrix, int index_1, int index_2, const int *distance_matrix) {
     // 1º - Escolher os dois vértices que serão trocados
     OptimizedSolution solution = opt_matrix.get_full_solution();
-    int vertex_1 = solution.vertices[index_1];
-    int vertex_2 = solution.vertices[index_2];
-
-    // 2º - trocar os vértices de posição
-    solution.vertices[index_1] = vertex_2;
-    solution.vertices[index_2] = vertex_1;
 
     // Encontrar o maior e o menor índice
     int greater_index, lower_index;

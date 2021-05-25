@@ -5,7 +5,7 @@
 #ifndef ALGORITMO_TCC_CONFIGURATIONS_H
 #define ALGORITMO_TCC_CONFIGURATIONS_H
 
-#define SIZE 50
+#define SIZE 70
 
 // Caso seja 1, indica que o MLP deve ser tratado sem considerar a latência do vértice inicial v0.
 // Caso seja 0, a latência do vértice final ao inicial (v0) é considerada no cálculo da solução.

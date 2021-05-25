@@ -6,6 +6,7 @@
 #define ALGORITMO_TCC_OR_OPT_H
 
 #include "../data_structures/solution.h"
+#include "../data_structures/optmized-matrix.h"
 
 /**
  * Realiza um movimento do tipo Or-Opt(n), que reinsere <b>n</b> vértices adjacentes em uma nova posição na solução
@@ -51,6 +52,7 @@ Solution or_opt_n(Solution &solution, const int * matriz_distancias, int n = 2, 
  */
 Solution build_or_opt_n(Solution solution, size_t vertex_1, size_t new_position, const int * matriz_distancias, int n = 2, int size = SIZE);
 
+OptimizedSolution build_or_opt_n(OptimizedMatrix optimized_matrix, int vertex_1, int new_position, const int * matriz_distancias, int n);
 
 /**
  * Constrói e retorna uma solução vizinha aplicando o movimento or-opt(n) em posições aleatórias
