@@ -97,7 +97,7 @@ int test_swap_opt_2() {
                                                         reinterpret_cast<const int *>(distance_matrix), 3);
 
     // Act
-    Solution best_solution = swap_opt_2(solution, reinterpret_cast<const int *>(distance_matrix), optimized_matrix,3);
+    Solution best_solution = swap_opt_2(reinterpret_cast<const int *>(distance_matrix), optimized_matrix, BEST_IMPROVEMENT);
 
 
     // Assert

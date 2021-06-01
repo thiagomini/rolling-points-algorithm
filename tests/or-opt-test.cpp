@@ -90,12 +90,52 @@ int test_or_switch_before() {
     assert(solution.vertices[2] == 4);
     assert(solution.vertices[3] == 1);
     assert(solution.vertices[4] == 2);
+    assert(solution.objective_function == (CLASSICAL_PROBLEM ? 263 : 437));
 
     print_sub_test_end();
 
     return EXIT_SUCCESS;
 
 }
+
+int test_or_switch_just_before() {
+    print_sub_test_begin(
+            "or_switch",
+            "Testando o movimento Or-Opt2 movendo para posicao imediatamente anterior"
+    );
+
+    // Arrange
+    const int distance_matrix[5][5] = {
+            {0, 59, 73, 30, 28},
+            {59, 0, 19, 45, 32},
+            {73, 19, 0, 69, 64},
+            {30, 45, 69, 0, 20},
+            {28, 32, 64, 20, 0},
+    };
+
+    Solution solution = {
+            .objective_function = 0,
+            .size_of_solution = 5,
+            .vertices = {0, 1, 2, 3, 4}
+    };
+
+    // Act
+    or_switch(solution, 3, 2, reinterpret_cast<const int *>(distance_matrix), 2, 5);
+
+    // Assert
+    assert(solution.vertices[0] == 0);
+    assert(solution.vertices[1] == 1);
+    assert(solution.vertices[2] == 3);
+    assert(solution.vertices[3] == 4);
+    assert(solution.vertices[4] == 2);
+    assert(solution.objective_function == (CLASSICAL_PROBLEM ? 475 : 736));
+
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+
+}
+
 
 /**
  * Caso 3 - Não deve ser possível mover dois vértices adjacentes para a última posição do vetor<br>
@@ -611,27 +651,64 @@ int test_or_switch_random_positions() {
 int test_or_opt2_local_search() {
     print_sub_test_begin("or_opt_n", "Testando a busca local Or-Opt2");
     // Arrange
-    const int distance_matrix[4][4] = {
-            {0, 59, 73, 30},
-            {59, 0, 19, 45},
-            {73, 19, 0, 69},
-            {30, 45, 69, 0},
+    const int distance_matrix[6][6] = {
+            {0, 59, 73, 30, 28, 61},
+            {59, 0, 19, 45, 32, 42},
+            {73, 19, 0, 69, 64, 24},
+            {30, 45, 69, 0, 20, 39},
+            {28, 32, 64, 20, 0, 87},
+            {61, 42, 24, 39, 87, 0},
     };
 
     Solution solution = {
-            .objective_function = CLASSICAL_PROBLEM ? 284 : 461,
-            .size_of_solution = 4,
-            .vertices = {0, 1, 2, 3}
+            .objective_function = CLASSICAL_PROBLEM ? 705 : 1020,
+            .size_of_solution = 6,
+            .vertices = {0, 1, 2, 3, 4, 5}
     };
 
-    int best_fo = CLASSICAL_PROBLEM ? 199 : 366;
+    int best_fo = CLASSICAL_PROBLEM ? 388 : 574;
 
     // Act
-    Solution best_solution = or_opt_n(solution, reinterpret_cast<const int *>(distance_matrix), 2, 4);
+    Solution best_solution = or_opt_n(solution, reinterpret_cast<const int *>(distance_matrix), 2, 6);
+
+    // Prepare-Response
+    int expected_array[6] = { 0, 3, 4, 1, 2, 5 };
 
     // Assert
-    assert(best_solution.vertices[0] == 0);
+    assert(arrays_are_equal(best_solution.vertices, expected_array, 6));
     assert(best_solution.objective_function == best_fo);
+
+    print_sub_test_end();
+    return EXIT_SUCCESS;
+}
+
+int test_or_opt2_local_search_optimized() {
+    print_sub_test_begin("or_opt_n_2", "Testando a busca local Or-Opt2 (OptimizedSolution)");
+    // Arrange
+    const int distance_matrix[6][6] = {
+            {0, 59, 73, 30, 28, 61},
+            {59, 0, 19, 45, 32, 42},
+            {73, 19, 0, 69, 64, 24},
+            {30, 45, 69, 0, 20, 39},
+            {28, 32, 64, 20, 0, 87},
+            {61, 42, 24, 39, 87, 0},
+    };
+
+    int vertices[6] = {0, 1, 2, 3, 4, 5};
+
+    OptimizedMatrix opt_matrix = build_opt_matrix(vertices, reinterpret_cast<const int *>(distance_matrix), 6);
+
+    int best_fo = CLASSICAL_PROBLEM ? 388 : 574;
+
+    // Act
+    Solution final_solution = or_opt_n_2(reinterpret_cast<const int *>(distance_matrix), opt_matrix, 2, BEST_IMPROVEMENT);
+
+    // Prepare-Response
+    int expected_vertices[6] = {0, 3, 4, 1, 2, 5};
+
+    // Assert
+    assert(arrays_are_equal(expected_vertices, final_solution.vertices, 6));
+    assert(final_solution.objective_function == best_fo);
 
     print_sub_test_end();
     return EXIT_SUCCESS;
@@ -664,6 +741,102 @@ int test_or_opt2_local_search_first_improvement() {
     assert(best_solution.vertices[2] == 2);
     assert(best_solution.vertices[3] == 1);
     assert(best_solution.objective_function == best_fo);
+
+    print_sub_test_end();
+    return EXIT_SUCCESS;
+}
+
+int test_or_opt2_local_search_first_improvement_optimized() {
+    print_sub_test_begin("or_opt_n_2", "Testando a busca local Or-Opt2 (primeira melhora) (OptimizedSolution)");
+
+    // Arrange
+    const int distance_matrix[4][4] = {
+            {0, 59, 73, 30},
+            {59, 0, 19, 45},
+            {73, 19, 0, 69},
+            {30, 45, 69, 0},
+    };
+
+    int vertices[4] = {0, 1, 2, 3};
+
+    OptimizedMatrix opt_matrix = build_opt_matrix(vertices, reinterpret_cast<const int *>(distance_matrix), 4);
+
+    int best_fo = CLASSICAL_PROBLEM ? 199 : 366;
+
+    // Act
+    Solution best_solution = or_opt_n_2(reinterpret_cast<const int *>(distance_matrix), opt_matrix, 2, FIRST_IMPROVEMENT);
+
+    // Assert
+    assert(best_solution.vertices[0] == 0);
+    assert(best_solution.vertices[1] == 3);
+    assert(best_solution.vertices[2] == 1);
+    assert(best_solution.vertices[3] == 2);
+    assert(best_solution.objective_function == best_fo);
+
+    print_sub_test_end();
+    return EXIT_SUCCESS;
+}
+
+int test_or_opt3_local_search_optimized() {
+    print_sub_test_begin("or_opt_n_2", "Testando a busca local Or-Opt3 (OptimizedSolution)");
+    // Arrange
+    const int distance_matrix[6][6] = {
+            {0, 59, 73, 30, 28, 61},
+            {59, 0, 19, 45, 32, 42},
+            {73, 19, 0, 69, 64, 24},
+            {30, 45, 69, 0, 20, 39},
+            {28, 32, 64, 20, 0, 87},
+            {61, 42, 24, 39, 87, 0},
+    };
+
+    int vertices[6] = {0, 1, 2, 3, 4, 5};
+
+    OptimizedMatrix opt_matrix = build_opt_matrix(vertices, reinterpret_cast<const int *>(distance_matrix), 6);
+
+    int best_fo = CLASSICAL_PROBLEM ? 502 : 750;
+
+    // Act
+    Solution final_solution = or_opt_n_2(reinterpret_cast<const int *>(distance_matrix), opt_matrix, 3, BEST_IMPROVEMENT);
+
+    // Prepare-Response
+    int expected_vertices[6] = {0, 4, 1, 2, 3, 5};
+
+    // Assert
+    assert(arrays_are_equal(expected_vertices, final_solution.vertices, 6));
+    assert(final_solution.objective_function == best_fo);
+    assert(final_solution.size_of_solution == 6);
+
+    print_sub_test_end();
+    return EXIT_SUCCESS;
+}
+
+int test_or_opt3_local_search_first_improvement_optimized() {
+    print_sub_test_begin("or_opt_n_2", "Testando a busca local Or-Opt3 (primeira melhora) (OptimizedSolution)");
+    // Arrange
+    const int distance_matrix[6][6] = {
+            {0, 59, 73, 30, 28, 61},
+            {59, 0, 19, 45, 32, 42},
+            {73, 19, 0, 69, 64, 24},
+            {30, 45, 69, 0, 20, 39},
+            {28, 32, 64, 20, 0, 87},
+            {61, 42, 24, 39, 87, 0},
+    };
+
+    int vertices[6] = {0, 1, 2, 3, 4, 5};
+
+    OptimizedMatrix opt_matrix = build_opt_matrix(vertices, reinterpret_cast<const int *>(distance_matrix), 6);
+    int best_fo = CLASSICAL_PROBLEM ? 502 : 750;
+
+    // Act
+    Solution best_solution = or_opt_n_2(reinterpret_cast<const int *>(distance_matrix), opt_matrix, 3, FIRST_IMPROVEMENT);
+
+    // Prepare-Response
+    int expected_vertices[6] = {0, 4, 1, 2, 3, 5};
+
+    // Assert
+    assert(arrays_are_equal(expected_vertices, best_solution.vertices, 6));
+    assert(best_solution.objective_function == best_fo);
+    assert(best_solution.size_of_solution == 6);
 
     print_sub_test_end();
     return EXIT_SUCCESS;
@@ -738,7 +911,6 @@ int test_or_opt3_local_search_first_improvement() {
     return EXIT_SUCCESS;
 }
 
-
 /**
  * Caso 2<br>
  * vertices: [0, 1, 2, 3, 4]<br>
@@ -776,6 +948,7 @@ int test_build_or_opt_n_before() {
     assert(final_solution.C == (CLASSICAL_PROBLEM ? 263 : 437));
     assert(final_solution.T == (CLASSICAL_PROBLEM ? 101 : 129));
     assert(final_solution.W == (CLASSICAL_PROBLEM ? 4 : 5));
+    assert(final_solution.size == 5);
 
     print_sub_test_end();
 
@@ -934,6 +1107,7 @@ int test_build_or_opt_n_position_after() {
     assert(final_solution.C == (CLASSICAL_PROBLEM ? 602 : 908));
     assert(final_solution.T == (CLASSICAL_PROBLEM ? 245 : 306));
     assert(final_solution.W == (CLASSICAL_PROBLEM ? 5 : 6));
+    assert(final_solution.size == 6);
 
     print_sub_test_end();
 
@@ -1137,6 +1311,7 @@ int test_or_opt() {
     print_test_begin("or-opt2.cpp");
     test_or_switch();
     test_or_switch_before();
+    test_or_switch_just_before();
     test_or_switch_last_index();
     test_or_switch_first_index();
     test_or_switch_to_first_index();
@@ -1166,6 +1341,10 @@ int test_or_opt() {
     test_build_or_opt_n_invalid_greater_index();
     test_build_or_opt_invalid_negative_index();
     test_build_or_opt_same_position();
+    test_or_opt2_local_search_optimized();
+    test_or_opt2_local_search_first_improvement_optimized();
+    test_or_opt3_local_search_optimized();
+    test_or_opt3_local_search_first_improvement_optimized();
     print_test_end("or-opt2.cpp");
     return EXIT_SUCCESS;
 }

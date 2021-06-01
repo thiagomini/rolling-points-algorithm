@@ -41,17 +41,28 @@ void or_switch(Solution &solution, const int *matriz_distancias, int n = 2, int 
  */
 Solution or_opt_n(Solution &solution, const int * matriz_distancias, int n = 2, int size = SIZE, int strategy = BEST_IMPROVEMENT);
 
+Solution or_opt_n_2(const int * matriz_distancias, OptimizedMatrix &optimized_matrix, int n, int strategy);
+
 /**
  * Constrói e retorna uma solução vizinha aplicando o movimento or-opt(n) em posições escolhidas
  * @param solution - Ponteiro para a solução que será utilizada para o movimento
- * @param vertex_1 Posição do primeiro vértice que será utilizado no movimento. O vértice adjacente será considerado
- * @param new_position A nova posição onde o par de vértices adjacente será realocado
+ * @param vertex_1 - Posição do primeiro vértice que será utilizado no movimento. O vértice adjacente será considerado
+ * @param new_position - A nova posição onde o par de vértices adjacente será realocado
  * @param matriz_distancias
  * @param n - O número de vértices adjacentes que serão realocados. O padrão é 2 (Or-Opt2)
  * @return
  */
 Solution build_or_opt_n(Solution solution, size_t vertex_1, size_t new_position, const int * matriz_distancias, int n = 2, int size = SIZE);
 
+/**
+ * Constrói e retorna uma solução vizinha aplicando o movimento or-opt(n) para uma solução representada pela matriz otimizada
+ * @param optimized_matrix - A matriz com todas as sub-rotas da solução
+ * @param vertex_1 - Posição do primeiro vértice que será utilizado no movimento. O vértice adjacente será considerado
+ * @param new_position - A nova posição onde o par de vértices adjacente será realocado
+ * @param matriz_distancias
+ * @param n O número de vértices adjacentes que serão realocados. O padrão é 2 (Or-Opt2)
+ * @return Uma solução do tipo OptimizedSolution
+ */
 OptimizedSolution build_or_opt_n(OptimizedMatrix optimized_matrix, int vertex_1, int new_position, const int * matriz_distancias, int n);
 
 /**

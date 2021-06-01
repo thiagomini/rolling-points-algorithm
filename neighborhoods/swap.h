@@ -69,7 +69,7 @@ Solution build_swap(Solution solution, const int * matriz_distancias);
  */
 Solution swap_opt(Solution solucao, const int * matriz_distancias, int size = SIZE, int strategy = BEST_IMPROVEMENT);
 
-Solution swap_opt_2(Solution solucao, const int * matriz_distancias, OptimizedMatrix &optimized_matrix, int size = SIZE, int strategy = BEST_IMPROVEMENT);
+Solution swap_opt_2(const int * matriz_distancias, OptimizedMatrix &optimized_matrix, int strategy = BEST_IMPROVEMENT);
 
 int test_swap();
 

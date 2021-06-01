@@ -106,14 +106,15 @@ Solution swap_opt(Solution solucao, const int * matriz_distancias, int size, int
         return best_solution;
 }
 
-Solution swap_opt_2(Solution solucao, const int * matriz_distancias, OptimizedMatrix &optimized_matrix, int size, int strategy) {
+Solution swap_opt_2(const int * matriz_distancias, OptimizedMatrix &optimized_matrix, int strategy) {
     #ifdef VERBOSE
         cout << "[swap_opt] Realizando Busca Local swap..." << endl;
     #endif
-    Solution best_solution;
+    Solution best_solution, solution = optimized_matrix.get_full_solution().to_normal_solution();
     OptimizedSolution opt_new_solution;
+    int size = optimized_matrix.size;
 
-    clone_solution(solucao, best_solution);
+    clone_solution(solution, best_solution);
 
     for (int i = 1; i < size - 1; i++) {
         for (int j = i + 1; j < size; j++) {

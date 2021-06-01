@@ -75,7 +75,7 @@ int main() {
 
     execute_tests();
 
-//    execute_heuristic(ROLLING_POINTS_ALGORITHM, "../instances/kroD100.tsp", 100);
+//    execute_heuristic(ROLLING_POINTS_ALGORITHM, "../instances/st70.tsp", 70);
 //    calculate_time("../instances/st70.tsp", 70, 100000);
 
     return EXIT_SUCCESS;
