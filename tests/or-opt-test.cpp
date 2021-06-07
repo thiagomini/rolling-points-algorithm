@@ -1103,7 +1103,7 @@ int test_build_or_opt_n_position_after() {
     int result_array[6] = {0, 3, 1, 2, 4, 5};
 
     // Assert
-    assert(arrays_are_equal(result_array, final_solution.vertices, 5));
+    assert(arrays_are_equal(result_array, final_solution.vertices, 6));
     assert(final_solution.C == (CLASSICAL_PROBLEM ? 602 : 908));
     assert(final_solution.T == (CLASSICAL_PROBLEM ? 245 : 306));
     assert(final_solution.W == (CLASSICAL_PROBLEM ? 5 : 6));
@@ -1148,7 +1148,7 @@ int test_build_or_opt_n_last_vertices() {
     int result_array[6] = {0, 4, 5, 1, 2, 3};
 
     // Assert
-    assert(arrays_are_equal(result_array, final_solution.vertices, 5));
+    assert(arrays_are_equal(result_array, final_solution.vertices, 6));
     assert(final_solution.C == (CLASSICAL_PROBLEM ? 721 : 996));
     assert(final_solution.T == (CLASSICAL_PROBLEM ? 245 : 306));
     assert(final_solution.W == (CLASSICAL_PROBLEM ? 5 : 6));

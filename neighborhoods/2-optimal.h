@@ -6,6 +6,8 @@
 #define ALGORITMO_TCC_2_OPTIMAL_H
 
 #include "../data_structures/solution.h"
+#include "../data_structures/optmized-matrix.h"
+#include "../utils/distance.h"
 
 /**
  * Realiza o movimento 2-Optimal em uma solução, que consiste em retirar duas arestas não-adjacentes do grafo e
@@ -45,6 +47,8 @@ Solution two_optimal(Solution &solution, const int * distance_matrix, int size =
  * @return Uma solução vizinha construída com o movimento 2-optimal
  */
 Solution build_two_optimal(Solution solution, const int * distance_matrix, size_t edge_1, size_t edge_2, int size = SIZE);
+
+OptimizedSolution build_two_optimal(OptimizedMatrix optimized_matrix, const int * distance_matrix, int vertex_1, int vertex_2);
 
 /**
  * Constrói e retorna uma solução vizinha aplicando o movimento 2-optimal em posições aleatórias

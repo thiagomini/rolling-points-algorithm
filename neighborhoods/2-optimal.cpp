@@ -98,6 +98,33 @@ Solution build_two_optimal(Solution solution, const int * distance_matrix, size_
     return solution;
 }
 
+OptimizedSolution build_two_optimal(OptimizedMatrix optimized_matrix, const int * distance_matrix, int vertex_1, int vertex_2) {
+    if (DIFF(vertex_1, vertex_2) == 1) {
+        throw "Arestas não podem ser ajacentes!";
+    }
+
+    int matrixSize = optimized_matrix.size;
+    int greater_index, lower_index;
+    greater_index = MAX(vertex_1, vertex_2);
+    lower_index = MIN(vertex_1, vertex_2);
+
+    if (greater_index >= matrixSize) {
+        throw "Índices inválidos para o movimento 2-OPT";
+    }
+
+    std::vector<OptimizedSolution> sub_solutions;
+    sub_solutions.reserve(5);
+
+    sub_solutions.push_back(optimized_matrix.get_solution(0, lower_index));
+    sub_solutions.push_back(optimized_matrix.get_solution(greater_index, lower_index + 1));
+
+    if (greater_index + 1 < matrixSize) {
+        sub_solutions.push_back(optimized_matrix.get_solution(greater_index + 1, matrixSize - 1));
+    }
+
+    return concatenate_solutions(sub_solutions, distance_matrix, matrixSize);
+}
+
 Solution build_two_optimal(Solution solution, const int * distance_matrix, int size) {
     two_optimal_move(solution, distance_matrix, size);
     return solution;

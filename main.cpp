@@ -110,7 +110,7 @@ void execute_tests() {
     test_swap();
     test_reinsert();
     test_or_opt();
-//    test_two_optimal();
+    test_two_optimal();
 //    test_neighborhood_generator();
 
 //    test_heuristic();

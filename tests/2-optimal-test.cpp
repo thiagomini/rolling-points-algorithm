@@ -5,6 +5,58 @@
 #include <cassert>
 #include "../neighborhoods/2-optimal.h"
 #include "test-logger.h"
+#include "../utils/string-utils.h"
+
+/**
+ * Estrutura utilizada para testar a função build_two_optimal
+ */
+typedef struct {
+    int vertex_1;
+    int vertex_2;
+    int expected_C;
+    int expected_T;
+    int expected_W;
+    int expected_size;
+    vector<int> expected_vertices;
+} BuildTwoOptimalTest;
+
+/**
+ * Função genérica para testar o método <b>build_two_optimal</b>. Basta mudar os parâmetros de entrada e o resultado
+ * esperado para realizar novos testes
+ * @param test_parameters
+ * @return
+ */
+int test_build_two_optimal(BuildTwoOptimalTest test_parameters) {
+    // Arrange
+    const int distance_matrix[6][6] = {
+            {0, 59, 73, 30, 28, 61},
+            {59, 0, 19, 45, 32, 42},
+            {73, 19, 0, 69, 64, 24},
+            {30, 45, 69, 0, 20, 39},
+            {28, 32, 64, 20, 0, 87},
+            {61, 42, 24, 39, 87, 0},
+    };
+
+    int * vertices = build_crescent_array(test_parameters.expected_size);
+    OptimizedMatrix opt_matrix = build_opt_matrix(vertices, reinterpret_cast<const int *>(distance_matrix), test_parameters.expected_size);
+
+    // Act
+    OptimizedSolution final_solution = build_two_optimal(
+            opt_matrix, reinterpret_cast<const int *>(distance_matrix),
+            test_parameters.vertex_1,
+            test_parameters.vertex_2
+    );
+
+    // Assert
+    assert(arrays_are_equal(test_parameters.expected_vertices.data(), final_solution.vertices, test_parameters.expected_size));
+    assert(final_solution.C == test_parameters.expected_C);
+    assert(final_solution.T == test_parameters.expected_T);
+    assert(final_solution.W == test_parameters.expected_W);
+    assert(final_solution.size == test_parameters.expected_size);
+
+    print_sub_test_end();
+    return EXIT_SUCCESS;
+}
 
 int test_two_optimal_move() {
     print_sub_test_begin("two_optimal_move", "Testando o movimento 2-Optimal de vertices escolhidos");
@@ -39,6 +91,100 @@ int test_two_optimal_move() {
     print_sub_test_end();
     return EXIT_SUCCESS;
 }
+
+int test_build_two_optimal_first_and_last() {
+    print_sub_test_begin(
+            "build_two_optimal",
+            "Construcao de solucao 2-Optimal para primeiro e ultimo vertices (OptimizedSolution)"
+    );
+
+    return test_build_two_optimal({
+        0,
+        4,
+        CLASSICAL_PROBLEM ? 507 : 756,
+        CLASSICAL_PROBLEM ? 178 : 239,
+        CLASSICAL_PROBLEM ? 5 : 6,
+        6,
+        {0, 4, 3, 2, 1, 5}
+    });
+}
+
+int test_build_two_optimal_first_and_middle() {
+    print_sub_test_begin(
+            "build_two_optimal",
+            "Construcao de solucao 2-Optimal para vertice inicial e um do meio (OptimizedSolution)"
+    );
+
+    return test_build_two_optimal({
+                                          0,
+                                          3,
+                                          CLASSICAL_PROBLEM ? 634 : 932,
+                                          CLASSICAL_PROBLEM ? 237 : 298,
+                                          CLASSICAL_PROBLEM ? 5 : 6,
+                                          6,
+                                          {0, 3, 2, 1, 4, 5}
+                                  });
+}
+
+int test_build_two_optimal_two_in_middle() {
+    print_sub_test_begin(
+            "build_two_optimal",
+            "Construcao de solucao 2-Optimal para dois vertices do meio (OptimizedSolution)"
+    );
+
+    return test_build_two_optimal({
+                                          1,
+                                          3,
+                                          CLASSICAL_PROBLEM ? 897 : 1282,
+                                          CLASSICAL_PROBLEM ? 324 : 385,
+                                          CLASSICAL_PROBLEM ? 5 : 6,
+                                          6,
+                                          {0, 1, 3, 2, 4, 5}
+                                  });
+}
+
+int test_build_two_optimal_middle_and_last() {
+    print_sub_test_begin(
+            "build_two_optimal",
+            "Construcao de solucao 2-Optimal para um vertice do meio e o final (OptimizedSolution)"
+    );
+
+    return test_build_two_optimal({
+                                          1,
+                                          5,
+                                          CLASSICAL_PROBLEM ? 833 : 1183,
+                                          CLASSICAL_PROBLEM ? 277 : 338,
+                                          CLASSICAL_PROBLEM ? 5 : 6,
+                                          6,
+                                          {0, 1, 5, 4, 3, 2}
+                                  });
+}
+
+int test_build_two_optimal_two_consecutive() {
+    print_sub_test_begin(
+            "build_two_optimal",
+            "Testando erro ao crair 2-Optimal com 2 vertices consecutivos (OptimizedSolution)"
+    );
+
+    try {
+        test_build_two_optimal({
+                                       1,
+                                       2,
+                                       0,
+                                       0,
+                                       0,
+                                       6,
+                                       {0, 1, 2, 3, 4, 5, 6}
+                               });
+    } catch (const char * error) {
+        assert(strings_are_equal(error, "Arestas não podem ser ajacentes!"));
+        print_sub_test_end();
+        return EXIT_SUCCESS;
+    }
+
+    return EXIT_FAILURE;
+}
+
 
 int test_two_optimal_move_random() {
     print_sub_test_begin("two_optimal_move", "Testando o movimento 2-Optimal para vertices aleatorios");
@@ -142,6 +288,13 @@ int test_two_optimal() {
     test_two_optimal_move_random();
     test_two_optimal_local_search();
     test_two_optimal_local_search_first_improvement();
+
+    // OptimizedSolution
+    test_build_two_optimal_first_and_last();
+    test_build_two_optimal_first_and_middle();
+    test_build_two_optimal_two_in_middle();
+    test_build_two_optimal_middle_and_last();
+    test_build_two_optimal_two_consecutive();
     print_test_end("2-optimal.cpp");
 
     return EXIT_SUCCESS;
