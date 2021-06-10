@@ -151,3 +151,27 @@ Solution two_optimal(Solution &solution, const int * distance_matrix, int size, 
     END_OF_LOOP:
         return best_solution;
 }
+
+Solution two_optimal_2(const int * matriz_distancias, OptimizedMatrix &optimized_matrix, int strategy) {
+#ifdef VERBOSE
+    cout << "[two_optimal] Realizando Busca Local 2-Optimal_2..." << endl;
+#endif
+
+    Solution best_solution = optimized_matrix.get_full_solution().to_normal_solution();
+    OptimizedSolution opt_new_solution;
+
+    int size = optimized_matrix.size;
+
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = i + 2; j < size; ++j) {
+            opt_new_solution = build_two_optimal(optimized_matrix, matriz_distancias, i, j);
+            if (opt_new_solution.C < best_solution.objective_function) {
+                best_solution = opt_new_solution.to_normal_solution();
+                if (strategy == FIRST_IMPROVEMENT) goto END_OF_LOOP;
+            }
+        }
+    }
+
+    END_OF_LOOP:
+    return best_solution;
+}

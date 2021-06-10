@@ -39,6 +39,15 @@ void two_optimal_move(Solution &solution, const int * distance_matrix, int size 
 Solution two_optimal(Solution &solution, const int * distance_matrix, int size = SIZE, int strategy = BEST_IMPROVEMENT);
 
 /**
+ * Realiza a busca local 2-Optimal com a estrutura em matriz otimizada, retornando a solução com a melhor FO
+ * @param matriz_distancias
+ * @param optimized_matrix
+ * @param strategy
+ * @return
+ */
+Solution two_optimal_2(const int * matriz_distancias, OptimizedMatrix &optimized_matrix, int strategy);
+
+/**
  * Constrói e retorna uma solução vizinha aplicando o movimento 2-optimal em posições definidas
  * @param solution - Ponteiro para a Solução
  * @param distance_matrix - Ponteiro para a matriz de distâncias.

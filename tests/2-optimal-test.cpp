@@ -251,6 +251,59 @@ int test_two_optimal_local_search() {
     return EXIT_SUCCESS;
 }
 
+int test_two_optimal_2_local_search() {
+    print_sub_test_begin("two_optimal_2", "Testando a busca local 2-Optimal (OptimizedSolution)");
+
+    // Arrange
+    const int distance_matrix[4][4] = {
+            {0, 59, 73, 30},
+            {59, 0, 19, 45},
+            {73, 19, 0, 69},
+            {30, 45, 69, 0},
+    };
+    int vertices[4] = {0, 1, 2, 3};
+    OptimizedMatrix opt_matrix = build_opt_matrix(vertices, reinterpret_cast<const int *>(distance_matrix), 4);
+
+    // Act
+    Solution optimal_solution = two_optimal_2(reinterpret_cast<const int *>(distance_matrix), opt_matrix, BEST_IMPROVEMENT);
+
+    // Prepare-Response
+    int expected_vertices[4] = {0, 3, 2, 1};
+    // Assert
+    assert(arrays_are_equal(expected_vertices, optimal_solution.vertices, 4));
+    assert(optimal_solution.objective_function == (CLASSICAL_PROBLEM ? 247 : 424));
+
+    print_sub_test_end();
+    return EXIT_SUCCESS;
+}
+
+int test_two_optimal_2_first_improvement() {
+    print_sub_test_begin("two_optimal_2", "Testando a busca local (primeira melhora) 2-Optimal (OptimizedSolution)");
+
+    // Arrange
+    const int distance_matrix[4][4] = {
+            {0, 59, 73, 30},
+            {59, 0, 19, 45},
+            {73, 19, 0, 69},
+            {30, 45, 69, 0},
+    };
+    int vertices[4] = {0, 1, 2, 3};
+    OptimizedMatrix opt_matrix = build_opt_matrix(vertices, reinterpret_cast<const int *>(distance_matrix), 4);
+
+    // Act
+    Solution optimal_solution = two_optimal_2(reinterpret_cast<const int *>(distance_matrix), opt_matrix, FIRST_IMPROVEMENT);
+
+    // Prepare-Response
+    int expected_vertices[4] = {0, 3, 2, 1};
+    // Assert
+    assert(arrays_are_equal(expected_vertices, optimal_solution.vertices, 4));
+    assert(optimal_solution.objective_function == (CLASSICAL_PROBLEM ? 247 : 424));
+
+    print_sub_test_end();
+    return EXIT_SUCCESS;
+}
+
+
 int test_two_optimal_local_search_first_improvement() {
     print_sub_test_begin("two_optimal", "Testando a busca local 2-Optimal (primeira melhora)");
 
@@ -295,6 +348,8 @@ int test_two_optimal() {
     test_build_two_optimal_two_in_middle();
     test_build_two_optimal_middle_and_last();
     test_build_two_optimal_two_consecutive();
+    test_two_optimal_2_local_search();
+    test_two_optimal_2_first_improvement();
     print_test_end("2-optimal.cpp");
 
     return EXIT_SUCCESS;
