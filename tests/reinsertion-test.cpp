@@ -448,8 +448,6 @@ int test_build_reinsert_solution_3_and_1() {
     return EXIT_SUCCESS;
 }
 
-
-
 /**
  * Testa a busca local reinserindo cada nó em uma nova posição
  * @return 0 se o teste passou
@@ -490,6 +488,36 @@ int test_reinserted_opt_first_improvement() {
     return EXIT_SUCCESS;
 }
 
+int test_reinserted_opt_2_first_improvement() {
+    print_sub_test_begin("reinsert_opt_2", "Testando busca local REINSERT_OPT (primeira melhora) (OptimizedSolution)");
+
+    // Arrange
+    const int distance_matrix[4][4] = {
+            {0, 59, 73, 30},
+            {59, 0, 19, 45},
+            {73, 19, 0, 69},
+            {30, 45, 69, 0},
+    };
+
+    int vertices[4] = {0, 1, 2, 3};
+
+    OptimizedMatrix optimized_matrix = build_opt_matrix(vertices, reinterpret_cast<const int *>(distance_matrix), 4);
+
+    // Act
+    Solution best_solution = reinsert_opt_2(reinterpret_cast<const int *>(distance_matrix), optimized_matrix, FIRST_IMPROVEMENT);
+
+    // Prepare-Response
+    int expected_fo = CLASSICAL_PROBLEM ? 199 : 366;
+    int expected_array[4] = {0, 3, 1, 2};
+
+    // Assert
+    assert(arrays_are_equal(expected_array, best_solution.vertices, 4));
+    assert(best_solution.objective_function == expected_fo);
+    print_sub_test_end();
+
+    return EXIT_SUCCESS;
+}
+
 
 int test_reinsert() {
     print_test_begin("reinsertion.cpp");
@@ -507,6 +535,10 @@ int test_reinsert() {
     test_build_reinsert_solution_4_and_1();
     test_build_reinsert_solution_3_and_2();
     test_build_reinsert_solution_3_and_1();
+
+    // OptimizedSolution
+    test_reinserted_opt_2_first_improvement();
+
     print_test_end("reinsertion.cpp");
 
     return EXIT_SUCCESS;
