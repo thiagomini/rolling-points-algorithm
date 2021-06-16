@@ -72,7 +72,7 @@ OptimizedSolution build_reinsert(OptimizedMatrix optimized_matrix, int posicao_1
         }
     }
 
-    return finalSolution;
+    return concatenate_solutions(sub_solutions, matriz_distancias, optimized_matrix.size);;
 }
 
 Solution build_reinsert(Solution solucao, const int * matriz_distancias, int size) {
