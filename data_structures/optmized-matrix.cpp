@@ -2,6 +2,7 @@
 // Created by Thiago on 11/05/2021.
 //
 
+#include <valarray>
 #include "optmized-matrix.h"
 #include "../utils/distance.h"
 
@@ -32,14 +33,13 @@ void fill_sub_solution(OptimizedSolution &solution, const int vertices[], int be
  * @param optimized_matrix
  * @param vertices
  */
-void initialize_vertices(OptimizedMatrix &optimized_matrix, int vertices[]) {
+void initialize_vertices(OptimizedMatrix &optimized_matrix) {
     for (int i = 0; i < optimized_matrix.size; ++i) {
         for (int j = 0; j < optimized_matrix.size; ++j) {
             optimized_matrix.sub_solutions[i][j].C = 0;
             optimized_matrix.sub_solutions[i][j].T = 0;
             optimized_matrix.sub_solutions[i][j].W = 0;
             optimized_matrix.sub_solutions[i][j].size = (DIFF(i, j)) + 1;
-            fill_sub_solution(optimized_matrix.sub_solutions[i][j], vertices, i, j);
         }
     }
 }
@@ -49,9 +49,10 @@ void initialize_vertices(OptimizedMatrix &optimized_matrix, int vertices[]) {
  * @param optimized_matrix
  * @param size
  */
-void initialize_primary_diagonal(OptimizedMatrix &optimized_matrix, int size) {
+void initialize_primary_diagonal(OptimizedMatrix &optimized_matrix, int size, int *vertices) {
     for (int i = 1; i < size; ++i) {
         optimized_matrix.sub_solutions[i][i].W = 1;
+        optimized_matrix.sub_solutions[i][i].vertices[0] = vertices[i];
     }
 }
 
@@ -67,8 +68,8 @@ OptimizedMatrix build_opt_matrix(int *vertices, const int * distance_matrix, int
             .size = size
     };
 
-    initialize_vertices(optimizedMatrix, vertices);
-    initialize_primary_diagonal(optimizedMatrix, size);
+    initialize_vertices(optimizedMatrix);
+    initialize_primary_diagonal(optimizedMatrix, size, vertices);
 
     for (int i = 2; i <= size; i++) {
         for (int row = 0; row <= size - i; row++) {
