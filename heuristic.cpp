@@ -5,13 +5,9 @@
 #define MAX_ITERATIONS 1
 #define NUMBER_OF_SOLUTIONS 10
 
-#include <memory>
 #include "heuristic.h"
 #include "constructive-heuristic.h"
 #include "neighborhoods/neighborhood-generator.h"
-#include "neighborhoods/swap.h"
-#include "neighborhoods/reinsertion.h"
-#include "neighborhoods/or-opt.h"
 #include "neighborhoods/2-optimal.h"
 
 Solution random_iterative_heuristic(int * distance_matrix, size_t number_of_vertices) {
