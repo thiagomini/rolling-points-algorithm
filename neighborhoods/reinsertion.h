@@ -55,6 +55,16 @@ Solution build_reinsert(Solution solucao, const int * matriz_distancias, int siz
  */
 Solution reinsert_opt(Solution solucao, const int * matriz_distancias, int size = SIZE, int strategy = BEST_IMPROVEMENT);
 
+/**
+ * Calcula a melhor solução após realizar a reinserção de um nó em todas as demais posições (Utilizando a estrutura
+ * otimizada em matriz)
+ * @param matriz_distancias
+ * @param optimized_matrix
+ * @param strategy
+ * @return
+ */
+Solution reinsert_opt_2(const int * matriz_distancias, OptimizedMatrix optimized_matrix, int strategy);
+
 int test_reinsert();
 
 

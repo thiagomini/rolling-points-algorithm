@@ -72,7 +72,7 @@ OptimizedSolution build_reinsert(OptimizedMatrix optimized_matrix, int posicao_1
         }
     }
 
-    return concatenate_solutions(sub_solutions, matriz_distancias, optimized_matrix.size);;
+    return finalSolution;
 }
 
 Solution build_reinsert(Solution solucao, const int * matriz_distancias, int size) {
@@ -105,4 +105,31 @@ Solution reinsert_opt(Solution solucao, const int * matriz_distancias, int size,
 
     END_OF_LOOP:
         return best_solution;
+}
+
+Solution reinsert_opt_2(const int * matriz_distancias, OptimizedMatrix optimized_matrix, int strategy) {
+#ifdef VERBOSE
+    cout << "[reinsert_opt] Realizando Busca Local Reinsert..." << endl;
+#endif
+    Solution best_solution = optimized_matrix.get_full_solution().to_normal_solution();
+    int size = optimized_matrix.size;
+
+    for (int i = 1; i < size - 1; i++) {
+        for (int j = i + 1; j < size; j++) {
+            OptimizedSolution new_solution_1 = build_reinsert(optimized_matrix, i, j, matriz_distancias);
+            OptimizedSolution new_solution_2 = build_reinsert(optimized_matrix, j, i, matriz_distancias);
+
+            OptimizedSolution best_new_solution = new_solution_1.C < new_solution_2.C
+                                ? new_solution_1
+                                : new_solution_2;
+
+            if (best_new_solution.C < best_solution.objective_function) {
+                best_solution = best_new_solution.to_normal_solution();
+                if (strategy == FIRST_IMPROVEMENT) goto END_OF_LOOP;
+            }
+        }
+    }
+
+    END_OF_LOOP:
+    return best_solution;
 }
