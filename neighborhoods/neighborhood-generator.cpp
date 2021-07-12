@@ -126,10 +126,8 @@ Solution random_variable_neighborhood_descent(Solution &solution, const int *dis
 
     START_OF_LOOP:
     shuffle_array(neighborhoods, 5);
-    OptimizedMatrix optimized_matrix = build_opt_matrix(solution.vertices, distance_matrix, size);
-
     for (int neighborhood : neighborhoods) {
-            solution = apply_local_search(optimized_matrix, distance_matrix, neighborhood, size, BEST_IMPROVEMENT);
+            solution = apply_local_search(solution, distance_matrix, neighborhood, size, BEST_IMPROVEMENT);
             if (solution.objective_function < best_fo){
                 best_fo = solution.objective_function;
                 goto START_OF_LOOP;

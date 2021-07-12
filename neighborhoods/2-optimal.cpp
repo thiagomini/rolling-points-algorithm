@@ -29,55 +29,26 @@ void two_optimal_move(Solution &solution, const int * distance_matrix, size_t ed
     if (abs(int(edge_1 - edge_2)) <= 1)
         throw "Vertice escolhidos nao podem ser adjacentes";
 
-    std::vector<edge> edges_of_solution = extract_edges(solution);
+    int greater_index = MAX(edge_1, edge_2);
+    int lower_index = MIN(edge_1, edge_2);
 
-    // Define as arestas que serão removidas
-    edge first_removed_edge = edges_of_solution[edge_1];
-    edge second_removed_edge = edges_of_solution[edge_2];
+    vector<int> new_vertices;
+    new_vertices.reserve(size);
+    new_vertices.push_back(0);
 
-    // Define as novas arestas que serão inseridas
-    edge new_inserted_edge = {
-            first_removed_edge.first_node,
-            second_removed_edge.first_node
-    };
-
-    edge another_inserted_edge = {
-            first_removed_edge.second_node,
-            second_removed_edge.second_node
-    };
-
-    // Adiciona as novas arestas no vetor de arestas da solução
-    edges_of_solution[edge_1] = new_inserted_edge;
-    edges_of_solution[edge_2] = another_inserted_edge;
-
-    std::vector<int> new_solution_vertices(size);
-    new_solution_vertices.push_back(0);
-
-    int index_of_array = 0,
-    max_iterations = (int) edges_of_solution.size();
-    edge next_selected_edge;
-
-    // Monta o novo vetor de vértices da solução de acordo com as arestas
-    for (int i = 0; i < max_iterations; i++) {
-        next_selected_edge = edges_of_solution[index_of_array];
-
-        // Caso a próxima aresta não possua o first_node = ao último vértice adicionado na lista de vértices,
-        // é necessário trocar a posição dos nós dessa aresta
-        if (i > 0 &&
-            next_selected_edge.first_node != new_solution_vertices[i])
-        {
-            swap_edge(next_selected_edge);
-        }
-
-        new_solution_vertices[i + 1] = next_selected_edge.second_node;
-
-        edges_of_solution.erase(edges_of_solution.begin() + index_of_array);
-        index_of_array = find_edge_containing_node(edges_of_solution, next_selected_edge.second_node);
-        if (index_of_array == -1) break;
+    for (int i = 1; i <= lower_index; i++) {
+        new_vertices.push_back(solution.vertices[i]);
     }
 
-    new_solution_vertices.pop_back(); // Remove o vértice "0" do final do vetor de vértices
-    memcpy(solution.vertices, new_solution_vertices.data(), sizeof(int) * size);
+    for (int i = greater_index; i > lower_index; i--) {
+        new_vertices.push_back(solution.vertices[i]);
+    }
+
+    for (int i = greater_index + 1; i < size; i++) {
+        new_vertices.push_back(solution.vertices[i]);
+    }
+
+    memcpy(solution.vertices, new_vertices.data(), sizeof(int) * size);
     calculate_objective_function(&solution, distance_matrix, size);
 
 }
