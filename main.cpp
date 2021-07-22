@@ -73,9 +73,9 @@ void print_heuristic_metrics(Solution *solutions, int times);
 int main() {
     srand(time(NULL));
 
-    execute_tests();
+//    execute_tests();
 
-//    execute_heuristic(ROLLING_POINTS_ALGORITHM, "../instances/st70.tsp", 70);
+    execute_heuristic(ROLLING_POINTS_ALGORITHM, "../instances/rat99.tsp", 99);
 //    calculate_time("../instances/st70.tsp", 70, 100000);
 
     return EXIT_SUCCESS;
