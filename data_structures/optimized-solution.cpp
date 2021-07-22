@@ -48,6 +48,21 @@ int concatenate_C(OptimizedSolution solution_1, OptimizedSolution solution_2, co
     return solution_1.C + solution_2.W * (solution_1.T + new_vertex_distance) + solution_2.C;
 }
 
+/**
+ * Concatena duas soluções otimizadas, reaproveitando dos valores de C, T e W para realizar o cálculo mais facilmente
+ * @param solution_1 - Primeira solução a ser concatenada
+ * @param solution_2 - Segunda solução a ser concatenada
+ * @param distance_matrix - Matriz de distâncias
+ * @param size - dimensão da matriz (tamanho do problema)
+ * @return Uma nova solução, obtida pela concatenação das soluções passadas como parâmetro
+ */
+
+OptimizedSolution clone(OptimizedSolution &source) {
+    OptimizedSolution destination;
+    memcpy(&destination, &source, sizeof(source));
+    return destination;
+}
+
 OptimizedSolution concatenate_solutions(OptimizedSolution solution_1, OptimizedSolution solution_2, const int * distance_matrix, int size) {
     int new_T = concatenate_T(solution_1, solution_2, distance_matrix, size);
     int new_C = concatenate_C(solution_1, solution_2, distance_matrix, size);
@@ -62,6 +77,27 @@ OptimizedSolution concatenate_solutions(OptimizedSolution solution_1, OptimizedS
 
     std::copy(solution_1.vertices, solution_1.vertices + solution_1.size, new_solution.vertices);
     std::copy(solution_2.vertices, solution_2.vertices + solution_2.size, new_solution.vertices + solution_1.size);
+
+    return new_solution;
+}
+
+OptimizedSolution concatenate_solutions(OptimizedSolution *solutions, const int *distance_matrix, int number_of_solutions, int size) {
+    OptimizedSolution new_solution = solutions[0];
+
+    for (int i = 1; i < number_of_solutions; ++i) {
+        new_solution = concatenate_solutions(new_solution, solutions[i], distance_matrix, size);
+    }
+
+    return new_solution;
+}
+
+OptimizedSolution concatenate_solutions(std::vector<OptimizedSolution> solutions, const int * distance_matrix, int size) {
+    OptimizedSolution new_solution = solutions[0];
+    int number_of_solutions = solutions.size();
+
+    for (int i = 1; i < number_of_solutions; ++i) {
+        new_solution = concatenate_solutions(new_solution, solutions[i], distance_matrix, size);
+    }
 
     return new_solution;
 }

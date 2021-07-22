@@ -57,10 +57,7 @@ int sum_array(size_t size, const int array[]) {
 
 int * clone_array(int array[], size_t size) {
     static int * new_array = new int[size];
-
-    for (size_t i = 0; i < size; i++) {
-        new_array[i] = array[i];
-    }
+    std::copy(array, array + size, new_array);
     return new_array;
 }
 

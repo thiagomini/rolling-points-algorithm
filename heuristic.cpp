@@ -5,14 +5,11 @@
 #define MAX_ITERATIONS 1
 #define NUMBER_OF_SOLUTIONS 10
 
-#include <memory>
 #include "heuristic.h"
 #include "constructive-heuristic.h"
 #include "neighborhoods/neighborhood-generator.h"
-#include "neighborhoods/swap.h"
-#include "neighborhoods/reinsertion.h"
-#include "neighborhoods/or-opt.h"
 #include "neighborhoods/2-optimal.h"
+#include "utils/energy.h"
 
 Solution random_iterative_heuristic(int * distance_matrix, size_t number_of_vertices) {
     int epoch = 0;
@@ -61,16 +58,17 @@ Solution rolling_points_heuristic(const int *distance_matrix, size_t number_of_v
     #endif
     // Busca Local Simples
     Solution neighbor;
-    int energy = 500;
-    // Aplicar busca dos pontos aqui!
+    double energy = INITIAL_VELOCITY * DEFAULT_MASS;
     for (int i = 0; i < population; i++) {
         while (energy > 0) {
+            double last_fo = solucoes[i].objective_function;
             neighbor = random_local_search(solucoes[i], distance_matrix, (int) number_of_vertices);
+            double current_fo = neighbor.objective_function;
             if (compare(solucoes[i], neighbor) > 0) {
                 clone_solution(neighbor, solucoes[i]);
-                energy += 10;
             }
-            energy -= 15;
+            energy += calculate_energy(DEFAULT_MASS, current_fo, last_fo);
+//            cout << "Novo valor de energia: " << energy << endl;
         }
 
     }

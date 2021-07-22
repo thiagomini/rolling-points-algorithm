@@ -12,6 +12,7 @@
 #define TWO_OPTIMAL 4
 
 #include "../data_structures/solution.h"
+#include "../data_structures/optmized-matrix.h"
 
 /**
  * Gera uma solução vizinha, utilizando a estratégia passada como parâmetro
@@ -41,6 +42,17 @@ Solution generate_random_neighbor(Solution &solution, const int *distance_matrix
  * @return O vizinho gerado pela busca local
  */
 Solution apply_local_search(Solution &solution, const int *distance_matrix, int neighborhood, int size = SIZE, int strategy = FIRST_IMPROVEMENT);
+
+/**
+ * Aplica uma busca local em uma solução de acordo acordo com o parâmetro passado, utilizando a estrutura otimizada em matriz.
+ * @param optimized_matrix
+ * @param distance_matrix
+ * @param neighborhood
+ * @param size
+ * @param strategy
+ * @return
+ */
+Solution apply_local_search(OptimizedMatrix optimized_matrix, const int *distance_matrix, int neighborhood, int size, int strategy);
 
 /**
  * Aplica uma busca local aleatória, escolhendo dentre as buscas locais disponíveis

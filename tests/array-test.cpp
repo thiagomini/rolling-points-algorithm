@@ -67,7 +67,7 @@ int test_clone_array_maintain_original() {
     return EXIT_SUCCESS;
 }
 
-int test_slice_array() {
+int test_slice_vector() {
     print_sub_test_begin("slice", "Testando copia parcial de um vector");
 
     vector<int> array = { 2, 4, 6, 8 };
@@ -206,7 +206,7 @@ int test_array() {
     test_sum_array();
     test_clone_array();
     test_clone_array_maintain_original();
-    test_slice_array();
+    test_slice_vector();
     test_slice_array_single_element();
 //    test_shuffle_array();
     test_calculate_mean();

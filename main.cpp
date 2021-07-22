@@ -19,6 +19,7 @@
 #include "data_structures/edge.h"
 #include "neighborhoods/2-optimal.h"
 #include "data_structures/optimized-solution.h"
+#include "data_structures/optmized-matrix.h"
 
 using namespace std;
 
@@ -72,9 +73,9 @@ void print_heuristic_metrics(Solution *solutions, int times);
 int main() {
     srand(time(NULL));
 
-    execute_tests();
+//    execute_tests();
 
-//    execute_heuristic(ROLLING_POINTS_ALGORITHM, "../instances/st70.tsp", 70);
+    execute_heuristic(ROLLING_POINTS_ALGORITHM, "../instances/rat99.tsp", 99);
 //    calculate_time("../instances/st70.tsp", 70, 100000);
 
     return EXIT_SUCCESS;
@@ -105,6 +106,7 @@ void execute_tests() {
     test_edge();
     test_constructive_heuristic();
     test_optimized_solution();
+    test_opt_matrix();
     test_swap();
     test_reinsert();
     test_or_opt();
